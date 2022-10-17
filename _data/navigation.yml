@@ -11,8 +11,16 @@ main:
   # - title: "Sitemap"
   #   url: /sitemap/
   
+  #개인홈페이지
   - title: "BLG Project"
     url: https://blang.co.kr
   
+  #기본페이지 등록 테스트1
   - title: "BLG About TEST"
     url: /blg-about/
+
+  #카테고리 태그 다를까?
+  - title: "Category" 
+    url: /categories/ 
+  - title: "Tag" 
+    url: /tags/ 
