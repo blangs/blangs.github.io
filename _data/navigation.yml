@@ -20,7 +20,7 @@ main:
     url: /blg-about/
 
   #카테고리 태그 다를까?
-  - title: "Category" 
-    url: /categories/ 
+  - title: "Categories" 
+    url: /categories/
   - title: "Tag" 
     url: /tags/ 
