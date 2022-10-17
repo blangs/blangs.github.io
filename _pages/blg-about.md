@@ -1,6 +1,7 @@
 --- 
 title: "About BLANGS's Blog" 
-layout: categories 
+# layout: categories 
+layout: blg-about 
 categories: 
   - GitHub Pages_v1 
 tags: 
