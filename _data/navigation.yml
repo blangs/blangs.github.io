@@ -15,12 +15,14 @@ main:
   - title: "BLG Project"
     url: https://blang.co.kr
   
-  #기본페이지 등록 테스트1
+  #기본페이지
   - title: "BLG About TEST"
     url: /blg-about/
 
-  #카테고리 태그 다를까?
+  #카테고리 페이지
   - title: "Categories" 
     url: /categories/
+  
+  #태그 페이지
   - title: "Tag" 
     url: /tags/ 
