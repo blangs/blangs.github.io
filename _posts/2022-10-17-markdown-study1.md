@@ -10,3 +10,5 @@ last_modified_at: 2022-10-17T22:50:00-05:00
 ---
 ###1. markdown 특징
 - - -
+테스트
+<{{ site.url }}{{ site.baseurl }}/blog/start-blog/>
