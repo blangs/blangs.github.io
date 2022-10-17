@@ -7,7 +7,7 @@ tags:
   - GitHub Pages_v2 
   - Google Search Console 
   - search engine
-permalink: /about/ 
+permalink: /blg-about/ 
 author_profile: true 
 ---
 
