@@ -20,7 +20,9 @@ main:
     children: 
       - title: "Child Link 1" 
         # url: /docs/_pages/parent-1-page-url/child-1-page-url/children_test1.md
-          url: /parent-1-page-url/child-1-page-url/children_test1.md
+        # url: /parent-1-page-url/child-1-page-url/children_test1.md
+          url: /parent-1-page-url/child-1-page-url/
       - title: "Child Link 2"
         # url: /docs/_pages/parent-1-page-url/child-2-page-url/children_test2.md
-          url: /parent-1-page-url/child-2-page-url/children_test2.md
+        # url: /parent-1-page-url/child-2-page-url/children_test2.md
+          url: /parent-1-page-url/child-2-page-url/
