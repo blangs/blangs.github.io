@@ -20,7 +20,7 @@ main:
   - title: "About"
     url: /blg-about/
 
-  #카테고리 페이지
+  #카테고리(일상) 페이지
   - title: "일상" 
     url: /categories/일상/
 
