@@ -5,6 +5,8 @@ layout: single
 
 toc: true
 toc_sticky: true
+toc_label: "Let's Blog About"
+
 ---
 
 ## BLANGS.github.io 블로그입니다.
