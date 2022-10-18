@@ -11,12 +11,13 @@ main:
   # - title: "Sitemap"
   #   url: /sitemap/
   
+  # 프로필아이콘으로 대체 -22.10.18 CTH
   #개인홈페이지
-  - title: "BLG Project"
-    url: https://blang.co.kr
+  #- title: "BLG Project"
+  # url: https://blang.co.kr
   
   #기본페이지
-  - title: "BLG About TEST"
+  - title: "About"
     url: /blg-about/
 
   #카테고리 페이지
