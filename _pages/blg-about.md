@@ -2,16 +2,29 @@
 title: "About BLANGS's Blog" 
 permalink: /blg-about/ 
 layout: single 
+
+toc: true
+toc_sticky: true
 ---
 
 ## BLANGS.github.io 블로그입니다.
 
-page 글에서는 이 페이지가 블로그 내에서 어느  
-주소에서 표시될지를 결정하는 주소를 지정해줘야 한다.  
-이것이 permlink 이며 조합은 다음과 같다.
-- - -
-###홈페이지의 베이스 주소+permalink
-###ex) https://blangs.github.io/blg-about/
-- - -
-위와 같이 permlink 으로 명시된 경로에
-page가 매핑된다.
+GitHub Pages의 github.io 블로그 시작하기로 하였다.  
+블로그 계획을 한번 세워보았다. h2 태그로 제목을 쓰면  
+TOC 테이블로 오른쪽 사이드바에 보여줄 수 있다.  
+
+## 1. 최신 기술 공부하기
+
+최신 기술에 대해 공부하고 블로그 글로 게시하자.  
+
+## 2. 최신 뉴스 게시하기
+
+관심있는 뉴스가 나오면 사람들과 공유하고 의견을 나눠보자.  
+
+## 3. 토이 프로젝트 소개하기
+
+개인적으로 진행하는 토이 프로젝트를 진행해보고  
+결과를 소개해보자.  
+
+- - - 
+감사합니다.
