@@ -1,4 +1,4 @@
---
+---
 title: "마이라이프"
 permalink: /categories/일상/
 layout: category
