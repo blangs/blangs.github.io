@@ -21,6 +21,10 @@ main:
     url: /blg-about/
 
   #카테고리 페이지
+  - title: "일상" 
+    url: /categories/일상/
+
+  #카테고리 페이지
   - title: "Categories" 
     url: /categories/
   
