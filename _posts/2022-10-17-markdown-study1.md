@@ -6,7 +6,8 @@ categories:
   - Syntax
 tags:
   - Syntax, MarkDown
-last_modified_at: 2022-10-17T22:50:00-05:00
+last_modified_at: 2022-10-19
+
 ---
 [공통] 마크다운 markdown 작성법
 ======================
