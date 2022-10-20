@@ -24,7 +24,11 @@ main:
   - title: "Daily" 
     url: /categories/daily/
 
-  #카테고리 페이지
+  #카테고리(인프라) 페이지
+  - title: "Infra" 
+    url: /categories/infra/
+
+  #카테고리스 페이지
   - title: "Categories" 
     url: /categories/
   
