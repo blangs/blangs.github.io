@@ -16,5 +16,5 @@ gitpages dev 카테고리의 포스트를 모은 [page] 입니다.
 보여줄 수 있는 위 사진같은 페이지를 만든다.  
 {: .notice--info}
 
-{% assign posts = site.categories.["gitpages dev"] %}
+{% assign posts = site.categories.gitpages-dev %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
