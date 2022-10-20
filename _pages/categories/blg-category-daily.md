@@ -10,5 +10,5 @@ author_profile: true
 > `categories` 레이아웃과는 다르게  
 > 특정카테고리만 모아서 보여줍니다.
 
-{% assign posts = site.categories.infra %}
+{% assign posts = site.categories.daily %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
