@@ -1,5 +1,3 @@
-blg-category-jsp.md
-
 ---
 title: "web-service dev"
 layout: archive
