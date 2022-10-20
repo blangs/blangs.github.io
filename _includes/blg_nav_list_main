@@ -78,11 +78,18 @@
 
 
         <!-- #5 웹 정보--> 
-        <span class="nav__sub-title">WEB</span>
+        <span class="nav__sub-title">웹프로그래밍</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "html-css-js-jquery" %}
+                        <li><a href="/categories/jsp" class="">HTML/CSS/JS/jquery ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "jsp" %}
-                        <li><a href="/categories/jsp" class="">JSP ({{category[1].size}})</a></li>
+                        <li><a href="/categories/jsp" class="">jsp ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
