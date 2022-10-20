@@ -1,7 +1,7 @@
 ---
 title: "깃&깃허브"
 layout: archive
-permalink: /categories/infra/
+permalink: /categories/git/
 sidebar_main: true
 author_profile: true
 ---
