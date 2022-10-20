@@ -100,8 +100,17 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-
-       
+            
+            
+        <!-- #5 웹 정보--> 
+        <span class="nav__sub-title">ETC</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "temp" %}
+                        <li><a href="/categories/temp" class="">Temp ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
 
       </li>
   </ul>
