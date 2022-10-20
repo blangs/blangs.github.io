@@ -1,7 +1,7 @@
 ---
 title: "일상"
-permalink: /categories/Daily/
 layout: category
+permalink: /categories/daily/
 author_profile: true
 taxonomy: Daily
 ---
