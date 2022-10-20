@@ -21,12 +21,12 @@ main:
     url: /blg-about/
 
   #카테고리(일상) 페이지
-  - title: "Daily" 
-    url: /categories/daily/
+  #- title: "Daily" 
+  #  url: /categories/daily/
 
   #카테고리(인프라) 페이지
-  - title: "Infra" 
-    url: /categories/infra/
+  #- title: "Infra" 
+  #  url: /categories/infra/
 
   #카테고리스 페이지
   - title: "Categories" 
