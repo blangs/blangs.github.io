@@ -36,14 +36,14 @@
         <span class="nav__sub-title">Toy DEV</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "gitpages dev" %}
+                    {% if category[0] == "gitpages-dev" %}
                         <li><a href="/categories/gitpages-dev" class="">깃블로그(GitHub Pages) ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "web service dev" %}
+                    {% if category[0] == "web-service-dev" %}
                         <li><a href="/categories/web-service-dev" class="">웹서비스 구축 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
