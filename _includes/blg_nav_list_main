@@ -60,14 +60,7 @@
             </ul>
 
         <!-- #4 인프라 정보--> 
-        <span class="nav__sub-title">네트워크 인프라&아키텍처</span>
-            <ul>
-                {% for category in site.categories %}
-                    {% if category[0] == "network" %}
-                        <li><a href="/categories/network" class="">network ({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+        <span class="nav__sub-title">인프라스트럭처</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "infra" %}
@@ -75,6 +68,14 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "network" %}
+                        <li><a href="/categories/network" class="">network ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
 
         <!-- #5 웹 정보--> 
         <span class="nav__sub-title">WEB</span>
