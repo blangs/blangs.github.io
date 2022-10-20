@@ -16,5 +16,6 @@ author_profile: true
 보여줄 수 있는 위 사진같은 페이지를 만든다.  
 {: .notice--info}
 
+
 {% assign posts = site.categories.network %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
