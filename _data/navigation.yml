@@ -22,7 +22,7 @@ main:
 
   #카테고리(일상) 페이지
   - title: "Daily" 
-    url: /categories/Daily/
+    url: /categories/daily/
 
   #카테고리 페이지
   - title: "Categories" 
