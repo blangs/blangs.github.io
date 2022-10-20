@@ -37,7 +37,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "gitpages-dev" %}
-                        <li><a href="/categories/gitpages-dev" class="">깃블로그(GitHub Pages) ({{category[1].size}})</a></li>
+                        <li><a href="/categories/gitpages-dev" class="">깃블로그 구축 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
