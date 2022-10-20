@@ -8,7 +8,7 @@ sidebar_main: true
 author_profile: true
 ---
 
-web-service dev 카테고리의 포스트를 모은 [page] 입니다.    
+HTML/CSS/JS/jquery 카테고리의 포스트를 모은 [page] 입니다.    
 > 레이아웃은 `archive` 입니다.  
 > `categories`,`tags`  같은 방식의 레이아웃 입니다.
 >  같은 카테고리의 글들을 나열하는 아카이브로 
