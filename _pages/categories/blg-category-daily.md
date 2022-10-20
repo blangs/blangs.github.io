@@ -2,6 +2,7 @@
 title: "일상"
 layout: category
 permalink: /categories/daily/
+sidebar_main: true
 author_profile: true
 ---
 개인적인 일상 포스트를 모은 카테고리 [page] 입니다.    
