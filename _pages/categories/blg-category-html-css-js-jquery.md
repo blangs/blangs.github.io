@@ -1,5 +1,3 @@
-blg-category-html-css-js-jquery-.md
-
 ---
 title: "web-service dev"
 layout: archive
