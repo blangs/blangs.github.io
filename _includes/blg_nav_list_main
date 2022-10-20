@@ -9,29 +9,33 @@
       <!--전체 글 수-->
       <li>
             <!-- 입맛이 맞게 CSS 커스텀 -->
-            <span>전체 글 수</style> <span>{{sum}} <span >개
+           📂 <span>전체 글 수</style> <span>{{sum}} <span >개
       </li>
       <li>
-        <!--span 태그로 카테고리들을 크게 분류 ex) C/C++/C#-->
-        <span class="nav__sub-title">C/C++/C#</span>
+
+
+        <!--span 태그로 카테고리들을 크게 분류 ex) 일상-->
+        <span class="nav__sub-title">일상</span>
             <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
             <ul>
-                <!--Cpp 카테고리 글들을 모아둔 페이지인 /categories/cpp 주소의 글로 링크 연결-->
+                <!--daily 카테고리 글들을 모아둔 페이지인 /categories/daily 주소의 글로 링크 연결-->
                 <!--category[1].size 로 해당 카테고리를 가진 글의 개수 표시--> 
                 {% for category in site.categories %}
-                    {% if category[0] == "Cpp" %}
-                        <li><a href="/categories/cpp" class="">C ++ ({{category[1].size}})</a></li>
+                    {% if category[0] == "daily" %}
+                        <li><a href="/categories/daily" class="">daily ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "STL" %}
-                        <li><a href="/categories/stl" class="">C++ STL & 표준 ({{category[1].size}})</a></li>
+                    {% if category[0] == "infra" %}
+                        <li><a href="/categories/infra" class="">Infra & Architecture ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
-        <span class="nav__sub-title">Coding Test</span>
+ 
+
+       <span class="nav__sub-title">Coding Test</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Algorithm" %}
