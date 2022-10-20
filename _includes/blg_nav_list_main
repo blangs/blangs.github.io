@@ -22,7 +22,7 @@
         <!-- #1 블로그 기본정보 --> 
        <span class="nav__sub-title">Info</span>    
             <ul>
-                <li><a href="/blg-about" class="">소개 ({{category[1].size}})</a></li>
+                <li><a href="/blg-about" class="">소개</a></li>
             </ul>
             <ul>
                 {% for category in site.categories %}
