@@ -9,3 +9,6 @@ author_profile: true
 > 레이아웃은 `category` 입니다.  
 > `categories` 레이아웃과는 다르게  
 > 특정카테고리만 모아서 보여줍니다.
+
+{% assign posts = site.categories.infra %}
+{% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
