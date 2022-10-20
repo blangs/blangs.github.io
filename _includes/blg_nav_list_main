@@ -89,7 +89,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "jsp" %}
-                        <li><a href="/categories/jsp" class="">jsp ({{category[1].size}})</a></li>
+                        <li><a href="/categories/jsp" class="">JSP ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
