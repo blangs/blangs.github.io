@@ -82,7 +82,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "html-css-js-jquery" %}
-                        <li><a href="/categories/html-css-js-jquery" class="">HTML/CSS/JS/jquery ({{category[1].size}})</a></li>
+                        <li><a href="/categories/html-css-js-jquery" class="">HTML/CSS/JS/Jquery ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
