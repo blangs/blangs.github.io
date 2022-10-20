@@ -35,3 +35,11 @@ main:
   #태그 페이지
   - title: "Tag" 
     url: /tags/ 
+  
+  
+  # 카테고리 추가시 
+  # 1. _includes/blg_nav_list_main 파일에서 원하는 카테고리 폴더링에 대해 하드코딩으로 추가한다.
+    # sidebar.html 에서 머릿말에 sidebar_main = true 를 해주면 blg_nav_list_main 을 불러오게끔 마지막 부분에 코딩이 되어있다.
+    # sidebar_main = true 는 루트페이지에 있는 index.html 에서 사이드바를 사용하겠다고 선언한 내용이다.
+  # 2. pages/catecory 에 연결할 카테고리 페이지를 추가한다.
+  
