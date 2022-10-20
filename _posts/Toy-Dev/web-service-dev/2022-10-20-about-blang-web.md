@@ -1,7 +1,7 @@
 ---
 title: "웹 서비스 구축"
 layout: archive
-permalink: /categories/web service dev/
+permalink: /categories/web-service-dev/
 sidebar_main: true
 author_profile: true
 ---
@@ -16,5 +16,5 @@ author_profile: true
 보여줄 수 있는 위 사진같은 페이지를 만든다.  
 {: .notice--info}
 
-{% assign posts = site.categories.["web-service-dev"] %}
+{% assign posts = site.categories.web-service-dev %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
