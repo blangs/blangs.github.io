@@ -14,15 +14,57 @@
       <li>
 
 
-        <!--span 태그로 카테고리들을 크게 분류 ex) 일상-->
-        <span class="nav__sub-title">일상</span>
-            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+        <!-- description --> 
+        <!--span 태그로 카테고리들을 크게 분류하는 단순 문자열 ex) Info -->
+        <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+        <!--category[1].size 로 해당 카테고리를 가진 글의 개수 표시--> 
+
+        <!-- #1 블로그 기본정보 --> 
+       <span class="nav__sub-title">Info</span>    
             <ul>
-                <!--daily 카테고리 글들을 모아둔 페이지인 /categories/daily 주소의 글로 링크 연결-->
-                <!--category[1].size 로 해당 카테고리를 가진 글의 개수 표시--> 
+                <li><a href="/blg-about" class="">소개 ({{category[1].size}})</a></li>
+            </ul>
+            <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "daily" %}
-                        <li><a href="/categories/daily" class="">daily ({{category[1].size}})</a></li>
+                        <li><a href="/categories/daily" class="">데일리 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+        <!-- #2 블랭 토이프로젝트 기술중심 --> 
+        <span class="nav__sub-title">Toy DEV</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "gitpages dev" %}
+                        <li><a href="/categories/gitpages-dev" class="">깃블로그(GitHub Pages) ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "web service dev" %}
+                        <li><a href="/categories/web-service-dev" class="">웹서비스 구축 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+        <!-- #3 깃 정보 --> 
+        <span class="nav__sub-title">GIT</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "git" %}
+                        <li><a href="/categories/git" class="">Git & GitHub ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+        <!-- #4 인프라 정보--> 
+        <span class="nav__sub-title">네트워크 인프라&아키텍처</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "network" %}
+                        <li><a href="/categories/network" class="">network ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -33,23 +75,26 @@
                     {% endif %}
                 {% endfor %}
             </ul>
- 
 
-       <span class="nav__sub-title">Coding Test</span>
+        <!-- #5 웹 정보--> 
+        <span class="nav__sub-title">WEB</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "Algorithm" %}
-                        <li><a href="/categories/algorithm" class="">알고리즘 구현 (with C++) ({{category[1].size}})</a></li>
+                    {% if category[0] == "jsp" %}
+                        <li><a href="/categories/jsp" class="">JSP ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "Programmers" %}
-                        <li><a href="/categories/programmers" class="">프로그래머스 ({{category[1].size}})</a></li>
+                    {% if category[0] == "spring" %}
+                        <li><a href="/categories/spring" class="">스프링 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
+
+       
+
       </li>
   </ul>
 </nav>
