@@ -1,5 +1,5 @@
 ---
-title:  "루비(Ruby) 설치"
+title:  "루비(Ruby)로 지킬(Jekyll) 사용하는 방법"
 excerpt: "지킬(Jekyll)을 로컬로 실행하기 위해 루비(Ruby)를 설치한다."
 categories:
   - gitpages-dev
@@ -60,20 +60,17 @@ jekyll 4.2.2
 $ bundle install
 //아까 넣은 테마와 관련된 bundle 을 모두 설치한다.
 ```
-5. 로컬 서버 실행
+4. 로컬 서버 실행
 : github에 바로 push를 하게 되면 잘못된 커밋도 모두 로그가 남고 번거롭다. 로컬서버로 테스트하면 즉각 반영되고 확인이 가능하므로 편하다.
-
 ```bash
 $ bundle exec jekyll serve
 // 로컬서버실행
-
 // 아래 주소로 접속해서 정상적으로 지킬테마가 적용된 웹사이트가 출력되면 정상.
-// http://localhost:4000/
-// or
-// http://127.0.0.1:4000
+// http://localhost:4000/ 또는  http://127.0.0.1:4000
 ```
+<br>
 
-### 로컬서버 실행 Error 해결
+### 로컬서버 실행시 Error 유형
 
 - 유형1
 
