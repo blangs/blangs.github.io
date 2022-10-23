@@ -75,11 +75,12 @@ $ bundle exec jekyll serve
 - 유형1
 
 ```bash
+# 에러내용
 Configuration file: C:/Users/user/Desktop/최태호/devgit/blangs.github.io/_config.yml
   Dependency Error: Yikes! It looks like you don't have tzinfo or one of its dependencies installed. In order to use Jekyll as currently configured, you'll need to install this gem. If you've run Jekyll with `bundle exec`, ensure that you have included the tzinfo gem in your Gemfile as well. The full error message from Ruby is: 'cannot load such file -- tzinfo' If you run into trouble, you can find helpful resources at https://jekyllrb.com/help/!
 jekyll 4.2.2 | Error:  tzinfo
 
-###########################
+# 해결방법
 #  - [깃페이지 루트]/Gemfile 아래 내용 추가
 #    gem 'tzinfo'
 #    gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
@@ -89,10 +90,11 @@ jekyll 4.2.2 | Error:  tzinfo
 - 유형2
 
 ```bash
+# 에러내용
 C:/Ruby31-x64/lib/ruby/gems/3.1.0/gems/jekyll-4.2.2/lib/jekyll/commands/serve/servlet.rb:3:in `require': cannot load such file -- webrick (LoadError)
         from C:/Ruby31-x64/lib/ruby/gems/3.1.0/gems/jekyll-4.2.2/lib/jekyll/commands/serve/servlet.rb:3:in `<top (required)>'
 
-###########################
+# 해결방법
 #  - webrick 설치
 #   $ bundle add webrick
 #   $ gem install webrick
