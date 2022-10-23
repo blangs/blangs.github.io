@@ -50,7 +50,7 @@ $ gem install bundler
 //jekyll Gem을 설치  
 ```
 ```bash
-  $ jekyll -v
+$ jekyll -v
 jekyll 4.2.2
 //설치 확인
 ```
