@@ -1,6 +1,6 @@
 ---
-title:  "깃페이지(Git Pages) 블로그 생성"
-excerpt: "깃페이지(Git Pages) 블로그를 만든다."
+title:  "지킬(Jekyll) 테마 적용"
+excerpt: "깃페이지(Git Pages) 블로그에 지킬(Jekyll) 테마를 적용한다."
 categories:
   - gitpages-dev
 tags:
@@ -9,12 +9,36 @@ toc: true
 toc_sticky: true
 last_modified_at: 2022-10-23T20:00:00-05:00
 ---
-## 특이사항
-- GitHub Pages 소스 저장소의 권장 제한은 1GB입니다.
-- 게시 된 GitHub 페이지 사이트는 1GB를 초과 할 수 없습니다.
-- GitHub 페이지 사이트의 대역폭 제한은 한 달에 100GB입니다.
-- GitHub 페이지 사이트의 builds 제한은 시간당 10회 입니다.
+## Jekyll
 <br>
+
+### Jekyll 이란?
+Jekyll 은 Ruby 기반의 심플하고 블로그 지향적인 `정적 사이트 생성기` 이다. 
+
+* Jekyll에서 정의해 놓은 규칙에 따라 마크업 언어(Liquid 기능이 추가된 HTML, Markdown 등)로 작성한 문서에 Markdown 등의 변환기와 Liquid 렌더러를 통해 가공하여만든 레이아웃으로 `정적 사이트` 를 만들어 준다.
+* 정적 사이트 엔진은 Hugo, Hexo, Gatsby 등 수백가지가 존재 하지만 Jekyll 은 `GitHub Pages 의 내부 엔진` 으로 있기때문에, Jekyll 페이지/블로그/웹사이트를 GitHub 서버에 무료로 호스팅이 가능하다.
+<br>
+
+### 왜 Jekyll인가?
+왜 Jekyll인가?
+여러가지 이유가 있겠지만 개인적으로는 다음과 같은 장점을 들고 싶습니다.
+GitHub Pages를 통해 무료로 내가 만든 웹페이지를 인터넷상에 공개 할 수 있습니다.
+마크다운을 통해 손쉽게 글을 작성할 수 있습니다.
+테마, 플러그인이 다수 존재하고, 커스터마이징이 가능합니다.
+<br>
+
+### Jekyll 테마
+- Jekyll theme은 다른 사용자들이 이미 구성해놓은 template이다.
+- 무료 theme 중에 Jekyll theme에서 많이 사용되고 있는 인기있는 minimal-mistakes를 채택했다.
+  - [https://github.com/mmistakes/minimal-mistakes](https://github.com/mmistakes/minimal-mistakes)
+
+## 루비(Ruby)
+지킬은 루비 기반으로 만들어졌기 때문에 루비 설치가 필요하다.
+- [https://rubyinstaller.org/](https://rubyinstaller.org/)
+<br>
+
+### 
+
 <br>
 
 ## 과정
