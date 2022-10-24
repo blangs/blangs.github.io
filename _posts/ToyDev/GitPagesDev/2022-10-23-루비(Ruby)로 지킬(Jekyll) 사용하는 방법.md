@@ -49,18 +49,18 @@ ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x64-mingw-ucrt]
 $ gem install bundler
 //jekyll Gem을 설치  
 ```
-```bash
-$ jekyll -v
-jekyll 4.2.2
-//설치 확인
-```
 4. jekyll 테마와 관련된 bundle 설치
 : 테마가 다운된 경로에서 번들 설치를 위한 다음 명령어를 입력 합니다.
 ```bash
 $ bundle install
 //아까 넣은 테마와 관련된 bundle 을 모두 설치한다.
 ```
-4. 로컬 서버 실행
+```bash
+$ jekyll -v
+jekyll 4.2.2
+//설치 확인
+```
+5. 로컬 서버 실행
 : github에 바로 push를 하게 되면 잘못된 커밋도 모두 로그가 남고 번거롭다. 로컬서버로 테스트하면 즉각 반영되고 확인이 가능하므로 편하다.
 ```bash
 $ bundle exec jekyll serve
