@@ -77,7 +77,19 @@
             </ul>
 
 
-        <!-- #5 웹 정보--> 
+        <!-- #5 서버정보 -->
+        <span class="nav__sub-title">서버</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Linux" %}
+                        <li><a href="/categories/Linux" class="">Linux ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+
+
+        <!-- #6 웹 정보--> 
         <span class="nav__sub-title">웹프로그래밍</span>
             <ul>
                 {% for category in site.categories %}
@@ -102,7 +114,7 @@
             </ul>
             
             
-        <!-- #5 웹 정보--> 
+        <!-- #7 기타 --> 
         <span class="nav__sub-title">ETC</span>
             <ul>
                 {% for category in site.categories %}
