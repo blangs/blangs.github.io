@@ -16,7 +16,7 @@ last_modified_at: 2022-10-12T20:00:00-05:00
 ## 자바 컴파일
   : 간단하게 서버에서 자바를 수정해야하는 경우가 있다. 이때 이클립스 같이 익숙한 IDE 를 사용하지 않고 리눅스에서 컴파일하는 방법을 알아본다.
 
-## import 없는 단순 자바파일 컴파일 시
+## lib import 없는 단순 자바파일 컴파일 시
   : 라이브러리가 없는 환경에서 컴파일 한다.
 
 ### (1) .java 파일 작성
@@ -87,14 +87,19 @@ Test.java:1: error: package javax.servlet.http does not exist
 # 라이브러리를 포함하여 재시도 한다.
 javac -cp "./servlet-api.jar" Test.java
 
-# 이렇게도 가능
-# javac -cp "./*" Test.java 
-# javac -cp "./*" Test.java 
-
-
 # 정상적으로 컴파일되어 .class 파일이 떨어진다.
 ls
 Test.class   Test.java
+
+#################################################
+# (이런 방법도 있다)
+# env 에서 CLASSPATH 경로에 한번만 등록해 두니까
+# 전역으로 알아서 잘잡는다.
+javac DeInfoView.java  # 실패
+export CLASSPATH=$CLASSPATH:~/servlet-api.jar
+javac DeInfoView.java  # 성공
+
+#################################################
 
 ```
 
@@ -106,7 +111,21 @@ Test.class   Test.java
 java Test
 안녕!
 
+
+#################################################
+# 실행시점에 라이브러리를 포함하여 실행해야 하는 상황이 있다.
+# 그럴땐 아래처럼 가능하다.
+java -cp ".:~/servlet-api.jar" DeInfoView
+
+java Test
+안녕!
+
+#################################################
+
 ```
 
+
+## 인코딩이 필요한 자바파일 컴파일 시
+  : 
 
 
