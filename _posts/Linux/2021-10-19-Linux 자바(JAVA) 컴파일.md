@@ -125,6 +125,23 @@ java -cp ".:~/servlet-api.jar" DeInfoView
 
 
 ## 인코딩이 필요한 자바파일 컴파일 시
-  : 
+  : 인코딩을 주면서 컴파일 한다.
 
+```bash
+java -cp ".:~/servlet-api.jar" DeInfoView -encoding UTF-8
+
+```
+
+## 참고) 실시간 이슈
+### 외부 jar 파일을 추가하여 컴파일하는 방법
+  : 자바실행시 lib를 임포트했는데도 안되면 다음과 같이 해본다.
+
+```bash
+SERVLET_API_HOME=~/
+export LD_LIBRARY_PATH=$SERVLET_API_HOME
+
+# 성공! 이제는 된다.
+java -cp ".:~/servlet-api.jar DeInfoView
+
+```
 
