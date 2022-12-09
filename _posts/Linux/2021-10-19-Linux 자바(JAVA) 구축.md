@@ -33,11 +33,14 @@ last_modified_at: 2022-10-12T20:00:00-05:00
   : 다음과 같이 설치한다.
 
 ```bash
-java-version  # 설치 가능한 목록을 조회.
+# 설치 가능한 목록을 조회.
+java-version  
 
-apt-get install openjdk-8-jdk  # 설치
+# 설치
+apt-get install openjdk-8-jdk  
 
-java -version # 설치완료 확인
+# 설치완료 확인
+java -version 
 
 ```
 
@@ -53,13 +56,13 @@ which javac
 readlink -f /usr/bin/javac
 /usr/lib/jvm/java-8-openjdk-armhf/bin/javac
 
-# 자바가 설치된 실제경로는를 찾았다!
-# /usr/lib/jvm/java-8-openjdk-armhf/bin/
+# 자바가 설치된 실제경로를 찾았다!
+# /usr/lib/jvm/java-8-openjdk-armhf/
 
 ```
 
 > **which**  
-> : 위치를 찾아주는 명령어. 버전마다 폴더명이 다르다. 결과는 폴더가 아닌 명령어 파일의 경로이다. 그래서 자바가 설치된 경로는 명령어파일이 속한 폴더가 된다. 하지만 지금은 심볼릭링크라 볼 수 가 없는 상황이다.
+> : 위치를 찾아주는 명령어. 버전마다 폴더명이 다르다. 결과는 폴더가 아닌 명령어 파일의 경로이다. 그래서 자바가 설치된 경로는 명령어파일이 속한 폴더가 된다. 하지만 지금은 심볼릭링크가 걸려있어 못보는 상황이다.
 >  
 > **readlink -f**  
 > : witch로 찾은 파일에 걸린 심볼릭링크의 실제경로를 출력한다. javac 파일이 나오게되며 파일을 포함하고있는 폴더가 자바가 설치된 경로가 된다.
