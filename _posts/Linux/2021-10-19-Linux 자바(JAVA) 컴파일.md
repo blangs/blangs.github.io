@@ -66,7 +66,7 @@ java Test
 ### (1) .java 파일 작성(import lib)
 : 우선 java 파일을 작성한다. (테스트용 라이브러리를 임포트 시켰다.)
 
-```bash
+```java
 # 작성
 vi Test.java
 
