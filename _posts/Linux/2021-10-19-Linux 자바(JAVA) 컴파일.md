@@ -22,15 +22,19 @@ last_modified_at: 2022-10-12T20:00:00-05:00
 ### (1) .java 파일 작성
 : 우선 java 파일을 작성한다.
 
-    ```java
-    public class Test {
-        /* 테스트코드 입니다. */
-        public static void main(String args[]) {
-            System.out.println("안녕!");
-        }
-    }
+```java
+# 작성
+vi Test.java
 
-    ```
+
+public class Test {
+    /* 테스트코드 입니다. */
+    public static void main(String args[]) {
+        System.out.println("안녕!");
+    }
+}
+
+```
 
 ### (2). java 파일 컴파일
   : 작성한 java 파일을 컴파일 한다.
@@ -63,10 +67,18 @@ java Test
 : 우선 java 파일을 작성한다. (테스트용 라이브러리를 임포트 시켰다.)
 
 ```bash
-vi Test.java  # 열어보면
+# 작성
+vi Test.java
+
 
 # 상단에 Import 라이브러리를 넣어주었다.
 import javax.servlet.http.HttpServlet;
+public class Test {
+    /* 테스트코드 입니다. */
+    public static void main(String args[]) {
+        System.out.println("안녕!");
+    }
+}
 
 ```
 
