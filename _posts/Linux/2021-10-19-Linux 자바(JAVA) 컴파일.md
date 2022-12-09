@@ -19,26 +19,49 @@ last_modified_at: 2022-10-12T20:00:00-05:00
 ### import 없는 단순 자바파일 컴파일 시
   : 라이브러리가 없는 환경에서 컴파일 한다.
 
-1. .java 파일 작성
+  1. .java 파일 작성
 
-  ```java
-  public class Test {
-      /* 테스트코드 입니다. */
-      public static void main(String args[]) {
-          System.out.println("안녕!");
-      }
-  }
+    ```java
+    public class Test {
+        /* 테스트코드 입니다. */
+        public static void main(String args[]) {
+            System.out.println("안녕!");
+        }
+    }
 
-  ```
+    ```
 
 2. java 파일 컴파일
   : 컴파일한다.
 
 ```bash
 # javac [파일명].java
-
+javac Test.java
 
 ```
 
 3. 컴파일 완료
   : 컴파일 완료했다..class 파일이 떨어졌는지 확인한다.
+
+```bash
+# .clsas 파일이 정상적으로 떨어졌다.
+ls
+Test.class    Test.java
+
+```
+
+
+### lib import가 필요한 자바파일 컴파일 시
+  : 라이브러리가 포함되어야 하는 경우이다.
+
+    - 예시
+
+      ```bash
+      vi Test.java  # 열어보면
+
+      # 상단에 Import 라이브러를 넣어주었다.
+      import javax.servlet.http.HttpServlet;
+
+      ```
+
+
