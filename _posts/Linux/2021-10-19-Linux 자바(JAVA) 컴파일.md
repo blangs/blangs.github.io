@@ -85,6 +85,7 @@ Test.java:1: error: package javax.servlet.http does not exist
   
 ```bash
 # 라이브러리를 포함하여 재시도 한다.
+# n개면 구분자는 ':' 콜론으로 주고 작성한다.
 javac -cp "./servlet-api.jar" Test.java
 
 # 정상적으로 컴파일되어 .class 파일이 떨어진다.
