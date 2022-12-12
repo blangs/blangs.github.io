@@ -145,14 +145,16 @@ blockquote {
 }
 
 
-/* UnderLine ADD FOR textdecoration */
 /* links */
 
 a {
   text-decoration: none;
-
   &:focus {
     @extend %tab-focus;
+  }
+
+  &:visited {
+    color: $link-color-visited;
   }
 
   &:hover {
