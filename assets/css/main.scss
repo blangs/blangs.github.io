@@ -7,3 +7,7 @@ search: false
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+
+
+# 구글웹폰트 추가 CTH
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
