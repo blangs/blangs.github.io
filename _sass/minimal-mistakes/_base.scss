@@ -144,10 +144,12 @@ blockquote {
   }
 }
 
-
+/* 밑줄제거 추가 (텍스트데코레이션 논) */
 /* links */
 
 a {
+
+  text-decoration: none;
 
   &:focus {
     @extend %tab-focus;
