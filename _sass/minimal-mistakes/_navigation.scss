@@ -117,6 +117,18 @@
     }
   }
 
+/*이거까지추가*/
+}
+  /* 게시물 이전,다음 버튼 CSS를 위해 추가 CTH */
+  /* /_includes/post_pagination.html 파일의 */
+  /* 다음, 이전 버튼을 CSS 별도 부여한 클래스 id로 */
+  /* CSS 처리 */ 
+
+.pagination_prev_next {
+  @include clearfix();
+  float: left;
+  width: 100%;
+
   /* next/previous buttons */
   &--pager {
     display: block;
