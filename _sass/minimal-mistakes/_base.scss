@@ -146,23 +146,7 @@ blockquote {
 
 
 /* links */
-/* ASIS 밑줄제거전 CTH
-a {
-  &:focus {
-    @extend %tab-focus;
-  }
-
-  &:visited {
-    color: $link-color-visited;
-  }
-
-  &:hover {
-    color: $link-color-hover;
-    outline: 0;
-  }
-}
-*/
-
+/* 밑줄제거를 위해 text-decoration:none 추가 CTH */
 a {
   text-decoration: none;
   &:focus {
@@ -177,7 +161,6 @@ a {
     color: $link-color-hover;
     outline: 0;
   }
-
 }
 
 
