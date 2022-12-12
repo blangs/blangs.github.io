@@ -133,8 +133,8 @@
   &--pager {
     display: block;
     padding: 1em 2em;
-    //float: left;       //주석처리(세로로 쌓기)
-    width: 50%;
+    //float: left;    //주석처리(세로로 쌓기)
+    width: 100%;      //값변경(100% 가로비율차지)
     font-family: $sans-serif;
     font-size: $type-size-5;
     font-weight: bold;
