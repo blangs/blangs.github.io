@@ -16,7 +16,7 @@
 {% endif %}
 -->
 
-<!-- 전체글이 아닌 같은 카테고리 내에서 시간 순서를 기준으로 이전 글, 다음 글로 이동 -->
+<!-- TOBE1_ 전체글이 아닌 같은 카테고리 내에서 시간 순서를 기준으로 이전 글, 다음 글로 이동 -->
 <!--첫 번째 문단-->
 <!--
 {% assign cat = page.categories[0] %}
@@ -35,7 +35,6 @@
   {% endif %}
 {% endfor %}
 -->
-
 <!--두 번째 문단-->
 <!--
 {% if prev_post or next_post %}
@@ -56,6 +55,8 @@
 
 
 
+<!-- TOBE2_ 게시글명으로 이전,다음 출력하도록 기능추가 -->
+<!--첫 번째 문단-->
 <!-- (응용) 전체글이 아닌 같은 카테고리 내에서 시간 순서를 기준으로 이전 글, 다음 글로 이동 -->
 {% assign cat = page.categories[0] %}
 {% assign cat_list = site.categories[cat] %}
@@ -73,6 +74,7 @@
   {% endif %}
 {% endfor %}
 
+<!--두 번째 문단-->
 {% if prev_post or next_post %}
   <nav class="pagination_prev_next">
     {% if prev_post %}
