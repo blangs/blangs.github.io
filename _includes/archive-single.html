@@ -26,11 +26,11 @@
     </h2>
 
     <!-- 테스트 -->
-    <!-- 아아아아 -->
+    <!-- 여기에 적으면 게시글마다 이내용이 출력된다. (주석처리)-->
     {% if post.categories[0] != null %}
-      <p class="archive__item-excerpt"><i class="far fa-calendar-alt"></i> {{ post.date | date: "%m/%d/%Y" }} &nbsp; <i class="far fa-folder-open"></i> {{ post.categories }}</p>
+      <p class="archive__item-excerpt"><i class="far fa-calendar-alt"></i> {{ post.date | date: "%Y/%d/%m" }} &nbsp; <i class="far fa-folder-open"></i> {{ post.categories }}</p>
     {% else %}
-      <p class="archive__item-excerpt"><i class="far fa-calendar-alt"></i> {{ post.date | date: "%m/%d/%Y" }}
+      <p class="archive__item-excerpt"><i class="far fa-calendar-alt"></i> {{ post.date | date: "%Y/%d/%m" }}
     {% endif %}
 
 
