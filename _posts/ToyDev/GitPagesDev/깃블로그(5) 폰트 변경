@@ -1,0 +1,72 @@
+
+---
+title:  "깃블로그(5) 폰트 변경"
+excerpt: "깃블로그(5) 폰트 변경 입니다."
+categories:
+  - gitpages-dev
+tags:
+  - [git, github, dev]
+toc: true
+toc_sticky: true
+last_modified_at: 2022-10-23T20:00:00-05:00
+---
+
+## 폰트 변경 개요
+  : 블로그에 가독성을 올리기 위해 폰트(글꼴)을 변경한다. 그런데 저작권 관련하여 피해받는 사람이 꽤 많은듯 하다. 잘 보고 결정해야하는데 나는 대한민국 국민포탈인 네이버에서 오픈소스로 제공하는 글골을 사용하기로 했다. 
+
+> ***출처에 대하여)***  
+> 네이버에서 제공하는 폰트의 약관을 보면 "나눔글꼴의 출처 표기를 권장합니다."  
+> 라고 되어있는데 권장은 "권하고 장려함" 이다.
+> 의무는 아니니 반드시 표기해야 할 필요는 없다는 걸로 보인다.
+
+
+## 적용
+  : 다음과 같이 적용한다
+
+### 글꼴 임포트(import)
+  : 원하는 글꼴을 임포트 한다.
+
+  1. 구글웹폰트([https://fonts.google.com/](https://fonts.google.com/)) 이동
+  2. 원하는 폰트를 찾고 [+ 버튼] 을 클릭
+  3. 창이 나오면 @import를 누른다. (import하기 위한 주소가 나온다.)
+  4. 앞뒤의 <style>태그는 제외하고, 아래와 같은 주소만 복사해주자.
+
+    ```bash
+    # style 태그를 뺀 내용을 복사
+    @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+
+    ```
+  5. /assets/css/main.scss 의 맨 아래에 복사한 링크를 붙여넣고, 저장
+  6. 임포트 끝
+
+### 글꼴 적용하기
+  : sass/minimal-mistakes/_variables.scss 파일을 수정한다.
+
+```bash
+# ASIS
+/* system typefaces */
+$serif: Georgia, Times, serif !default;
+$sans-serif: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI",
+  "Helvetica Neue", "Lucida Grande", Arial, sans-serif !default;
+$monospace: Monaco, Consolas, "Lucida Console", monospace !default;
+
+```
+  
+***참고)***  
+우리가 자주 보는 본문이나 제목 등의 font는 sans-serif의 글꼴을 앞에서부터 차례대로 불러온다.  
+앞의 두개는, 애플이나 mac의 시스템 폰트이므로,   
+아래처럼 세 번째에 Noto Sans KR 끌꼴을 추가해주자.  
+{: .notice--info}
+
+  
+```bash
+# TOBE  
+$serif: Georgia, Times, serif !default;
+$sans-serif: -apple-system, BlinkMacSystemFont, "Noto Sans KR", "Roboto", "Segoe UI",
+"Helvetica Neue", "Lucida Grande", Arial, sans-serif !default;
+$monospace: Monaco, Consolas, "Lucida Console", monospace !default;
+
+```
+
+### 적용 완료
+  : 적용완료 했다.
