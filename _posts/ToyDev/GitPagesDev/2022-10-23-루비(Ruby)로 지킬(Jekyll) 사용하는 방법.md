@@ -35,7 +35,7 @@ ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x64-mingw-ucrt]
 
 1. 테마 다운로드 [https://github.com/mmistakes/minimal-mistakes](https://github.com/mmistakes/minimal-mistakes)
 
-2. 로컬저장소에 압축풀고 반영
+2. 다운받은 테마를 나의 로컬저장소에 압축풀기
 
     ```bash
     1. minimal-mistakes 테마 파일을 압축해제한다.
@@ -44,7 +44,7 @@ ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x64-mingw-ucrt]
 
     ```
 3. jekyll Ruby Gem 설치
-: Ruby를 설치했다면, Ruby를 사용하여 jekyll Gem을 설치한다.
+: 아까 위에서 Ruby를 설치했다면, 이제 Ruby를 사용하여 jekyll Gem을 설치한다.
 
     ```bash
     # jekyll Gem을 설치  
@@ -67,7 +67,6 @@ ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x64-mingw-ucrt]
     ```
 
 5. 로컬 서버 실행
-: github에 바로 push를 하게 되면 잘못된 커밋도 모두 로그가 남고 번거롭다. 로컬서버로 테스트하면 즉각 반영되고 확인이 가능하므로 편하다.
 
     ```bash
     # 로컬서버실행
@@ -79,6 +78,14 @@ ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x64-mingw-ucrt]
     # http://127.0.0.1:4000
 
     ```
+
+    github에 바로 push를 하게 되면 잘못된 커밋도 모두 로그가 남고 번거롭다.
+    로컬서버로 테스트하면 즉각 반영되고 확인이 가능하므로 편하다.
+    {: .notice--info}
+    
+6. 완료!
+
+> ***로컬에서 루비 기반의 지킬테마를 정상적으로 실행했다.***
 
 
 ## 로컬서버 실행시 Error 유형
