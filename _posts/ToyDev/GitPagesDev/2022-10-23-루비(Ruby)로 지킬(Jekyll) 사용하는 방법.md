@@ -16,10 +16,10 @@ last_modified_at: 2022-10-23T20:00:00-05:00
 ## 루비(Ruby) 설치
 : 본격적으로 루비를 설치한다. 
 
-1. 루비 공식홈페이지 이동 ([https://rubyinstaller.org/](https://rubyinstaller.org/))
+1. 루비 공식홈페이지 이동 [https://rubyinstaller.org/](https://rubyinstaller.org/)
 2. Download > WITH DEVKIT 항목에서 원하는 버전 선택 
-3. 현재기준 `Ruby+Devkit 3.1.2-1 (x64)` 를 다운로드
-4. 현재기준 `디폴트` 설치 경로에 설치
+3. (작성기준) Ruby+Devkit 3.1.2-1 (x64) 를 다운로드
+4. (작성기준) 디폴트 설치 경로에 설치
   * 각각의 대화상자에서 체크박스 모두 선택 후 Next.. Next..
   
 ```bash
@@ -36,51 +36,63 @@ ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x64-mingw-ucrt]
 2. 로컬저장소에 압축풀고 반영
   - minimal-mistakes 테마 파일을 압축해제한다.
   - 깃페이지로 구성된 로컬레파지토리 (나의깃허브아이디.github.com 일것이다.) 디렉토리에 모두 붙여넣는다.
-  - 예시) C:\Users\user\Desktop\admin\devgit\blangs.github.io 
+  - ex) C:\Users\user\Desktop\admin\devgit\blangs.github.io 
 
 3. jekyll Ruby Gem 설치
 : Ruby를 설치했다면, Ruby를 사용하여 jekyll Gem을 설치한다.
+
 ```bash
+# jekyll Gem을 설치  
 $ gem install bundler
-//jekyll Gem을 설치  
+
 ```
+
 4. jekyll 테마와 관련된 bundle 설치
-: 테마가 다운된 경로에서 번들 설치를 위한 다음 명령어를 입력 합니다.
+: 테마가 다운된 경로에서 번들을 설치한다.
+
 ```bash
+# 아까 넣은 테마와 관련된 bundle 을 모두 설치한다.
+# 설치
 $ bundle install
-//아까 넣은 테마와 관련된 bundle 을 모두 설치한다.
-```
-```bash
+
+# 설치 확인
 $ jekyll -v
 jekyll 4.2.2
-//설치 확인
+
 ```
+
 5. 로컬 서버 실행
 : github에 바로 push를 하게 되면 잘못된 커밋도 모두 로그가 남고 번거롭다. 로컬서버로 테스트하면 즉각 반영되고 확인이 가능하므로 편하다.
+
 ```bash
+# 로컬서버실행
 $ bundle exec jekyll serve
-// 로컬서버실행
-// 아래 주소로 접속해서 정상적으로 지킬테마가 적용된 웹사이트가 출력되면 정상.
-// http://localhost:4000/ 또는  http://127.0.0.1:4000
+
+
+# 아래 주소로 접속해서 정상적으로 지킬테마가 적용된 웹사이트가 출력되면 정상.
+# http://localhost:4000
+# http://127.0.0.1:4000
+
 ```
-<br>
 
 ### 로컬서버 실행시 Error 유형
+  : 에러 유형을 실시간으로 기록했다.
 
 - 유형1
 
-```bash
-# 에러내용
-Configuration file: C:/Users/user/Desktop/최태호/devgit/blangs.github.io/_config.yml
+  ```bash
+  # 에러내용
+  Configuration file: C:/Users/user/Desktop/최태호/devgit/blangs.github.io/_config.yml
   Dependency Error: Yikes! It looks like you don't have tzinfo or one of its dependencies installed. In order to use Jekyll as currently configured, you'll need to install this gem. If you've run Jekyll with `bundle exec`, ensure that you have included the tzinfo gem in your Gemfile as well. The full error message from Ruby is: 'cannot load such file -- tzinfo' If you run into trouble, you can find helpful resources at https://jekyllrb.com/help/!
-jekyll 4.2.2 | Error:  tzinfo
+  jekyll 4.2.2 | Error:  tzinfo
 
-# 해결방법
-#  - [깃페이지 루트]/Gemfile 아래 내용 추가
-#    gem 'tzinfo'
-#    gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-###########################  
-```  
+  # 해결방법
+  #  - [깃페이지 루트]/Gemfile 아래 내용 추가
+  #    gem 'tzinfo'
+  #    gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+  ###########################  
+  
+  ```  
 
 - 유형2
 
