@@ -20,7 +20,8 @@ last_modified_at: 2022-10-23T20:00:00-05:00
 2. Download > WITH DEVKIT 항목에서 원하는 버전 선택 
 3. (작성기준) Ruby+Devkit 3.1.2-1 (x64) 를 다운로드
 4. (작성기준) 디폴트 설치 경로에 설치
-  * 각각의 대화상자에서 체크박스 모두 선택 후 Next.. Next..
+5. 각각의 대화상자에서 체크박스 모두 선택 후 Next.. Next..
+6. 설치완료
   
 ```bash
 # 설치 확인
@@ -41,39 +42,39 @@ ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x64-mingw-ucrt]
 3. jekyll Ruby Gem 설치
 : Ruby를 설치했다면, Ruby를 사용하여 jekyll Gem을 설치한다.
 
-```bash
-# jekyll Gem을 설치  
-$ gem install bundler
+    ```bash
+    # jekyll Gem을 설치  
+    $ gem install bundler
 
-```
+    ```
 
 4. jekyll 테마와 관련된 bundle 설치
 : 테마가 다운된 경로에서 번들을 설치한다.
 
-```bash
-# 아까 넣은 테마와 관련된 bundle 을 모두 설치한다.
-# 설치
-$ bundle install
+    ```bash
+    # 아까 넣은 테마와 관련된 bundle 을 모두 설치한다.
+    # 설치
+    $ bundle install
 
-# 설치 확인
-$ jekyll -v
-jekyll 4.2.2
+    # 설치 확인
+    $ jekyll -v
+    jekyll 4.2.2
 
-```
+    ```
 
 5. 로컬 서버 실행
 : github에 바로 push를 하게 되면 잘못된 커밋도 모두 로그가 남고 번거롭다. 로컬서버로 테스트하면 즉각 반영되고 확인이 가능하므로 편하다.
 
-```bash
-# 로컬서버실행
-$ bundle exec jekyll serve
+    ```bash
+    # 로컬서버실행
+    $ bundle exec jekyll serve
 
 
-# 아래 주소로 접속해서 정상적으로 지킬테마가 적용된 웹사이트가 출력되면 정상.
-# http://localhost:4000
-# http://127.0.0.1:4000
+    # 아래 주소로 접속해서 정상적으로 지킬테마가 적용된 웹사이트가 출력되면 정상.
+    # http://localhost:4000
+    # http://127.0.0.1:4000
 
-```
+    ```
 
 ### 로컬서버 실행시 Error 유형
   : 에러 유형을 실시간으로 기록했다.
