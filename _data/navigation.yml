@@ -28,11 +28,19 @@ main:
   #- title: "Infra" 
   #  url: /categories/infra/
 
+  #웹서비스구축 페이지
+  - title: "웹서비스 구축" 
+    url: /categories/web-service-dev/
+
+  #깃블로그구축 페이지
+  - title: "깃블로그 구축" 
+    url: /categories/gitpages-dev/
+
   #카테고리스 페이지
   - title: "Categories" 
     url: /categories/
   
-  #태그 페이지
+  #태그스 페이지
   - title: "Tag" 
     url: /tags/ 
   
