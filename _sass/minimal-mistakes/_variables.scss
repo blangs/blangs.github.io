@@ -20,16 +20,25 @@ $sans-serif: -apple-system, BlinkMacSystemFont, "맑은 고딕", "Roboto", "Sego
 $monospace: Monaco, Consolas, "Lucida Console", monospace !default;
 */
 
-/* TOBE (앞의 두개는, 애플이나 mac의 시스템 폰트이므로, 세 번째에 Noto Sans KR 끌꼴을 추가해주자) */
+/* TOBE (앞의 두개는, 애플이나 mac의 시스템 폰트이므로, 세 번째에 Nanum Gothic 끌꼴을 추가해주자)  */
+/* Nanum Gothic 으로변경 */
 $serif: Georgia, Times, serif !default;
-$sans-serif: -apple-system, BlinkMacSystemFont, "Nanum Gothic", "Roboto", "Segoe UI",
+$sans-serif: "Iropke Batang", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI",
   "Helvetica Neue", "Lucida Grande", Arial, sans-serif !default;
-$monospace: Monaco, Consolas, "Lucida Console", monospace !default;
-
+$monospace: "Nanum Gothic", Monaco, Consolas, "Lucida Console", monospace !default;
+$cute: "Nanum Gothic" !default;
 
 /* sans serif typefaces */
+/* ASIS */
 $sans-serif-narrow: $sans-serif !default;
 $helvetica: Helvetica, "Helvetica Neue", Arial, sans-serif !default;
+
+/* TOBE */
+$sans-serif-narrow: $sans-serif !default;
+$helvetica: "Cafe24Oneprettynight", Helvetica, "Helvetica Neue", Arial, sans-serif !default;
+
+
+
 
 /* serif typefaces */
 $georgia: Georgia, serif !default;
