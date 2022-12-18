@@ -17,4 +17,4 @@ HTML/CSS/JS/jquery 카테고리의 포스트를 모은 [page] 입니다.
 {: .notice--info}
 
 {% assign posts = site.categories.html-css-js-jquery %}
-{% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
+{% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}

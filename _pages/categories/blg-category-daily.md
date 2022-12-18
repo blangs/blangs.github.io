@@ -11,4 +11,4 @@ author_profile: true
 > 특정카테고리만 모아서 보여줍니다. 
 
 {% assign posts = site.categories.daily %}
-{% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
+{% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
