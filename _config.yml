@@ -103,7 +103,7 @@ analytics:
 
 
 # Site Author
-author:
+author: /assets/images/profile.jpg
   name             : "블랭"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "하나의 장애물은 하나의 경험이되고, 하나의 경험은 하나의 지혜가 된다!!"
