@@ -120,6 +120,7 @@
 /*
    Author profile and links
    ========================================================================== */
+/* 프로필사진 max-width, border-radius 변경 CTH */
 
 .author__avatar {
   display: table-cell;
@@ -134,8 +135,8 @@
   }
 
   img {
-    max-width: 110px;
-    border-radius: 50%;
+    max-width: 175px;
+    border-radius: 15%;
 
     @include breakpoint($large) {
       padding: 5px;
