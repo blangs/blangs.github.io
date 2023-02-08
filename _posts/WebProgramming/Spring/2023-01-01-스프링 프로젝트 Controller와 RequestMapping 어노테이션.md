@@ -48,8 +48,8 @@ public class SpringMemberFormControllerV1 {
     }
 }
 
-### SpringMemberSaveControllerV1
-
+### SpringMemberSaveControllerV1  
+  
 ```java
 @Controller
 public class SpringMemberSaveControllerV1 {
@@ -70,10 +70,11 @@ public class SpringMemberSaveControllerV1 {
     }
 }
 
-```
+```  
+  
 
-### SpringMemberListControllerV1
-
+### SpringMemberListControllerV1  
+  
 ```java
 
 @Controller
@@ -92,13 +93,13 @@ public class SpringMemberListControllerV1 {
     }
 }
 
-```
+```  
+  
 
 ### 결론
 : V1 컨트롤러 동작과정은 맥락만 파악하여 전체적인 흐름을 살펴본다.
 
 - 코드가 훨씬 간편해진 것이 보이지만 @RequestMapping이 클래스가 아닌 메소드 단위에 적용되어 있다.
-- 그럼 단점은 무엇일까? 아직 모르겠다.
 
 > ***V2 컨트롤러에서 클래스를 좀 더 유연하게 통합해보자.***
 
