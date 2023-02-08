@@ -16,6 +16,10 @@ last_modified_at: 2023-01-01T20:17:00-17:00
 ## 개요
 : 스프링 프로젝트의 편리한 기능으로 컨트롤러 동작방식을 살펴본다.
 
+***참고한 블로그***  
+https://yeonyeon.tistory.com/m/116  
+{: .notice--info}
+
 ## 핵심 어노테이션
 * @Controller와 
   - 내부에 @Component 어노테이션이 존재해 컴포넌트 스캔의 대상
@@ -34,7 +38,6 @@ last_modified_at: 2023-01-01T20:17:00-17:00
 
 ## V1 구현
 : 버전1의 구현 예제를 살펴본다.  
-
 
 ### SpringMemberFormControllerV1
 
@@ -73,8 +76,7 @@ public class SpringMemberSaveControllerV1 {
     }
 }
 
-```  
-  
+``` 
 
 ### SpringMemberListControllerV1  
   
@@ -97,7 +99,6 @@ public class SpringMemberListControllerV1 {
 }
 
 ```  
-  
 
 ### 결론
 : V1 컨트롤러 동작과정은 맥락만 파악하여 전체적인 흐름을 살펴본다.
@@ -158,7 +159,9 @@ public class SpringMemberControllerV2 {
 - 클래스 3개로 분리되었던 작업이 단 하나의 파일로 줄어들었다.
 - 통합시 리턴타입은 전과 동일하지만 기존 process() 메소드명이 각각의 역할별 메소드명으로 정의되었다.
 - RequestMapping이 클래스에도 붙고 메소드에도 붙는다.
+- RequestMapping를 클래스레벨에 적용한 경로는 생략한 경로를 메소드레벨에서 리턴 경로로 이어서 작성한 모습이 보인다.
 - 위와 같은 경우에 save()를 부르려면 /spingmvc/v2/members/save로 접근하면 된다.
+
 
 > ***V2 컨트롤러에서 아직 불편한점이 남아있다.***  
 > ModelAndView를 매번 생성하고 반환해주는게 좀 번거롭게 느껴진다. 
@@ -200,7 +203,6 @@ public class SpringMemberControllerV3 {
 }
 
 ```
-
 
 ### 결론
 : V3 컨트롤러 동작과정은 V2 컨트롤러의 중복된 객체 생성을 제거했다.
