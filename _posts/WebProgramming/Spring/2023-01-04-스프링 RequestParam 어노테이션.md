@@ -16,10 +16,6 @@ last_modified_at: 2023-01-04T20:17:00-17:00
 ## 개요
 : 스프링 프로젝트의 편리한 기능으로 url호출시(핸들러매핑) 파라미터를 Request 객체가아닌 어노테이션으로 간략하게 받아보자.
 
-***참고한 블로그***  
-https://yeonyeon.tistory.com/m/116  
-{: .notice--info}
-
 ## 핵심 어노테이션
 * @RequestParam  
   - RequestMapping 을 통한 요청 정보를 매핑시 쿼리파라미터를 매핑
@@ -30,9 +26,7 @@ https://yeonyeon.tistory.com/m/116
 {: .notice--info}
 
 
-## 구현
-: 구현해본다.  
-
+## 구현 
 ### SpringMemberControllerV3
 
 ```java
@@ -54,6 +48,7 @@ public class SpringMemberControllerV3 {
 
 ```
 
+## 테스트
 ### 테스트1  
 
 ```bash
@@ -73,5 +68,5 @@ http://호스트주소/springmvc/v3/save
 
 ```
   
-### 결론
+## 결론
 : 간략한 파라미터라면 HttpReqeust 객체 없이 짧은 코드로 받을 수 있을듯하다.
