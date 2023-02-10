@@ -21,7 +21,7 @@ https://yeonyeon.tistory.com/m/116
 {: .notice--info}
 
 ## 핵심 어노테이션
-* @Controller와 
+* @Controller 
   - 내부에 @Component 어노테이션이 존재해 컴포넌트 스캔의 대상
   - 스프링이 자동으로 스프링 빈으로 등록
   - 스프링 MVC에서 어노테이션 기반 컨트롤러로 인식하게 함  
