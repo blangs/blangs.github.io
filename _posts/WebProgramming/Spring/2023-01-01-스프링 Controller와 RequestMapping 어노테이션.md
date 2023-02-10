@@ -1,6 +1,6 @@
 ---
-title:  "스프링 프로젝트 스프링 프로젝트 Controller와 RequestMapping 어노테이션"
-excerpt: "스프링 프로젝트 Controller와 RequestMapping 어노테이션"
+title:  "스프링 Controller와 RequestMapping 어노테이션"
+excerpt: "스프링 Controller와 RequestMapping 어노테이션"
 
 categories:
   - spring
