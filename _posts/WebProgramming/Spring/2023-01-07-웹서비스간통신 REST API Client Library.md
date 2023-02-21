@@ -115,7 +115,7 @@ public class HomeController {
         StringBuffer cloResponseBuf = new StringBuffer();
         
         while((inputLine = reader.readLine()) != null) {
-          cloResponseBuf.append(inputLine");
+          cloResponseBuf.append(inputLine);
         }
         reader.close();               //자원해제
         httpGet.releaseConnection();  //자원해제
