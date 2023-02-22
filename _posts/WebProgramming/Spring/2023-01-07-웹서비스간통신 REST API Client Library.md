@@ -309,7 +309,7 @@ public class HomeController {
 **결과**
 ```
 HomeController ssoBusiness start >> 
-■ CloseableHttpClient 방식을 수행합니다. 
+■ HttpURLConnection 방식을 수행합니다. 
 인증서버측으로 HTTP 요청을 수행합니다. ==> http://192.168.0.10:8081/dym/openapi/checkserver
 
 ■■■■■ SSO 서버 ■■■■■
