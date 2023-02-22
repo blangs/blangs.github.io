@@ -58,16 +58,8 @@ last_modified_at: 2023-01-07T13:17:00-17:00
 
 
 ## 구현 
-### HttpClient(DefaultHttpClient) 방식
-: 아파치에서 제공하며, 생명주기가 끝나기 전까지 딱 한번의 HTTP 요청을 수행할 수 있다는 특징을 가진다. 이는 4.3 버전 이하인 `commons-httpclient-3.1.jar` 으로 사용한 것을 확인했다.
-
-```
-버전이 낮아 비권장되므로 내용은 생략함.
-
-```
-
-### HttpClient(CloseableHttpClient) 방식
-: 아파치에서 제공하며, 커넥션풀을 지원한다. 2번 연속으로 호출해도 커넥션 풀을 통해 처리되어 에러가 발생하지 않는다. 이는 4.3 버전 이상인 `httpclient-4.4.jar`, `httpcore-4.4.jar` 으로 사용한 것을 확인했다.
+### 클라이언트 공통 화면
+: 예제에서 공통으로 사용할 JSP 화면
 
 **JSP(클라이언트)**
 ```jsp
@@ -110,14 +102,25 @@ $(document).ready(function(){
 
 });
 </script>
+
 ```
-  
+
+### HttpClient(DefaultHttpClient) 방식
+: 아파치에서 제공하며, 생명주기가 끝나기 전까지 딱 한번의 HTTP 요청을 수행할 수 있다는 특징을 가진다. 이는 4.3 버전 이하인 `commons-httpclient-3.1.jar` 으로 사용한 것을 확인했다.
+
+```
+버전이 낮아 비권장되므로 내용은 생략함.
+
+```
+
+### HttpClient(CloseableHttpClient) 방식
+: 아파치에서 제공하며, 커넥션풀을 지원한다. 2번 연속으로 호출해도 커넥션 풀을 통해 처리되어 에러가 발생하지 않는다. 이는 4.3 버전 이상인 `httpclient-4.4.jar`, `httpcore-4.4.jar` 으로 사용한 것을 확인했다.
   
 **JAVA(클라이언트)**
 ```java
 @Controller
 public class HomeController {
-  public static String AUTH_URL = "인증서버주소"
+  public static String AUTH_URL = "192.168.0.10";  //인증서버주소
   public static String AUTHORIZATION_URL = "http://" + AUTH_URL + "/dym/";
 
   @RequestMapping(value="/sso/ssoBusiness", method=RequestMethod.POST)
@@ -132,7 +135,9 @@ public class HomeController {
     CloseableHttpClient cloHttpClient = null;
 
     try {
-
+        
+        System.out.println("■ CloseableHttpClient 방식을 수행합니다. ");
+        //HttpClient test = new DefaultHttpClient(); /* 4.3버전 이후 비권장 처리된 메소드 */
         /**************************************************************
         * 1. 인증서버 측으로 통신상태검증 요청
         **************************************************************/
@@ -186,17 +191,72 @@ public class HomeController {
           }catch (Exception e) {
             e.printStackTrace();
           }
-        }
+        } //END IF
 
-    }
-    
-        
-    
-  }
-}
+    } //END TRY
+  } //END METHOD
+
+} 
+
+```
+  
+**결과**
+```
+HomeController ssoBusiness start >> 
+■ CloseableHttpClient 방식을 수행합니다. 
+
+■■■■■ SSO 서버 ■■■■■
+요청한 사용자의 결과 HashMap ==> JSON 으로 변환중...
+변환완료: {"resultCode":"000000","resultMessage":"성공"}
+Success..!
+■■■■■■■■■■■■■■■■
 
 ```
 
+### 인증서버 공통 컨트롤러
+: 예제에서 공통으로 사용할 인증서버측의 컨트롤러
+
+**JAVA(인증서버)**
+```java
+@Controller
+public class SSOController {
   
-## 결론
-: 간략한 파라미터라면 HttpReqeust 객체 없이 짧은 코드로 받을 수 있을듯하다.
+  // 모든 결과 전문을 @ResponseBody 처리로 리턴
+  // 캐릭터셋 UTF-8 으로 설정
+  @ResponseBody
+  @RequestMapping(value="/openapi/checkserver", method=RequestMethod.GET, produces="text/plan;charset="UTF-8")
+  public String checkserver() {
+    System.out.println("SSOController checkserver start >> ");
+    
+    Map<String,Object> resultJSON = new HashMap<String,Object>();
+    String strJson = "";
+    System.out.println("■■■■■ SSO 서버 ■■■■■");
+    System.out.println("SSO서버에 오신것을 환영합니다. 통신상태 검증을 수행합니다.");
+    
+    try {
+        /**************************************************************
+        * 검증로직 (실제로는 SSO 서버 담당자측에서 검증로직 작성요망)
+        **************************************************************/
+        resultJSON.put("resultCode", "000000");
+        resultJSON.put("resultMessage", "성공");
+
+        /**************************************************************
+        * MAP 전문을 JSON 으로 변환하는 API 수행
+        **************************************************************/
+        ObjectMapper objMapper = new ObjectMapper();  //jackson-core-2.9.9.jar, jackson-databind-2.9.9.1.jar 사용
+
+        strJson = objMapper.writeValueAsString(resultJSON);  //MAP to JSON
+        System.out.println("요청한 사용자의 결과 HashMap ==> JSON 으로 변환중...");
+        System.out.println("변환완료: " + strJson");
+        System.out.println("Success..!");
+        System.out.println("■■■■■■■■■■■■■■■■");
+    } catch(Exception e) {
+        e.printStackTrace();
+    } //END TRY
+
+    return strJson;
+
+  } 
+}
+
+```
