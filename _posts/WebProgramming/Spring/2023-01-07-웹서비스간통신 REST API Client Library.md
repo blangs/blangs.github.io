@@ -113,110 +113,6 @@ $(document).ready(function(){
 
 ```
 
-### HttpURLConnection 방식
-: HttpClient 보다 성능이 좋다고 한다. 기본 JDK에 포함되어 있고 java.net 패키지에 있다. 서버로부터 전달받은 Response 결과를 Stream 으로 직접 처리하는 등 생산성이 떨어지는 단점이 있다.
-  
-**JAVA(클라이언트)**
-```java
-@Controller
-public class HomeController {
-  public static String AUTH_URL = "192.168.0.10:8081";  //인증서버주소 
-  public static String AUTHORIZATION_URL = "http://" + AUTH_URL + "/dym/";
-
-  @RequestMapping(value="/sso/ssoBusiness", method=RequestMethod.POST)
-  public @ResponseBody Map<String, Object> ssoBusiness(HttpServletRequest req, Model model)
-  {
-    System.out.println("HomeController ssoBusiness start >> ");
-
-    //통신상태검증URL (인증서버측의 검증주소)
-    String CHECK_SERVER_URL = AUTHORIZATION_URL + "openapi/checkerserver";
-
-    Map<String, Object> resultJSON = new HashMap<String, object>();
-
-    try {
-        
-        System.out.println("■ HttpURLConnection 방식을 수행합니다. ");
-        /**************************************************************
-        * 1. 인증서버 측으로 통신상태검증 요청
-        **************************************************************/
-        System.out.println("인증서버측으로 HTTP 요청을 수행합니다. ==> " + CHECK_SERVER_URL);
-        URL url = URL(CHECK_SERVER_URL);                                   // URL 설정
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();  // HTTP 클라이언트생성
-        con.setRequestMethod("GET");                                       // 요청메소드
-        con.setRequestProperty("User-Agent", "Mozila/5.0");                // 헤더
-
-        int responseCode = con.getRespnseCode();
-        System.out.println("GET 응답코드: " + responseCode);
-
-        /**************************************************************
-        * 2. 응답결과 GET, SET
-        **************************************************************/
-        BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-        
-        while((inputLine = reader.readLine()) != null) {
-          cloResponseBuf.append(inputLine);
-        }
-        reader.close();    //자원해제
-        con.disconnect();  //자원해제
-
-        String result = response.toString();  //응답결과
-        System.out.println("GET 응답결과: "+result);      
-
-        /**************************************************************
-        * 3. 응답결과 String ==> JSON 파싱
-        **************************************************************/
-        JSONParser parser = new JSONParser();
-        Object object = pareser.parse(result);
-        JSONObject jsonObject = (JSONObject)object;
-
-        String resultCode = (String)jsonObject.get("reslutCode");
-        String resultMessage = (String)jsonObject.get("reslutMessage");
-        System.out.println("String ==> JSON 변환: "resultCode: " + resultCode + ", " + "resultMessage: " + resultMessage + "\n");
-
-    }catch(Exception e) {
-        e.printStackTrace();
-
-    } finally {
-        if(cloHttpCleinet != null) {
-          try{
-            cloHttpClient.close();  //자원해제
-          }catch (Exception e) {
-            e.printStackTrace();
-          }
-        } //END IF
-
-    } //END TRY
-  } //END METHOD
-
-} 
-
-```
-  
-**결과**
-```
-HomeController ssoBusiness start >> 
-■ CloseableHttpClient 방식을 수행합니다. 
-인증서버측으로 HTTP 요청을 수행합니다. ==> http://192.168.0.10:8081/dym/openapi/checkserver
-
-■■■■■ SSO 서버 ■■■■■
-SSO서버에 오신것을 환영합니다. 통신상태 검증을 수행합니다.
-SSOController checkserver start >> 
-요청한 사용자의 결과 HashMap ==> JSON 으로 변환중...
-변환완료: {"resultCode":"000000","resultMessage":"성공"}
-Success..!
-
-■■■■■■■■■■■■■■■■
-GET 응답코드: 200
-GET 응답결과: {"resultCode":"000000","resultMessage":"성공"}
-String ==> JSON 변환: resultCode: 000000, resultMessage: 성공
-
-```
-
-> 정상적으로 인증서버측에 HTTP 통신 요청하고 결과로 리턴된 전문을 받아왔다.
-
-
 ### HttpClient(CloseableHttpClient) 방식
 : 아파치에서 제공하며, 커넥션풀을 지원한다. 2번 연속으로 호출해도 커넥션 풀을 통해 처리되어 에러가 발생하지 않는다. 이는 4.3 버전 이상인 `httpclient-4.4.jar`, `httpcore-4.4.jar` 으로 사용한 것을 확인했다.
   
@@ -325,9 +221,112 @@ String ==> JSON 변환: resultCode: 000000, resultMessage: 성공
 
 ```
 
+> 정상적으로 인증서버측에 HTTP 통신 요청하고 
+> 결과로 리턴된 전문을 받아왔다.
+
+
+### HttpURLConnection 방식
+: HttpClient 보다 성능이 좋다고 한다. 기본 JDK에 포함되어 있고 java.net 패키지에 있다. 서버로부터 전달받은 Response 결과를 Stream 으로 직접 처리하는 등 생산성이 떨어지는 단점이 있다.
+  
+**JAVA(클라이언트)**
+```java
+@Controller
+public class HomeController {
+  public static String AUTH_URL = "192.168.0.10:8081";  //인증서버주소 
+  public static String AUTHORIZATION_URL = "http://" + AUTH_URL + "/dym/";
+
+  @RequestMapping(value="/sso/ssoBusiness", method=RequestMethod.POST)
+  public @ResponseBody Map<String, Object> ssoBusiness(HttpServletRequest req, Model model)
+  {
+    System.out.println("HomeController ssoBusiness start >> ");
+
+    //통신상태검증URL (인증서버측의 검증주소)
+    String CHECK_SERVER_URL = AUTHORIZATION_URL + "openapi/checkerserver";
+
+    Map<String, Object> resultJSON = new HashMap<String, object>();
+
+    try {
+        
+        System.out.println("■ HttpURLConnection 방식을 수행합니다. ");
+        /**************************************************************
+        * 1. 인증서버 측으로 통신상태검증 요청
+        **************************************************************/
+        System.out.println("인증서버측으로 HTTP 요청을 수행합니다. ==> " + CHECK_SERVER_URL);
+        URL url = URL(CHECK_SERVER_URL);                                   // URL 설정
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();  // HTTP 클라이언트생성
+        con.setRequestMethod("GET");                                       // 요청메소드
+        con.setRequestProperty("User-Agent", "Mozila/5.0");                // 헤더
+
+        int responseCode = con.getRespnseCode();
+        System.out.println("GET 응답코드: " + responseCode);
+
+        /**************************************************************
+        * 2. 응답결과 GET, SET
+        **************************************************************/
+        BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        
+        while((inputLine = reader.readLine()) != null) {
+          cloResponseBuf.append(inputLine);
+        }
+        reader.close();    //자원해제
+        con.disconnect();  //자원해제
+
+        String result = response.toString();  //응답결과
+        System.out.println("GET 응답결과: "+result);      
+
+        /**************************************************************
+        * 3. 응답결과 String ==> JSON 파싱
+        **************************************************************/
+        JSONParser parser = new JSONParser();
+        Object object = pareser.parse(result);
+        JSONObject jsonObject = (JSONObject)object;
+
+        String resultCode = (String)jsonObject.get("reslutCode");
+        String resultMessage = (String)jsonObject.get("reslutMessage");
+        System.out.println("String ==> JSON 변환: "resultCode: " + resultCode + ", " + "resultMessage: " + resultMessage + "\n");
+
+    }catch(Exception e) {
+        e.printStackTrace();
+
+    } finally {
+        if(cloHttpCleinet != null) {
+          try{
+            cloHttpClient.close();  //자원해제
+          }catch (Exception e) {
+            e.printStackTrace();
+          }
+        } //END IF
+
+    } //END TRY
+  } //END METHOD
+
+} 
+
+```
+  
+**결과**
+```
+HomeController ssoBusiness start >> 
+■ CloseableHttpClient 방식을 수행합니다. 
+인증서버측으로 HTTP 요청을 수행합니다. ==> http://192.168.0.10:8081/dym/openapi/checkserver
+
+■■■■■ SSO 서버 ■■■■■
+SSO서버에 오신것을 환영합니다. 통신상태 검증을 수행합니다.
+SSOController checkserver start >> 
+요청한 사용자의 결과 HashMap ==> JSON 으로 변환중...
+변환완료: {"resultCode":"000000","resultMessage":"성공"}
+Success..!
+
+■■■■■■■■■■■■■■■■
+GET 응답코드: 200
+GET 응답결과: {"resultCode":"000000","resultMessage":"성공"}
+String ==> JSON 변환: resultCode: 000000, resultMessage: 성공
+
+```
+
 > 정상적으로 인증서버측에 HTTP 통신 요청하고 결과로 리턴된 전문을 받아왔다.
-
-
 ### 인증서버 공통 컨트롤러
 : 예제에서 공통으로 사용할 인증서버측의 컨트롤러
 
@@ -339,7 +338,7 @@ public class SSOController {
   // 모든 결과 전문을 @ResponseBody 처리로 리턴
   // 캐릭터셋 UTF-8 으로 설정
   @ResponseBody
-  @RequestMapping(value="/openapi/checkserver", method=RequestMethod.GET, produces="text/plan;charset="UTF-8")
+  @RequestMapping(value="/openapi/checkserver", method=RequestMethod.GET, produces="text/plan;charset=UTF-8")
   public String checkserver() {
     System.out.println("￦n■■■■■ SSO 서버 ■■■■■");
     System.out.println("SSO서버에 오신것을 환영합니다. 통신상태 검증을 수행합니다.");
