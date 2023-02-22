@@ -69,7 +69,51 @@ last_modified_at: 2023-01-07T13:17:00-17:00
 ### HttpClient(CloseableHttpClient) 방식
 : 아파치에서 제공하며, 커넥션풀을 지원한다. 2번 연속으로 호출해도 커넥션 풀을 통해 처리되어 에러가 발생하지 않는다. 이는 4.3 버전 이상인 `httpclient-4.4.jar`, `httpcore-4.4.jar` 으로 사용한 것을 확인했다.
 
-**클라이언트**
+**JSP(클라이언트)**
+```jsp
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<script src="<c:url value="./resources/js/jquery-3.1.1.js" />"></script>
+</head>
+<body>
+  Hello World..!
+
+  <!-- 인증서버 로그인 버튼 -->
+  <button id="ssoLogin">인증서 로그인</button>
+</body>
+<script>
+$(document).ready(function(){
+  
+    $("#ssoLogin").click(function(){
+        $.ajax({
+            method: "POST",
+            url: "sso/ssoBusiness",
+            dataType: "JSON"
+            error: function(jqXHR, testStatus, errorThrown){
+                alert("error");
+            },
+            success: function(data) {
+                if(data.resultCode == "000000") {
+                    console.log("resultMessage: " + data.resultMessage);
+                    console.log("agentId: " + data.agentId);
+                    console.log("인증서버(192.168.0.10)측에서 정상적인 접근 확인완료 !!");
+                }
+            }
+
+        });
+    });
+
+});
+</script>
+```
+  
+  
+**JAVA(클라이언트)**
 ```java
 @Controller
 public class HomeController {
