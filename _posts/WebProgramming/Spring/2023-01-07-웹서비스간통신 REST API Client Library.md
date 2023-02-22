@@ -182,6 +182,15 @@ public class HomeController {
         String resultMessage = (String)jsonObject.get("reslutMessage");
         System.out.println("String ==> JSON 변환: "resultCode: " + resultCode + ", " + "resultMessage: " + resultMessage + "\n");
 
+        HttpSession session = req.getSession();
+        session.setAttribute("agentId", agentId");
+        session.setAttribute("resultCode", resultCode");
+        session.setAttribute("resultMessage", resultMessage");                session.setAttribute("resultMessage", resultMessage");        
+
+        resultJSON.put("agentId", "283");
+        resultJSON.put("resultCode", resultCode);
+        resultJSON.put("resultMessage", resultMessage);
+
     }catch(Exception e) {
         e.printStackTrace();
 
@@ -286,6 +295,24 @@ public class HomeController {
         String resultCode = (String)jsonObject.get("reslutCode");
         String resultMessage = (String)jsonObject.get("reslutMessage");
         System.out.println("String ==> JSON 변환: "resultCode: " + resultCode + ", " + "resultMessage: " + resultMessage + "\n");
+
+        HttpSession session = req.getSession();
+        session.setAttribute("agentId", agentId");
+        session.setAttribute("resultCode", resultCode");
+        session.setAttribute("resultMessage", resultMessage");                session.setAttribute("resultMessage", resultMessage");        
+
+        resultJSON.put("agentId", "283");
+        resultJSON.put("resultCode", resultCode);
+        resultJSON.put("resultMessage", resultMessage);
+        
+        /**************************************************************
+        * 4. 다음 STEP 생성
+        **************************************************************/
+        String sendUrl = AUTHORIZATION_URL + "login.html";
+        System.out.println("sendUrl", sendUrl);
+
+        session.setAttribute("resultMessage", resultMessage");                session.setAttribute("sendUrl", sendUrl");        
+        resultJSON.put("sendUrl", sendUrl);
 
     }catch(Exception e) {
         e.printStackTrace();
