@@ -120,7 +120,7 @@ $(document).ready(function(){
 ```java
 @Controller
 public class HomeController {
-  public static String AUTH_URL = "192.168.0.10";  //인증서버주소
+  public static String AUTH_URL = "192.168.0.10:8081";  //인증서버주소 
   public static String AUTHORIZATION_URL = "http://" + AUTH_URL + "/dym/";
 
   @RequestMapping(value="/sso/ssoBusiness", method=RequestMethod.POST)
@@ -141,6 +141,7 @@ public class HomeController {
         /**************************************************************
         * 1. 인증서버 측으로 통신상태검증 요청
         **************************************************************/
+        System.out.println("인증서버측으로 HTTP 요청을 수행합니다. ==> " + CHECK_SERVER_URL);
         cloHttpClient = HttpClients.createDefault();      // HTTP클라이언트 생성
         HttpGet httpGet = new HttpGet(CHECK_SERVER_URL);  // 요청메소드, URL 설정
         httpGet.addHeader("User-Agent", "Mozila/5.0");    // 헤더
@@ -204,11 +205,15 @@ public class HomeController {
 ```
 HomeController ssoBusiness start >> 
 ■ CloseableHttpClient 방식을 수행합니다. 
+인증서버측으로 HTTP 요청을 수행합니다. ==> http://192.168.0.10:8081/dym/openapi/checkserver
 
 ■■■■■ SSO 서버 ■■■■■
+SSO서버에 오신것을 환영합니다. 통신상태 검증을 수행합니다.
+SSOController checkserver start >> 
 요청한 사용자의 결과 HashMap ==> JSON 으로 변환중...
 변환완료: {"resultCode":"000000","resultMessage":"성공"}
 Success..!
+
 ■■■■■■■■■■■■■■■■
 
 ```
@@ -226,14 +231,15 @@ public class SSOController {
   @ResponseBody
   @RequestMapping(value="/openapi/checkserver", method=RequestMethod.GET, produces="text/plan;charset="UTF-8")
   public String checkserver() {
+    System.out.println("■■■■■ SSO 서버 ■■■■■");
+    System.out.println("SSO서버에 오신것을 환영합니다. 통신상태 검증을 수행합니다.");
     System.out.println("SSOController checkserver start >> ");
     
     Map<String,Object> resultJSON = new HashMap<String,Object>();
     String strJson = "";
-    System.out.println("■■■■■ SSO 서버 ■■■■■");
-    System.out.println("SSO서버에 오신것을 환영합니다. 통신상태 검증을 수행합니다.");
     
     try {
+
         /**************************************************************
         * 검증로직 (실제로는 SSO 서버 담당자측에서 검증로직 작성요망)
         **************************************************************/
@@ -248,8 +254,9 @@ public class SSOController {
         strJson = objMapper.writeValueAsString(resultJSON);  //MAP to JSON
         System.out.println("요청한 사용자의 결과 HashMap ==> JSON 으로 변환중...");
         System.out.println("변환완료: " + strJson");
-        System.out.println("Success..!");
+        System.out.println("Success..!￦n");
         System.out.println("■■■■■■■■■■■■■■■■");
+
     } catch(Exception e) {
         e.printStackTrace();
     } //END TRY
