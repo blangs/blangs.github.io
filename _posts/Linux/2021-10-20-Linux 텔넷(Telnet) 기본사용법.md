@@ -1,6 +1,6 @@
--- 
+---
 title:  "Linux 텔넷(Telnet) 기본사용법"
-excerpt: "Linux 텔넷(Telnet) 기본사용법"
+excerpt: "Linux 텔넷(Telnet) 기본사용법 입니다."
 
 categories:
   - linux
