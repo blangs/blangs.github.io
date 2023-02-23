@@ -60,8 +60,8 @@ last_modified_at: 2023-01-07T13:17:00-17:00
 
 
 ## 구현 
-### 화면 JSP
-: 예제에서 공통으로 사용할 JSP 화면
+### JSP 화면 구현하기
+: 예제에서 공통으로 사용할 JSP 화면 (버튼을 누르면 동작한다.)
 
 **JSP(클라이언트)**
 ```jsp
@@ -93,8 +93,7 @@ $(document).ready(function(){
             },
             success: function(data) {
                 if(data.resultCode == "000000") {
-                    console.log("resultMessage: " + data.resultMessage);
-                    console.log("agentId: " + data.agentId);
+                    console.log("resultMsg: " + data.resultMsg);
                     console.log("인증서버(192.168.0.10)측에서 정상적인 접근 확인완료 !!");
                 }
             }
@@ -106,7 +105,8 @@ $(document).ready(function(){
 </script>
 
 ```
-### HttpClient 구현코드
+
+### HttpClient 공통API 구현
 : 주소만 넣으면 결과를 얻을 수 있도록 공통 메소드를 구현했다.
 
 ```java
@@ -198,7 +198,47 @@ public static String connectGET(String containParamURL, String type) throw Clien
 
 ```
 
+### HttpClient 공통API 사용
+: 구현한 공통 메소드를 실제로 사용해본다.
+
+```java@Controller
+public class HomeController {
+  // 아래 변수는 실무에선 설정 프로퍼티스에 작성.
+  public static String AUTH_URL = "192.168.0.10:8081";  //SSO인증서버주소 
+  public static String AUTHORIZATION_URL = "http://" + AUTH_URL + "/dym/";
+
+  @RequestMapping(value="/sso/ssoBusiness", method=RequestMethod.POST)
+  public @ResponseBody Map<String, Object> ssoBusiness(HttpServletRequest req, Model model)
+  {
+      System.out.println("HomeController ssoBusiness start >> ");
+
+      //SSO인증서버 통신상태검증 URL
+      String CHECK_SERVER_URL = AUTHORIZATION_URL + "openapi/checkerserver";
+
+      String result = "";                           /** 결과 ==> "{"resultCode":"000000","resultMsg":"성공"}"  **/
+      result = connectGET(CHECK_SERVER_URL, "01");  /** 01: CloseableHttpClinet 방식으로 요청 **/
+      result = connectGET(CHECK_SERVER_URL, "02");  /** 02: HttpURLConnection 방식으로 요청 **/
+
+      /** 긴 JSON 형태의 문자열을 파싱 **/
+      JSONParser parser = new JSONParser();
+      Object object = pareser.parse(result);
+      JSONObject jsonObject = (JSONObject)object;
+
+      String resultCode = (String)jsonObject.get("reslutCode");
+      String resultMessage = (String)jsonObject.get("reslutMsg");
+
+      System.out.println("완료");
+  }
+}
+
+```
+
+## JSON 파싱
+### 문자열 처리
+: 속도를 더 빠르게 처리한다.
+
 ### HttpClient(CloseableHttpClient) 방식
+
   
 **JAVA(클라이언트)**
 ```java
