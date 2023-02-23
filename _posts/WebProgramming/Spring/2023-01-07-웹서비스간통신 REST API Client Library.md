@@ -45,6 +45,8 @@ last_modified_at: 2023-01-07T13:17:00-17:00
   * HttpComponents(4버전) 부터는 Thread에 안정적인 기능들을 많이 제공함.
   * 상대적으로 무거움
   * HttpURLConnection 대비 다양한 API를 지원함.
+  * 4.3 버전이전 ==> DefaultHttpClient (아파치에서 제공하며, 생명주기가 끝나기 전까지 딱 한번의 HTTP 요청을 수행할 수 있다는 특징을 가진다. 이는 4.3 버전 이하인 `commons-httpclient-3.1.jar` 으로 사용한 것을 확인했다.)
+  * 4.3 버전이후 ==> CloseableHttpClient (아파치에서 제공하며, 커넥션풀을 지원한다. 2번 연속으로 호출해도 커넥션 풀을 통해 처리되어 에러가 발생하지 않는다. 이는 4.3 버전 이상인 `httpclient-4.4.jar`, `httpcore-4.4.jar` 으로 사용한 것을 확인했다.)
 
 - HttpURLConnection
   * 기본 JDK에 포함되어 있음. (jdk1.2부터 내장되어 있으며 java.net 패키지에 있다.)
@@ -58,7 +60,7 @@ last_modified_at: 2023-01-07T13:17:00-17:00
 
 
 ## 구현 
-### 클라이언트 공통 JSP
+### 화면 JSP
 : 예제에서 공통으로 사용할 JSP 화면
 
 **JSP(클라이언트)**
@@ -104,17 +106,99 @@ $(document).ready(function(){
 </script>
 
 ```
+### HttpClient 구현코드
+: 주소만 넣으면 결과를 얻을 수 있도록 공통 메소드를 구현했다.
 
-### HttpClient(DefaultHttpClient) 방식
-: 아파치에서 제공하며, 생명주기가 끝나기 전까지 딱 한번의 HTTP 요청을 수행할 수 있다는 특징을 가진다. 이는 4.3 버전 이하인 `commons-httpclient-3.1.jar` 으로 사용한 것을 확인했다.
+```java
+/**
+ * get으로 타서버 접속하여 결과값 String 으로 받아옴
+ * @param containParamURL
+ * @param type (01: CloseableHttpClient 방식)
+ * @param type (02: HttpURLConnection 방식)
+ * @return 
+ * @throws ClientProtocolException
+ * @throws IOException
+ */
 
-```
-버전이 낮아 비권장되므로 내용은 생략함.
+public static String connectGET(String containParamURL, String type) throw ClientProtocolException, IOException 
+{
+  String requestType = type;
+  
+  if(type.equals("01") {
+      BufferReader br = null;
+      StringBuilder builder = new StringBuilder();
+      CloseableHttpClient httpClient = HttpClients.createDefault();
+      HttpGet get = null;
+      
+      try
+      {
+          get = new HttpGet(containParamURL);
+          
+          HttpResponse response = httpClient.excute(get); //요청
+          int status = response.getStatusLine().getStatusCode();
+
+          if(status >= 200 && status < 300) 
+          {
+              HttpEntity entity = response.getEntity();
+              br = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
+              String line = null;
+
+              while((line = br.readLine()) != null) {
+                  builder.append(line);
+              }
+          }
+
+      }
+      finally
+      {
+          if(br != null) br.close();
+          if(get != null) get.releaseConnection();
+      }
+      return builder.toString() //URL요청 응답결과 리턴
+  }
+  else if(type.equals("02") 
+  {  
+      // ps) 심심해서 위와 다르게 스트링버퍼로 문자열처리 해보았다. ^^
+      BufferReader br = null;
+      StringBuffer stringBuffer = new StringBuffer();
+      URL url = null;
+      HttpURLConnection con = null
+      
+      try
+      {
+          url = new URL(containParamURL);
+          con = (HttpURLConnection) url.openConnection();  //요청
+          con.setRequestMethod("GET");
+          con.setRequestProperty("User-Agent", "Mozila/5.0");
+
+          int status = con.getRespnseCode();
+
+          if(status >= 200 && status < 300) 
+          {
+              br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+              String line = null;
+
+              while((line = br.readLine()) != null) {
+                  stringBuffer.append(line);
+              }
+          }
+          
+      }
+      finally
+      {
+          if(br != null) br.close();
+          if(con != null) con.disconnect();
+      }
+
+      return stringBuffer.toString();
+  }
+  else System.out.println("요청동작 인자값을 확인해주세요");
+
+}
 
 ```
 
 ### HttpClient(CloseableHttpClient) 방식
-: 아파치에서 제공하며, 커넥션풀을 지원한다. 2번 연속으로 호출해도 커넥션 풀을 통해 처리되어 에러가 발생하지 않는다. 이는 4.3 버전 이상인 `httpclient-4.4.jar`, `httpcore-4.4.jar` 으로 사용한 것을 확인했다.
   
 **JAVA(클라이언트)**
 ```java
@@ -180,7 +264,7 @@ public class HomeController {
 
         String resultCode = (String)jsonObject.get("reslutCode");
         String resultMessage = (String)jsonObject.get("reslutMessage");
-        System.out.println("String ==> JSON 변환: "resultCode: " + resultCode + ", " + "resultMessage: " + resultMessage + "\n");
+        System.out.println("String ==> JSON 변환: " + resultCode: " + resultCode + ", " + "resultMessage: " + resultMessage + "\n");
 
         HttpSession session = req.getSession();
         session.setAttribute("agentId", agentId");
@@ -294,7 +378,7 @@ public class HomeController {
 
         String resultCode = (String)jsonObject.get("reslutCode");
         String resultMessage = (String)jsonObject.get("reslutMessage");
-        System.out.println("String ==> JSON 변환: "resultCode: " + resultCode + ", " + "resultMessage: " + resultMessage + "\n");
+        System.out.println("String ==> JSON 변환: " + resultCode: " + resultCode + ", " + "resultMessage: " + resultMessage + "\n");
 
         HttpSession session = req.getSession();
         session.setAttribute("agentId", agentId");
