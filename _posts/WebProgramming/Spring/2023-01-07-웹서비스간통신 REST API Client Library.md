@@ -119,7 +119,6 @@ $(document).ready(function(){
  * @throws ClientProtocolException
  * @throws IOException
  */
-
 public static String connectGET(String containParamURL, String type) throw ClientProtocolException, IOException 
 {
   String requestType = type;
@@ -201,7 +200,8 @@ public static String connectGET(String containParamURL, String type) throw Clien
 ### HttpClient 공통API 사용
 : 구현한 공통 메소드를 실제로 사용해본다.
 
-```java@Controller
+```java
+@Controller
 public class HomeController {
   // 아래 변수는 실무에선 설정 프로퍼티스에 작성.
   public static String AUTH_URL = "192.168.0.10:8081";  //SSO인증서버주소 
@@ -232,10 +232,137 @@ public class HomeController {
 }
 
 ```
+  
+### 정리
+
+> ***JSON 을 유연한 MAP 객체로 변환하는 공통 API를 완성하였다.!***
+
 
 ## JSON 파싱
-### 문자열 처리
-: 속도를 더 빠르게 처리한다.
+### JSON To HashMap 변환 공통API 구현
+: JSON 객체만 넣으면 MAP 객체를 얻을 수 있도록 공통 메소드를 구현했다.
+
+```java
+/**
+ * JSON 객체를 받아서 HashMap 으로 변환하는 메소드
+ * @param jsonObject
+ * @return 
+ * @throws ClientProtocolException
+ * @throws IOException
+ */
+public static Map<String, Object> jsonToMap(JSONObject jsonObject) throws JSONException 
+{
+    Map<String, Object> retMap = new HashMap<String, Object>();
+    
+    if(jsonObject != null) {
+        retMap = toMap(jsonObject);
+    }
+    return retMap;
+}
+
+
+/**
+ * JSON 객체를 받아서 HashMap 으로 변환하는 메소드
+ * @param jsonObject
+ * @return 
+ * @throws ClientProtocolException
+ * @throws IOException
+ */
+public static Map<String, Object> tooMap(JSONObject jsonObject) throws JSONException 
+{
+    Map<String, Object> map = new HashMap<String, Object>();
+
+    Set<String> keys = jsonObject.keySet();
+    Iterator<String> keysItr = keys.iterator();
+    
+    while(keysItr.hasNext()){
+        String key = keysItr.next();
+        Object value = jsonObject.get(key);
+        System.out.println(key + " : " + value);
+
+        if(value instanceof JSONArray) {
+            value = toList((JSONArray) value); 
+        }
+        else if(value instanceof JSONObject) {
+            value = toMap((JSONObject) value); 
+        }
+        map.put(key, value); //생성
+    }
+    return map;
+}
+
+/**
+ * JSON 객체안에 sjon 배열이 있는 경우 처리하는 메소드
+ * @param array
+ * @return 
+ * @throws ClientProtocolException
+ * @throws IOException
+ */
+public static Map<String, Object> tooMap(JSONArray array) throws JSONException 
+{
+    List<Object> list = new ArrayList<Object>();
+
+    for(int i=0; i<array.size(); i++) {
+        Object value = array.get(i);  
+        
+        if(value instanceof JSONArray) {
+            value = toList((JSONArray) value); 
+        }
+        else if(value instanceof JSONObject) {
+            value = toMap((JSONObject) value); 
+        }
+        list.add(value);
+    }
+    return list;
+}
+
+```
+
+### JSON To HashMap 변환 공통API 사용
+: 구현한 공통 메소드를 실제로 사용해본다.
+
+```java
+@Controller
+public class HomeController {
+  // 아래 변수는 실무에선 설정 프로퍼티스에 작성.
+  public static String AUTH_URL = "192.168.0.10:8081";  //SSO인증서버주소 
+  public static String AUTHORIZATION_URL = "http://" + AUTH_URL + "/dym/";
+
+  @RequestMapping(value="/sso/ssoBusiness", method=RequestMethod.POST)
+  public @ResponseBody Map<String, Object> ssoBusiness(HttpServletRequest req, Model model)
+  {
+      System.out.println("HomeController ssoBusiness start >> ");
+
+      //SSO인증서버 통신상태검증 URL
+      String CHECK_SERVER_URL = AUTHORIZATION_URL + "openapi/checkerserver";
+
+      String result = "";                           /** 결과 ==> "{"resultCode":"000000","resultMsg":"성공"}"  **/
+      result = connectGET(CHECK_SERVER_URL, "01");  /** 01: CloseableHttpClinet 방식으로 요청 **/
+      result = connectGET(CHECK_SERVER_URL, "02");  /** 02: HttpURLConnection 방식으로 요청 **/
+
+      /** 긴 JSON 형태의 문자열을 파싱 **/
+      JSONParser parser = new JSONParser();
+      Object object = pareser.parse(result);
+      JSONObject jsonObject = (JSONObject)object;
+
+      //변환      
+      Map<String, Object> resMap = jsonToMap(jsonObject);
+
+      String resultCode = (String)resMap.get("reslutCode");
+      String resultMessage = (String)resMap.get("reslutMsg");
+
+      System.out.println("완료");
+  }
+}
+
+```
+
+### 정리
+
+> ***JSON 을 유연한 MAP 객체로 변환하는 공통 API를 완성하였다.!***
+
+
+
 
 ### HttpClient(CloseableHttpClient) 방식
 
