@@ -181,7 +181,6 @@ public static String connectGET(String containParamURL, String type) throw Clien
                   stringBuffer.append(line);
               }
           }
-          
       }
       finally
       {
@@ -212,14 +211,15 @@ public class HomeController {
   {
       System.out.println("HomeController ssoBusiness start >> ");
 
-      //SSO인증서버 통신상태검증 URL
+      // SSO인증서버 통신상태검증 URL
       String CHECK_SERVER_URL = AUTHORIZATION_URL + "openapi/checkerserver";
 
+      // 1. HttpClient 공통API 사용
       String result = "";                           /** 결과 ==> "{"resultCode":"000000","resultMsg":"성공"}"  **/
       result = connectGET(CHECK_SERVER_URL, "01");  /** 01: CloseableHttpClinet 방식으로 요청 **/
       result = connectGET(CHECK_SERVER_URL, "02");  /** 02: HttpURLConnection 방식으로 요청 **/
 
-      /** 긴 JSON 형태의 문자열을 파싱 **/
+      // 2. 응답받은 긴 JSON 형태의 문자열을 파싱
       JSONParser parser = new JSONParser();
       Object object = pareser.parse(result);
       JSONObject jsonObject = (JSONObject)object;
@@ -235,17 +235,17 @@ public class HomeController {
   
 ### 정리
 
-> ***JSON 을 유연한 MAP 객체로 변환하는 공통 API를 완성하였다.!***
+> ***HttpClient 공통API 사용하여 다른 서버측과 통신을 성공했다!. ***
 
 
 ## JSON 파싱
-### JSON To HashMap 변환 공통API 구현
+### JSON 객체를 HashMap 변환 공통API 구
 : JSON 객체만 넣으면 MAP 객체를 얻을 수 있도록 공통 메소드를 구현했다.
 
 ```java
 /**
  * JSON 객체를 받아서 HashMap 으로 변환하는 메소드
- * @param jsonObject
+ * @param object
  * @return 
  * @throws ClientProtocolException
  * @throws IOException
@@ -254,8 +254,8 @@ public static Map<String, Object> jsonToMap(JSONObject jsonObject) throws JSONEx
 {
     Map<String, Object> retMap = new HashMap<String, Object>();
     
-    if(jsonObject != null) {
-        retMap = toMap(jsonObject);
+    if(object != null) {
+        retMap = toMap(object);
     }
     return retMap;
 }
@@ -268,7 +268,7 @@ public static Map<String, Object> jsonToMap(JSONObject jsonObject) throws JSONEx
  * @throws ClientProtocolException
  * @throws IOException
  */
-public static Map<String, Object> tooMap(JSONObject jsonObject) throws JSONException 
+public static Map<String, Object> tooMap(JSONObject object) throws JSONException 
 {
     Map<String, Object> map = new HashMap<String, Object>();
 
@@ -318,7 +318,7 @@ public static Map<String, Object> tooMap(JSONArray array) throws JSONException
 
 ```
 
-### JSON To HashMap 변환 공통API 사용
+### JSON 객체를 HashMap 변환 공통API 사용
 : 구현한 공통 메소드를 실제로 사용해본다.
 
 ```java
@@ -360,297 +360,3 @@ public class HomeController {
 ### 정리
 
 > ***JSON 을 유연한 MAP 객체로 변환하는 공통 API를 완성하였다.!***
-
-
-
-
-### HttpClient(CloseableHttpClient) 방식
-
-  
-**JAVA(클라이언트)**
-```java
-@Controller
-public class HomeController {
-  public static String AUTH_URL = "192.168.0.10:8081";  //인증서버주소 
-  public static String AUTHORIZATION_URL = "http://" + AUTH_URL + "/dym/";
-
-  @RequestMapping(value="/sso/ssoBusiness", method=RequestMethod.POST)
-  public @ResponseBody Map<String, Object> ssoBusiness(HttpServletRequest req, Model model)
-  {
-    System.out.println("HomeController ssoBusiness start >> ");
-
-    //통신상태검증URL (인증서버측의 검증주소)
-    String CHECK_SERVER_URL = AUTHORIZATION_URL + "openapi/checkerserver";
-
-    Map<String, Object> resultJSON = new HashMap<String, object>();
-    CloseableHttpClient cloHttpClient = null;
-
-    try {
-        
-        System.out.println("■ CloseableHttpClient 방식을 수행합니다. ");
-        //HttpClient test = new DefaultHttpClient(); /* 4.3버전 이후 비권장 처리된 메소드 */
-        /**************************************************************
-        * 1. 인증서버 측으로 통신상태검증 요청
-        **************************************************************/
-        System.out.println("인증서버측으로 HTTP 요청을 수행합니다. ==> " + CHECK_SERVER_URL);
-        cloHttpClient = HttpClients.createDefault();      // HTTP클라이언트 생성
-        HttpGet httpGet = new HttpGet(CHECK_SERVER_URL);  // 요청메소드, URL 설정
-        httpGet.addHeader("User-Agent", "Mozila/5.0");    // 헤더
-        
-        CloseableHttpResponse cloResponse = cloHttpClient.execute(httpGet);  // URL요청
-        System.out.println("GET 응답코드: " + cloResponse.getStatusLine().getStatusCode());
-
-        /**************************************************************
-        * 2. 응답결과 GET, SET
-        **************************************************************/
-        //CASE1. 응답을 String 타입으로 받을 경우 (간단하지만 속도느림)
-        // String json = EntityUtils.toString(cloResponse.getEntity(), "UTF-8");
-        // System.out.println("json: "+json);
-
-        //CASE2. 응답을 InputStream 타입으로 받고 처리하는 방법 (속도빠름)
-        // .getEntity(): 컨텐츠내용을 얻고
-        // .getContent(): 인풋스트림으로 리턴
-        // 인증서버측과 인코딩을 동일하게 맞추어야 한글이 안깨짐을 명심
-        BufferedReader reader = new BufferedReader(new InputStreamReader(cloResponse.getEntity().getContent(), "UTF-8"));
-        String inputLine;
-        StringBuffer cloResponseBuf = new StringBuffer();
-        
-        while((inputLine = reader.readLine()) != null) {
-          cloResponseBuf.append(inputLine);
-        }
-        reader.close();               //자원해제
-        httpGet.releaseConnection();  //자원해제
-        System.out.println("GET 응답결과: "+result);      
-
-        /**************************************************************
-        * 3. 응답결과 String ==> JSON 파싱
-        **************************************************************/
-        JSONParser parser = new JSONParser();
-        Object object = pareser.parse(result);
-        JSONObject jsonObject = (JSONObject)object;
-
-        String resultCode = (String)jsonObject.get("reslutCode");
-        String resultMessage = (String)jsonObject.get("reslutMessage");
-        System.out.println("String ==> JSON 변환: " + resultCode: " + resultCode + ", " + "resultMessage: " + resultMessage + "\n");
-
-        HttpSession session = req.getSession();
-        session.setAttribute("agentId", agentId");
-        session.setAttribute("resultCode", resultCode");
-        session.setAttribute("resultMessage", resultMessage");                session.setAttribute("resultMessage", resultMessage");        
-
-        resultJSON.put("agentId", "283");
-        resultJSON.put("resultCode", resultCode);
-        resultJSON.put("resultMessage", resultMessage);
-
-    }catch(Exception e) {
-        e.printStackTrace();
-
-    } finally {
-        if(cloHttpCleinet != null) {
-          try{
-            cloHttpClient.close();  //자원해제
-          }catch (Exception e) {
-            e.printStackTrace();
-          }
-        } //END IF
-
-    } //END TRY
-  } //END METHOD
-
-} 
-
-```
-  
-**결과**
-```
-HomeController ssoBusiness start >> 
-■ CloseableHttpClient 방식을 수행합니다. 
-인증서버측으로 HTTP 요청을 수행합니다. ==> http://192.168.0.10:8081/dym/openapi/checkserver
-
-■■■■■ SSO 서버 ■■■■■
-SSO서버에 오신것을 환영합니다. 통신상태 검증을 수행합니다.
-SSOController checkserver start >> 
-요청한 사용자의 결과 HashMap ==> JSON 으로 변환중...
-변환완료: {"resultCode":"000000","resultMessage":"성공"}
-Success..!
-
-■■■■■■■■■■■■■■■■
-GET 응답코드: 200
-GET 응답결과: {"resultCode":"000000","resultMessage":"성공"}
-String ==> JSON 변환: resultCode: 000000, resultMessage: 성공
-
-```
-
-> 정상적으로 인증서버측에 HTTP 통신 요청하고 
-> 결과로 리턴된 전문을 받아왔다.
-
-
-### HttpURLConnection 방식
-: HttpClient 보다 성능이 좋다고 한다. 기본 JDK에 포함되어 있고 java.net 패키지에 있다. 서버로부터 전달받은 Response 결과를 Stream 으로 직접 처리하는 등 생산성이 떨어지는 단점이 있다.
-  
-**JAVA(클라이언트)**
-```java
-@Controller
-public class HomeController {
-  public static String AUTH_URL = "192.168.0.10:8081";  //인증서버주소 
-  public static String AUTHORIZATION_URL = "http://" + AUTH_URL + "/dym/";
-
-  @RequestMapping(value="/sso/ssoBusiness", method=RequestMethod.POST)
-  public @ResponseBody Map<String, Object> ssoBusiness(HttpServletRequest req, Model model)
-  {
-    System.out.println("HomeController ssoBusiness start >> ");
-
-    //통신상태검증URL (인증서버측의 검증주소)
-    String CHECK_SERVER_URL = AUTHORIZATION_URL + "openapi/checkerserver";
-
-    Map<String, Object> resultJSON = new HashMap<String, object>();
-
-    try {
-        
-        System.out.println("■ HttpURLConnection 방식을 수행합니다. ");
-        /**************************************************************
-        * 1. 인증서버 측으로 통신상태검증 요청
-        **************************************************************/
-        System.out.println("인증서버측으로 HTTP 요청을 수행합니다. ==> " + CHECK_SERVER_URL);
-        URL url = URL(CHECK_SERVER_URL);                                   // URL 설정
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();  // HTTP 클라이언트생성
-        con.setRequestMethod("GET");                                       // 요청메소드
-        con.setRequestProperty("User-Agent", "Mozila/5.0");                // 헤더
-
-        int responseCode = con.getRespnseCode();
-        System.out.println("GET 응답코드: " + responseCode);
-
-        /**************************************************************
-        * 2. 응답결과 GET, SET
-        **************************************************************/
-        BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-        
-        while((inputLine = reader.readLine()) != null) {
-          cloResponseBuf.append(inputLine);
-        }
-        reader.close();    //자원해제
-        con.disconnect();  //자원해제
-
-        String result = response.toString();  //응답결과
-        System.out.println("GET 응답결과: "+result);      
-
-        /**************************************************************
-        * 3. 응답결과 String ==> JSON 파싱
-        **************************************************************/
-        JSONParser parser = new JSONParser();
-        Object object = pareser.parse(result);
-        JSONObject jsonObject = (JSONObject)object;
-
-        String resultCode = (String)jsonObject.get("reslutCode");
-        String resultMessage = (String)jsonObject.get("reslutMessage");
-        System.out.println("String ==> JSON 변환: " + resultCode: " + resultCode + ", " + "resultMessage: " + resultMessage + "\n");
-
-        HttpSession session = req.getSession();
-        session.setAttribute("agentId", agentId");
-        session.setAttribute("resultCode", resultCode");
-        session.setAttribute("resultMessage", resultMessage");                session.setAttribute("resultMessage", resultMessage");        
-
-        resultJSON.put("agentId", "283");
-        resultJSON.put("resultCode", resultCode);
-        resultJSON.put("resultMessage", resultMessage);
-        
-        /**************************************************************
-        * 4. 다음 STEP 생성
-        **************************************************************/
-        String sendUrl = AUTHORIZATION_URL + "login.html";
-        System.out.println("sendUrl", sendUrl);
-
-        session.setAttribute("resultMessage", resultMessage");                session.setAttribute("sendUrl", sendUrl");        
-        resultJSON.put("sendUrl", sendUrl);
-
-    }catch(Exception e) {
-        e.printStackTrace();
-
-    } finally {
-        if(cloHttpCleinet != null) {
-          try{
-            cloHttpClient.close();  //자원해제
-          }catch (Exception e) {
-            e.printStackTrace();
-          }
-        } //END IF
-
-    } //END TRY
-  } //END METHOD
-
-} 
-
-```
-  
-**결과**
-```
-HomeController ssoBusiness start >> 
-■ HttpURLConnection 방식을 수행합니다. 
-인증서버측으로 HTTP 요청을 수행합니다. ==> http://192.168.0.10:8081/dym/openapi/checkserver
-
-■■■■■ SSO 서버 ■■■■■
-SSO서버에 오신것을 환영합니다. 통신상태 검증을 수행합니다.
-SSOController checkserver start >> 
-요청한 사용자의 결과 HashMap ==> JSON 으로 변환중...
-변환완료: {"resultCode":"000000","resultMessage":"성공"}
-Success..!
-
-■■■■■■■■■■■■■■■■
-GET 응답코드: 200
-GET 응답결과: {"resultCode":"000000","resultMessage":"성공"}
-String ==> JSON 변환: resultCode: 000000, resultMessage: 성공
-
-```
-
-> 정상적으로 인증서버측에 HTTP 통신 요청하고 결과로 리턴된 전문을 받아왔다.
-### 인증서버 공통 컨트롤러
-: 예제에서 공통으로 사용할 인증서버측의 컨트롤러
-
-**JAVA(인증서버)**
-```java
-@Controller
-public class SSOController {
-  
-  // 모든 결과 전문을 @ResponseBody 처리로 리턴
-  // 캐릭터셋 UTF-8 으로 설정
-  @ResponseBody
-  @RequestMapping(value="/openapi/checkserver", method=RequestMethod.GET, produces="text/plan;charset=UTF-8")
-  public String checkserver() {
-    System.out.println("￦n■■■■■ SSO 서버 ■■■■■");
-    System.out.println("SSO서버에 오신것을 환영합니다. 통신상태 검증을 수행합니다.");
-    System.out.println("SSOController checkserver start >> ");
-    
-    Map<String,Object> resultJSON = new HashMap<String,Object>();
-    String strJson = "";
-    
-    try {
-
-        /**************************************************************
-        * 검증로직 (실제로는 SSO 서버 담당자측에서 검증로직 작성요망)
-        **************************************************************/
-        resultJSON.put("resultCode", "000000");
-        resultJSON.put("resultMessage", "성공");
-
-        /**************************************************************
-        * MAP 전문을 JSON 으로 변환하는 API 수행
-        **************************************************************/
-        ObjectMapper objMapper = new ObjectMapper();  //jackson-core-2.9.9.jar, jackson-databind-2.9.9.1.jar 사용
-
-        strJson = objMapper.writeValueAsString(resultJSON);  //MAP to JSON
-        System.out.println("요청한 사용자의 결과 HashMap ==> JSON 으로 변환중...");
-        System.out.println("변환완료: " + strJson");
-        System.out.println("Success..!￦n");
-        System.out.println("■■■■■■■■■■■■■■■■");
-
-    } catch(Exception e) {
-        e.printStackTrace();
-    } //END TRY
-
-    return strJson;
-
-  } 
-}
-
-```
