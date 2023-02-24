@@ -235,11 +235,11 @@ public class HomeController {
   
 ### 정리
 
-> ***HttpClient 공통API 사용하여 다른 서버측과 통신을 성공했다!. ***
+> ***HttpClient 공통API 사용하여 다른 서버측과 통신을 성공했다!.***
 
 
 ## JSON 파싱
-### JSON 객체를 HashMap 변환 공통API 구
+### JSON 객체를 HashMap 변환 공통API 구현
 : JSON 객체만 넣으면 MAP 객체를 얻을 수 있도록 공통 메소드를 구현했다.
 
 ```java
