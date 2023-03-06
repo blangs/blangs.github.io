@@ -14,38 +14,138 @@ last_modified_at: 2022-09-01T20:00:00-05:00
 ---
 
 ## 자바스크립트 변수
-: 참고블로그 [링크](https://yubylab.tistory.com/entry/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%B3%80%EC%88%98%EB%A1%9C-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0)
-### [유효범위(scope)]
+: 참고블로그 [링크](https://curryyou.tistory.com/192)
+
+## var, let, const 차이점 5가지
+1. 중복선언 가능 여부
+2. 재할당 가능 여부
+3. 변수 스코프 유효범위
+4. 변수 호이스팅 방식
+5. 전역객체 프로퍼티 여부
+
+
+## 중복선언 가능 여부
+### (1) var: 중복 선언이 가능
 
 ```js
-function callYOU(){
-     var myname = “james”;
-     callAdam();
-}
+// 첫번째 변수 선언+초기화
+var a = 10;
+console.log(a); // 10
 
-function callAdam(){
-     return myname;
-}
-callYOU();
+
+// 두번째 변수 선언+초기화
+var a = 20;
+console.log(a); // 20
+
+
+// 세번째 변수 선언(초기화X)
+var a;
+console.log(a); // 20
+
+```
+  
+### (2) const, let: 중복 선언 불가능
+
+```js
+// let 중복 선언
+let a = 10;
+let a = 20; // SyntaxError: Identifier 'a' has already been declared
+
+// const 중복 선언
+const b = 10;
+const b = 20; // SyntaxError: Identifier 'b' has already been declared
 
 ```
 
-- 추측
-  1. callYOU() 함수 호출
-  2. 지역변수 myname 초기화
-  3. callAdm() 함수 호출
-  4. myname 변수는 미존재 하므로 에러
-
-- 결과
-  1. 위 추측과 동일
-
-> 지역,전역 변수의 개념 그 자체이므로 설명은 생략한다.
+## 재할당 가능 여부
+### (1) var, let: 값의 재할당이 '가능'한 변수
+```js
+var a = 10;
+a = 20;
+console.log(a);  // 20 재할당
 
 
-### [호이스팅]
-: 호이스팅(hoisting)은 끌어올린다는 의미를 가진다.  
+let b = 111;
+b = 222;
+console.log(b);  // 222 재할당
 
-자바스크립트에는 호이스팅이라는 개념이 존재한다.  
+```
+
+### (2) const: 값의 재할당이 '불가능'한 상수다.
+```js
+const c = 111;
+c = 222;  // TypeError: Assignment to constant variable.
+
+```
+
+> **참고) const는 처음 선언할 때 반드시 초기화(값 할당)를 해주어야 한다.**
+>
+>> ```js
+>> jsconst a = 10;  
+>> const b;  // SyntaxError: Missing initializer in const declaration
+>> 
+>> ```
+
+
+## 스코프
+### (1) var: 함수 레벨 스코프(function-level scope)
+```js
+function hello(){
+    var a = 10;     // 함수 내부에만 선언된 var변수는 무조건 지역변수다.
+    console.log(a);
+}
+
+hello(); // 10
+
+console.log(a);  //ReferenceError: a is not defined
+
+```
+
+```js
+if(true) {
+    var a = 10;     // 함수에 정의된 것이 아니므로 무조건 전역변수다.
+    console.log(a); // 10
+}
+
+console.log(a);  // 10
+
+```
+
+- var는 함수 내부에 선언된 변수만 지역변수로 한정하며, 나머지는 모두 전역변수로 간주한다.
+- var는 함수를 제외한 영역에서 var로 선언한 변수는 무조건 '전역변수'로 취급된다.
+
+즉, 함수가 아닌 if문, for문, while문, try/catch 문 등의 코드 블럭{ ... } 내부에서 var로 선언된 변수를 전역 변수로 간주한다.  
+{: .notice--info}
+
+### (2) let, cost: 블록 레벨 스코프(block-level scope)
+
+```js
+if(true) {
+    let a = 10;
+    console.log(a); // 10
+}
+
+console.log(a);  // ReferenceError: a is not defined
+
+```
+
+```js
+function hello() {
+    let a = 10;
+    console.log(a); // 10
+}
+
+console.log(a);  // ReferenceError: a is not defined
+
+```
+- if문의 블럭 내부에서 let으로 선언된 변수는 외부에서 참조되지 않음을 알 수 있다.
+- 당연히 함수 내부에서 선언된 변수도 외부에서 참조할 수 없다.
+
+
+## 호이스팅
+: 자바스크립트의 호이스팅(hoisting)은 끌어올린다는 의미를 가진다. 코드를 실행하기 전, 일종의 '코드 평가 과정'을 거치는데, 이 때 '변수 선언문'을 미리 실행두기 때문에 뒤에서 선언된 변수도 앞의 코드에서 참조할 수 있게 된다.
+
+
 호이스팅이란 변수 '선언'을 끌어올리고, 함수 '선언' 을 끌어올린다.  
 아래와 같이 자바스크립트에서는 `'선언'` 을 발견하면 곧바로 위로 끌어올린다.
 
