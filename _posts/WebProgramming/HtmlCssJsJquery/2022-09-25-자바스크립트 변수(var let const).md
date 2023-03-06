@@ -1,6 +1,6 @@
 ---
-title:  "자바스크립트 변수"
-excerpt: "자바스크립트 변수 입니다."
+title:  "자바스크립트 변수(var let const)"
+excerpt: "자바스크립트 변수(var let const) 입니다."
 
 categories:
   - html-css-js-jquery
