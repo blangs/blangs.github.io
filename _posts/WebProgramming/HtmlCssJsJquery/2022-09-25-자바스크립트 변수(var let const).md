@@ -114,8 +114,8 @@ console.log(a);  // 10
 - var는 함수 내부에 선언된 변수만 지역변수로 한정하며, 나머지는 모두 전역변수로 간주한다.
 - var는 함수를 제외한 영역에서 var로 선언한 변수는 무조건 '전역변수'로 취급된다.
 
-즉, 함수가 아닌 if문, for문, while문, try/catch 문 등의 코드 블럭{ ... } 내부에서 var로 선언된 변수를 전역 변수로 간주한다.  
-{: .notice--info}
+    즉, 함수가 아닌 if문, for문, while문, try/catch 문 등의 코드 블럭{ ... } 내부에서 var로 선언된 변수를 전역 변수로 간주한다.  
+    {: .notice--info}
 
 ### (2) let, cost: 블록 레벨 스코프(block-level scope)
 
@@ -145,40 +145,38 @@ console.log(a);  // ReferenceError: a is not defined
 ## 호이스팅
 : 자바스크립트의 호이스팅(hoisting)은 끌어올린다는 의미를 가진다. 코드를 실행하기 전, 일종의 '코드 평가 과정'을 거치는데, 이 때 '변수 선언문'을 미리 실행두기 때문에 뒤에서 선언된 변수도 앞의 코드에서 참조할 수 있게 된다.
 
+### (1) var: 변수 호이스팅이 발생한다.
 
-호이스팅이란 변수 '선언'을 끌어올리고, 함수 '선언' 을 끌어올린다.  
-아래와 같이 자바스크립트에서는 `'선언'` 을 발견하면 곧바로 위로 끌어올린다.
-
-- 이는 변수의 선언과 변수의 할당을 구분하겠다는 개념이다.  
-- 즉, 함수내의 선언된 어떤 위치의 변수든 함수의 최상단으로 끌어올려진다. 
-- 그리고는 undefined로 임의의 값을 할당해버린다. 그리고 나중에 함수가 실행이 되면서 그 변수에 해당하는 값을 할당한다.
-  
-**예제1**
 ```js
-function hoistingTest1(){
-     console.log(’greeting : ’ + hi);
-     var hi = “hello”;
-     console.log(’greeting : ’ + hi);
-}
-hoistingTest()
+console.log(a);  // undefined
+var a = 10;
+console.log(a);  // 10
 
 ```
 
-- 추측
-  1. hoistingTest1() 호출
-  2. 로그에 사용된 hi 라는 변수의 값이 없으므로 error
- 
-- 결과
-  1. hoistingTest1() 호출
-  2. 함수 내부의 변수가 존재하면 최상단으로 끌어올리고 값('undefined") 할당   //호이스팅 동작
-  3. 첫번째 로그 "undefined" 출력 (hi 변수는 호이스팅으로 인해 할당되었지만 값이 없으므로)
-  4. 변수 초기화 및 할당
-  5. 두번째 로그 "hi" 출력
-  
-"우선 아~ 그냥 변수는 함수가 호출되는 순간 최상단으로 불러서 undefined 으로 초기화 시켜주는구나 정도로 이해가 된다 "
-{: .notice--info}  
-  
-  
+### (2) let, const: 변수 호이스팅이 발생한다. 하지만 다른 방식으로 작동한다.
+
+```js
+console.log(a);  // ReferenceError: Cannot access 'a' before initialization
+let a = 10;
+
+```
+
+```js
+let a = 10;  // 전역변수 a선언
+
+if(true){
+    console.log(a);  // ReferenceError: Cannot access 'a' before initialization
+    let a = 20;  // 지역변수 a 선언
+}
+```
+
+위 에러는 호이스팅이 발생하지 않는 것처럼 보이지만 사실 이 에러가 호이스팅이다.  
+- let, const의 호이스팅 과정이 var와 다르게 진행된다.
+- 변수의 선언과 초기화 사이에 일시적으로 변수 값을 참조할 수 없는 구간을 TDZ(Temporal Dead Zone)라고 한다.
+- let, const 로 변수를 선언하는 경우 호이스팅된다면 TDZ 구간이 만들어지면서 에러가 발생한다.
+
+
 **예제2**  
 : 위 예제1 에서는 단순히 최상단이라고 생각했는데 호이스팅에 대한 정리가 잘되어있는 블로그 내용을 보니 잘못된 생각이였다.. 참고한 블로그를 보고 아래 내용을 추가했다.
 
