@@ -97,7 +97,7 @@ source /etc/profile
 ```bash
 # 어느 경로에서든 환경변수가 잘 출력된다.
 
-# 1. echo 으로 환경변수 출력
+# 1. echo 으로 환경변수 출력 
 echo $JAVA_HOME
 /usr/lib/jvm/java-8-openjdk-armhf
 
