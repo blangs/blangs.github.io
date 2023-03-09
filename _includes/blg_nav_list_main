@@ -86,6 +86,14 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "kubernetes" %}
+                        <li><a href="/categories/kubernetes" class="">kubernetes(k8s)({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            
 
 
 
