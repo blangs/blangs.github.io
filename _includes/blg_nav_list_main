@@ -82,14 +82,14 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "linux" %}
-                        <li><a href="/categories/server/linux" class="">Linux ({{category[1].size}})</a></li>
+                        <li><a href="/categories/linux" class="">Linux ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "kubernetes" %}
-                        <li><a href="/categories/server/kubernetes" class="">kubernetes(k8s)({{category[1].size}})</a></li>
+                        <li><a href="/categories/kubernetes" class="">kubernetes(k8s)({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
