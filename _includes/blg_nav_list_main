@@ -120,7 +120,13 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "nodejs" %}
+                        <li><a href="/categories/nodejs" class="">노드JS ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
             
         <!-- #7 기타 --> 
         <span class="nav__sub-title">ETC</span>
