@@ -1,0 +1,66 @@
+---
+title:  "자바 빌드도구 Gradle과 Maven"
+excerpt: "자바 빌드도구 Gradle과 Maven 입니다."
+
+categories:
+  - spring
+tags:
+  - [spring, 프레임워크]
+
+toc: true
+toc_sticky: true
+
+last_modified_at: 2022-12-21T13:17:00-17:00
+---
+
+## 메이븐(Maven)과 그래들(Gradle) 이란?
+: Maven과 Gradle은 둘 다 자바 기반의 빌드 도구로, 프로젝트 빌드 및 관리에 사용된다.
+
+
+## 메이븐(Maven)과 그래들(Gradle) 차이점
+### (1) 빌드 파일 포맷
+Maven은 XML을 사용하여 빌드 파일을 정의하고, Gradle은 Groovy나 Kotlin 등의 스크립트 언어를 사용하여 빌드 파일을 정의한다.
+
+
+### (2) 의존성 관리
+: Maven은 중앙 저장소에서 의존성을 가져오며, 의존성 버전 관리를 위해 버전을 명시해야 합니다. Gradle은 Maven과 마찬가지로 중앙 저장소에서 의존성을 가져올 수 있지만, 더욱 유연하게 의존성 관리를 할 수 있다.
+
+
+### (3) 빌드 성능
+: Maven은 빌드 속도가 느리고, 의존성 해결을 위해 중앙 저장소에 요청을 보내는 등의 네트워크 지연이 발생할 수 있다. 반면, Gradle은 빌드 캐시를 사용하여 이전에 빌드된 결과를 재사용하므로 빌드 속도가 빠르다.
+
+
+### (4) 다중 프로젝트 지원
+: Maven은 다중 프로젝트를 지원하지만, Gradle은 Maven보다 더 유연한 다중 프로젝트 구성을 제공한다.
+
+
+### (5) IDE 통합
+: Maven은 IntelliJ IDEA, Eclipse 등 대부분의 IDE에서 지원되며, Gradle도 이와 같은 IDE에서 지원된다. 그러나 Gradle은 IntelliJ IDEA에서 더 많은 통합 기능을 제공한다.
+
+
+### (6) 유지보수성
+: Maven은 XML 파일 형식으로 작성되기 때문에 가독성이 좋으며, 빌드 파일의 유지보수가 쉽다. Gradle은 코드 형식으로 작성되기 때문에 가독성이 떨어지지만, 스크립트 언어를 사용하므로 더욱 유연한 빌드 설정이 가능하다. 
+  
+즉, Maven은 간단하고 사용하기 쉽지만, 빌드 속도가 느리며 의존성 관리가 복잡할 수 있다. 반면, Gradle은 유연성이 높고 빌드 속도가 빠르지만, 학습 곡선이 높을 수 있다. 따라서 프로젝트의 요구사항에 맞게 선택해야 한다.
+{: .notice--info}
+
+
+## 메이븐(Maven) 예제
+### 요약
+: Maven은 프로젝트에서 필요한 라이브러리를 중앙레파지토리에서 자동으로 가져오므로, 이클립스에서 따로 라이브러리를 추가할 필요가 없다.
+
+    ```xml
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.1</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+
+    ```
+    
+## 그래들(Gradle) 예제
+### 요약
+
