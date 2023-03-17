@@ -159,13 +159,36 @@ Enter selection (default: JUnit 4) [1..4] 1
 
 ```
 
-### (6) 프로젝트 이름 설정
-생략
+이후 프로젝트 이름 설정이 나오는데 이 부분은 생략한다.  
+  
+### 실행
+: Project를 실행하기 위해 gradle run 을 수행한다. 예상 결과는 다음과 같다.
 
-### (7) 프로젝트 이름 설정
-생략
+1. gradle run 명령어 입력
+2. gradle-study\app\src\main\java\gradle\study\App.java 자바파일 실행
+3. "Hello Java" 수행
 
-    
+```bash
+gradle run   # 폐쇄망에서 에러 발생
+
+```
+  
+폐쇄망에서는 gradle 을 통해 레파지토리에서 받지 못하도록 해야하므로 아래 빌드 내용을 지워준다
+  
+```bash
+cd gradle-study\app\
+vi bulid.gradle
+
+dpendencies {
+    // 외부를 참조하는 implementation 항목을 제거
+}
+
+```
+
+재시도 하면 정상작동 하는 것을 확인할 수 있다.
+
+
+
 ## 이클립스에서 Gradle 사용법  
 ### 이클립스 설정
 : 이클립스 또는 STS 에서 사용하려면 아래 내용을 설정한다.
