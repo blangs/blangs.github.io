@@ -183,9 +183,77 @@ dpendencies {
 }
 
 ```
-
+  
 재시도 하면 정상작동 하는 것을 확인할 수 있다.
+  
+```bash
+gradle run
 
+> Task :app:run
+Hello World!
+
+BUILD SUCCESSFUL in 4s
+2 actionable tasks: 2 executed
+<-------------> 0% WAITING
+> IDLE
+
+```
+
+###  프로젝트 jar 패키징
+
+```bash
+gradle jar
+BUILD SUCCESSFUL in 3s
+2 actionable tasks: 1 executed, 1 up-to-date
+
+```
+
+***build/libs/app.jar 이 경로에 jar 파일이 생성된다.***  
+
+### 프로젝트 jar 패키징 실행
+
+```bash
+java -jar build\libs\app.jar
+build\libs\app.jar에 기본 Manifest 속성이 없습니다.
+
+```
+
+Manifest 속성을 아래와 같이 선언해주자.
+
+### Manifest 속성 선언
+```bash
+cd gradle-study\app\
+vi bulid.gradle
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'gradle.study.App' 
+    }
+}
+
+```
+
+```bash
+# 재시도 한다.
+
+# 정리 
+$ gradle clean
+BUILD SUCCESSFUL in 3s
+1 actionable task: 1 executed
+--------------------------------------------------------------
+# 패키징 
+$ gradle jar
+BUILD SUCCESSFUL in 3s
+2 actionable tasks: 1 executed, 1 up-to-date
+--------------------------------------------------------------
+# 실행
+$ java -jar build\libs\myfirst-app.jar
+Hello world!
+
+```
+  
+> 지금까지 그래들(Gradle) 사용방법을 알아보았다.
+  
 
 
 ## 이클립스에서 Gradle 사용법  
