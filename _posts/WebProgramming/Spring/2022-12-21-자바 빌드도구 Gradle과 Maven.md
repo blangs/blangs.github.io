@@ -255,7 +255,34 @@ Hello world!
   
 > 지금까지 그래들(Gradle) 사용방법을 알아보았다.
   
+## 전체 기본 Gradle 소스코드 정리
+: 최소한의 Gradle 소스코드는 다음을 참고하면 된다.
 
+```xml
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.2'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.god'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+```
 
 ## 이클립스에서 Gradle 사용법  
 ### 이클립스 설정
