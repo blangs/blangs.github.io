@@ -272,6 +272,8 @@ Hello world!
 2. 완료
 
 ### 이클립스 스프링부트 Gradle Poject 시작 설정
+: <span style="color:red"><b>그래들(Gradle)로 개발되어 있는 프로젝트는 Build 관련 옵션을 gradle 으로 꼭 설정해야한다.</b></span>
+
 1. 실행파일 App.java 우클릭 - Run Configurations - 스프링부트TAB
     - Profile 콤보박스에서 local 선택 (나는 로컬환경이므로 참조를 로컬로 셋팅했다.)
 2. 실행 App.java 우클릭 - Run Configurations - 아규먼트TAB
