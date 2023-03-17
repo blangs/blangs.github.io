@@ -45,23 +45,28 @@ Maven은 XML을 사용하여 빌드 파일을 정의하고, Gradle은 Groovy나 
 {: .notice--info}
 
 
-## 메이븐(Maven) 예제
+## 메이븐(Maven)
 ### 요약
 : Maven은 프로젝트에서 필요한 라이브러리를 중앙레파지토리에서 자동으로 가져오므로, 이클립스에서 따로 라이브러리를 추가할 필요가 없다. 아래는 junit을 추가한 예제이다.
   
-    ```xml
-    <dependencies>
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.13.1</version>
-        <scope>test</scope>
-      </dependency>
-    </dependencies>
+```xml
+<dependencies>
+  <dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.13.1</version>
+    <scope>test</scope>
+  </dependency>
+</dependencies>
 
-    ```
+```
     
-## 그래들(Gradle) 예제
+## 그래들(Gradle)
+- gradle Download
+- groovy Download
+- 각 설치 파일 압축 해제
+- 환경 변수 또는 path 등록
+
 ### 설치
 1. 그래들 홈페이지[https://gradle.org/](https://gradle.org/) 에서 OS에 맞도록 설치
 2. 제어판 > 시스템 > 고급 시스템 설정 > 환경변수 - 시스템변수(새로만들기) 클릭
@@ -71,9 +76,95 @@ Maven은 XML을 사용하여 빌드 파일을 정의하고, Gradle은 Groovy나 
     - ex) C:\Users\MT01301\.gradle\wrapper\dists\gradle-7.6-bin\9l9tetv7ltxvx3i8an4pb86ye\gradle-7.6\bin
 5. 완료
     ```bash
-    gradle -v  #정상이면 정보가 출력된다
+    gradle -v   # 정상이면 정보가 출력된다
     
     ```
+## 기본 Gradle 사용법
+
+### (1) 어플리케이션 생성
+
+```bash 
+# Gradle 프로젝트를 생성할 폴더 생성
+mkdir gradle-study
+
+```
+  
+. init 옵션을 통해서 project 기본 파일과 폴더를 생성한다
+  
+```bash
+# gradle init --type java-application 한번에 자바프로젝트 생성 진행하는 방법
+
+gradle init
+
+Select type of project to generate:
+  1: basic
+  2: application
+  3: library
+  4: Gradle plugin
+Enter selection (default: basic) [1..4] 2
+
+```
+
+> basic: 기본 프로젝트 타입, 수동으로 구성해야 함  
+> application: java application 타입, App.java 파일을 포함  
+> library: java library 타입, Library.java 파일을 포함  
+> Gradle plugin: java로 구현 된 gradle 플러그인 타입  
+
+
+### (2) 프로젝트 언어 설정
+
+```bash
+Select implementation language:
+  1: C++
+  2: Groovy
+  3: Java
+  4: Kotlin
+  5: Swift
+Enter selection (default: Java) [1..5] 3
+
+```
+
+### (3) 싱글모듈, 멀티모듈 프로젝트 설정
+
+```bash
+Split functionality across multiple subprojects?:
+1: no - only one application project
+2: yes - application and library projects
+Enter selection (default: no - only one application project) [1.. 2] 1
+
+```
+    
+### (4) DSL 설정(Gradle 스크립트를 작성할 언어)
+
+```bash
+Select build script DSL:
+  1: Groovy
+  2: Kotlin
+Enter selection (default: Groovy) [1..2] 1
+
+# 이후 새로운 API 를 사용해서 build 를 생성하겠냐는 질문에 기본 값을 선택. (새로운 API 가 어떤 변경이 있는지 잘 모름..)
+Generate build using new APIs and behavior (some features may change in the next minor release)? (default: no) [yes, no]no
+
+```
+
+### (5) 테스트 프레임워크 선택. 익숙한 JUnit 4 선택
+
+```bash
+Select test framework:
+  1: JUnit 4
+  2: TestNG
+  3: Spock
+  4: JUnit Jupiter
+Enter selection (default: JUnit 4) [1..4] 1
+
+```
+
+### (6) 프로젝트 이름 설정
+생략
+
+### (7) 프로젝트 이름 설정
+생략
+
     
 ## 이클립스에서 Gradle 사용법  
 ### 이클립스 설정
