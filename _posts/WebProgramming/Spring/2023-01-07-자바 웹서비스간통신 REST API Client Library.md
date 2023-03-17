@@ -1,6 +1,6 @@
 ---
-title:  "웹서비스간통신 REST API Client Library"
-excerpt: "웹서비스간통신 REST API Client Library"
+title:  "자바 웹서비스간통신 REST API Client Library"
+excerpt: "자바 웹서비스간통신 REST API Client Library"
 
 categories:
   - spring
@@ -14,7 +14,7 @@ last_modified_at: 2023-01-07T13:17:00-17:00
 ---
 
 ## 개요
-: 스프링 프로젝트에서 웹과 소통하는 방법을 알아본다. 
+: JAVA 에서 웹과 소통하는 방법을 알아본다. 
 즉, REST API Client Library 
 
 > ***핵심)***  
