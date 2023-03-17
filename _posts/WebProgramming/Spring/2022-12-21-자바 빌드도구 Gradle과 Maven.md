@@ -146,9 +146,10 @@ Generate build using new APIs and behavior (some features may change in the next
 
 ```
 
-### (5) 테스트 프레임워크 선택. 익숙한 JUnit 4 선택
+### (5) 테스트 프레임워크 선택
 
 ```bash
+# 익숙한 JUnit 4 선택한다.
 Select test framework:
   1: JUnit 4
   2: TestNG
