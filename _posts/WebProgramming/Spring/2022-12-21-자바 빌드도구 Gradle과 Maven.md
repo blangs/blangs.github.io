@@ -255,27 +255,37 @@ Hello world!
   
 > 지금까지 그래들(Gradle) 사용방법을 알아보았다.
   
+  
+  
+  
 ## 전체 기본 Gradle 소스코드 정리
 : 최소한의 Gradle 소스코드는 다음을 참고하면 된다.
 
 ```xml
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.0.2'
-	id 'io.spring.dependency-management' version '1.1.0'
+	id 'java'   <!-- 사용하는 언어 -->
+	id 'org.springframework.boot' version '3.0.2'  <!-- 프로젝트의 스프링부트 프레임워크의 버전설정 -->
+	id 'io.spring.dependency-management' version '1.1.0'  <!-- 프로젝트에 필요한 라이브러리를 관리해주는 툴(매니지먼트)의버전 -->
 }
 
-group = 'com.god'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+group = 'com.god'  <!-- 프로젝트정보 -->
+version = '0.0.1-SNAPSHOT'  <!-- 첫번째 자리 : 메이저 업데이트, 두번째 자리 : 마이너업데이트, 세번째 자리 : fix버전(오탈자, 이미지 변경) -->
+sourceCompatibility = '17'  <!-- 자바버전 -->
 
+<!-- dependencies 라이브러리를 다운받은 사이트 -->
 repositories {
 	mavenCentral()
 }
 
+<!-- dependencies-추가하고자 하는 라이브러리를 편리하게 넣을 수 있다. -->
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+  <!-- compile : 자바코드를 실행가능한 바이트 코드로 변경 (바이트코드를 실행하면 컴퓨터는 인식하고 실행) -->
+  compileOnly 'org.projectlombok:lombok'  <!--롬복: 도메인(class)이 가져야할 getter, setter, builder등을 자동으로 코드생성 (@어노테이션) (단,컴파일에서만!) -->
+	annotationProcessor 'org.projectlombok:lombok:'
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'  <!-- Spring MVC를 사용한 RESTful서비스를 개발하는데 사용. -->
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'  <!-- JUnit 전용 -->
 }
 
 tasks.named('test') {
@@ -283,6 +293,9 @@ tasks.named('test') {
 }
 
 ```
+
+
+
 
 ## 이클립스에서 Gradle 사용법  
 ### 이클립스 설정
