@@ -47,8 +47,8 @@ Maven은 XML을 사용하여 빌드 파일을 정의하고, Gradle은 Groovy나 
 
 ## 메이븐(Maven) 예제
 ### 요약
-: Maven은 프로젝트에서 필요한 라이브러리를 중앙레파지토리에서 자동으로 가져오므로, 이클립스에서 따로 라이브러리를 추가할 필요가 없다.
-
+: Maven은 프로젝트에서 필요한 라이브러리를 중앙레파지토리에서 자동으로 가져오므로, 이클립스에서 따로 라이브러리를 추가할 필요가 없다. 아래는 junit을 추가한 예제이다.
+  
     ```xml
     <dependencies>
       <dependency>
@@ -62,5 +62,40 @@ Maven은 XML을 사용하여 빌드 파일을 정의하고, Gradle은 Groovy나 
     ```
     
 ## 그래들(Gradle) 예제
-### 요약
+### 설치
+1. 그래들 홈페이지[https://gradle.org/](https://gradle.org/) 에서 OS에 맞도록 설치
+2. 제어판 > 시스템 > 고급 시스템 설정 > 환경변수 - 시스템변수(새로만들기) 클릭
+3. 그래들홈(GADLE_HOME) 설정
+    - ex) C:\Users\MT01301\.gradle\wrapper\dists\gradle-7.6-bin\9l9tetv7ltxvx3i8an4pb86ye\gradle-7.6
+4. 패스(GRADLE_HOME + /bin) 설정
+    - ex) C:\Users\MT01301\.gradle\wrapper\dists\gradle-7.6-bin\9l9tetv7ltxvx3i8an4pb86ye\gradle-7.6\bin
+5. 완료
+    ```bash
+    gradle -v  #정상이면 정보가 출력된다
+    
+    ```
+    
+## 이클립스에서 Gradle 사용법  
+### 이클립스 설정
+: 이클립스 또는 STS 에서 사용하려면 아래 내용을 설정한다.
+
+1. IDE 실행
+2. 그래들경로 설정 Window - Preferences - Gradle - Local installation directory 클릭
+    - 그래들(Gradle) 설치경로(GRADLE_HOME)를 지정해준다. (bin 경로아님)
+3. 자바경로 설정
+    - 자바(JDK) 설치경로(JAVA_HOME)를 지정해준다. (bin 경로아님)
+
+### 이클립스 Gradle Project 임포트
+1. File - Import - Existing Gradle Project - (위에서 디폴트설정했으므로 계속 NEXT)
+2. 완료
+
+### 이클립스 스프링부트 Gradle Poject 시작 설정
+1. 실행파일 App.java 우클릭 - Run Configurations - 스프링부트TAB
+    - Profile 콤보박스에서 local 선택 (나는 로컬환경이므로 참조를 로컬로 셋팅했다.)
+2. 실행 App.java 우클릭 - Run Configurations - 아규먼트TAB
+    - Program arguments 박스에서 "start" 입력
+    - VM arguments 박스에서 "-Dspring.profiles.active=local" 입력
+3. 설정 완료
+4. 실행파일 App.java 우클릭 - Run As - Spring Boot App 클릭
+5. 정상 실행..!
 
