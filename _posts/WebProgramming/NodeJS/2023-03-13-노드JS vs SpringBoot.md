@@ -54,7 +54,7 @@ Java를 개발해본 사람들은 쉽게 Spring Boot에 적응 할 수 있다. �
 <span style="color:red"><b>그리고 Java이기 때문에 TypeSafe 하다.</b></span> 리팩토링하거나 확장 할 때 IDE를 이용해서 수정할 점을 빠르게 체크 할 수 있는데 프로젝트 규모가 커지고 안정성이 중요해지는 시점부터는 큰 장점으로 다가온다.
 내부적으로는 <span style="color:red"><b>Multi Threading을 지원하는 구조로 짜여있어서 길고 반복적인 업무를 처리할 때 효율적이다.</b></span> 많은 양의 컴퓨팅이 필요한 경우 잘 써먹으면 좋다.  
   
-한번 써보신 분들은 알겠지만 <span style="color:red"><b>Spring Boot는 러닝 커브가 존재한다.<b></span> 
+한번 써보신 분들은 알겠지만 <span style="color:red"><b>Spring Boot는 러닝 커브가 존재한다.</b></span> 
 Node.js는 처음 배우는 사람도 하루만에 서버 구동하고 api도 하나 만들 수 있는데 Spring Boot를 공부하면 Service, Controller, Repository 에 대해서 알아야하고 
 각 컴포넌트는 어떤식으로 채워야하는지 공부가 필요해 해야 할 게 많다. 
 Spring Boot에서는 좋은 구조를 유도하기 위해 이런 형태의 디자인을 권장하는데 초심자한테는 러닝 커브가 좀 있다. 
