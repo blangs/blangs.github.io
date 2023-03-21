@@ -50,20 +50,36 @@ var app = http.createServer( function(req, res) {
 	console.log('url: ' + url);  //결과: /
 	console.log('method: ' + req.method);  //결과: GET
 	
+	//디폴트 HTML 설정
+	res.setHeader("Content-Type", "text/html;charset=UTF-8")
+	
 	//본문을 write 하고 응답을 최종 보내는 end() 메소드는 가장 마지막에 한번 사용해야함
 	if(req.url == '/' && req.method == 'GET') {
+        console.log('app.js >> /'+ '\n'); 
         res.writeHead(200);
-        res.end('app.js >> /'+ '\n');  
+        res.write("<html><head></head><body>");
+        res.write("<form action='/message' method='POST'>");
+        res.write("<input type='text'/>");
+        res.write("<button>메세지 전송(POST)</button>");
+        res.write("</form>");
+        res.write("</body></html>");
+        
         url = '/index.html';        
     }
     if(req.url == '/favicon.ico' && req.method == 'GET') {
+        console.log('app.js >> /favicon.ico'+ '\n');
         res.writeHead(404);
-		res.end('app.js >> /favicon.ico'+ '\n');
+        
         url = '/error.html';        
     }
-
+    if(req.url == '/message' && req.method == 'POST') {
+		console.log('app.js >> /message'+ '\n');
+		res.writeHead(200);
+		
+        url = '/message.html';        
+    }
+    
     console.log(__dirname + url);  //결과: /fswas/wasadm/nodeStudy/index.html
-    res.writeHead(200);
     res.end();     // end하면 클라이언트한테 응답 보냄. 가장 마지막에 작성해야 정상작동 한다.
     
 });
@@ -100,14 +116,19 @@ app.get('/', (req, res) => {
 var url = '';
 //본문을 write 하고 응답을 최종 보내는 send() 메소드는 가장 마지막에 한번 사용해야함
 app.get('/', function(req,res) {
-    //Express 에서 응답코드는 자동으로 200 을 셋팅한다
-    res.send('app.js >> /'+ '\n'); 
+    console.log('app.js >> /'+ '\n');  
+    //Express 에서 응답코드는 자동으로 200 을 셋팅한다. 그래서 아래 코드는 생략해도 된다.
+    res.status(200);
+    res.send();
+    
     url = '/index.html';
 });
 
 //본문을 write 하고 응답을 최종 보내는 send() 메소드는 가장 마지막에 한번 사용해야함
 app.get('/favicon.ico', function(req,res){
-    res.status(404).send('app.js >> /favicon.ico' + '\n');  //Express 에서 응답코드를 셋팅하는 방법. (그리고 메소드 체이닝으로 응답해보았다.)
+    console.log('app.js >> favicon.ico'+ '\n');       
+    res.status(404).send('메소드체이닝 발동' + '\n');  //Express 에서 응답코드를 셋팅하는 방법. (그리고 메소드 체이닝으로 응답해보았다.)
+    
     url = '/error.html';
 });
 
