@@ -20,7 +20,7 @@ last_modified_at: 2023-03-12T20:00:00-05:00
 **간단한 코드로 웹 서버의 기능을 대부분 구현** 할 수있고, **미들웨어**와 **라우터**를 사용하여 편리하게 웹 서버를 구성할 수 있다.
 
 ## 웹서버 구축
-### [AS-IS] http 모듈
+### [AS-IS] http 모듈로 구현
 **app-http.js**
 ```js
 /*************************************************
@@ -89,7 +89,7 @@ app.listen(PORT, () => {
 
 ```
 
-### [TO-BE] Exrpess 모듈
+### [TO-BE] Exrpess 모듈로 구현
 
 **app_express.js**  
 ```js
@@ -138,9 +138,68 @@ app.listen(PORT, () => {
 
 ```
 
-## 웹서버 에러처리
+## 웹서버 미들웨어
+NodeJs Express에서 미들웨어는 app.use(미들웨어 함수)의 기능을 nodeJs로 구축한 어플리케이션을 실행하여 라우팅 될때마다 실행 되는 것을 말한다.
+
+### 미들웨어 예제(기본)
+
+```js
+const express = require('express');
+const app = express();
+const PORT = 3000;
+
+// 미들웨어 정의 
+var requestTime = function (req, res, next) {
+  console.log('미들웨어 발동!');
+  next();
+};
+
+// 미들웨어 호출
+app.use(requestTime);
+
+app.get('/test1', function(req,res){
+    console.log('호출1');
+});
+app.get('/test2', function(req,res){
+    console.log('호출2');
+});
+app.post('/test3', function(req,res){
+    console.log('호출3');
+});
+
+```
+  
+위 결과는 REST API 요청시 미들웨어가 먼저 실행되는 것을 확인할 수 있다.  
+  
+```bash
+# /test1 호출
+미들웨어 발동!
+호출1
+# /test2 호출
+미들웨어 발동!
+호출2
+# /test3 호출
+미들웨어 발동!
+호출3
+
+```
+
+### 미들웨어 예제(메소드 사용하기)
+
+ 
+
+대표적인 미들웨어로는 
+
+body-parser, compression 등이 있다.
+
+### 미들웨어 에러처리
 NodeJs로 구현한 웹 애플리케이션에 클라이언트가 잘못된 주소에 접근하게되면 404 와 같은 에러 처리를 해주어야 한다. 
 모듈을 사용하지 않으면 기본적인 nodejs에서는 url별로 분기처리 코드가 작성된다. express에서는 어떻게 해결해야 할까?
   
 Express에서의 에러처리는 코드의 마지막에 에러처리 미들웨어를 작성해주면 된다. 서버에서 해당 주소를 찾다가 마지막까지 없다면
-해당 미들웨어를(에러처리) 실행하게 되는 것이다.
+해당 미들웨어를(에러처리) 실행하게 되는 것이다.  
+  
+**app.js**
+
+
+###
