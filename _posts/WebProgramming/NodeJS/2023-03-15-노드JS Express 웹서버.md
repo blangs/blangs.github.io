@@ -46,16 +46,19 @@ const app = http.createServer( (req, res) => {
 var app = http.createServer( function(req, res) {
 	
 	var url = req.url;
-	console.log(__dirname + url);  //결과: /fswas/wasadm/nodeStudy/
+	console.log('__dirname: ' + __dirname);  //결과: /fswas/wasadm/nodeStudy/
+	console.log('url: ' + url);  //결과: /
+	console.log('method: ' + req.method);  //결과: GET
 	
-	if(req.url == '/') {
+	//본문을 write 하고 응답을 최종 보내는 end() 메소드는 가장 마지막에 한번 사용해야함
+	if(req.url == '/' && req.method == 'GET') {
         res.writeHead(200);
-        res.end('app.js >> /'+ '\n');   //end() 응답은 가장 마지막에 한번 사용해야함
+        res.end('app.js >> /'+ '\n');  
         url = '/index.html';        
     }
-    if(req.url == '/favicon.ico') {
+    if(req.url == '/favicon.ico' && req.method == 'GET') {
         res.writeHead(404);
-		res.end('app.js >> /favicon.ico'+ '\n');  //end() 응답은 가장 마지막에 한번 사용해야함
+		res.end('app.js >> /favicon.ico'+ '\n');
         url = '/error.html';        
     }
 
@@ -77,7 +80,7 @@ app.listen(PORT, () => {
 /*************************************************
 Express 모듈 메소드
 use() : 미들웨어 함수를 사용한다.
-get() : 라우터 함수를 사용한다. get으로 사용자 정보를 전달 받는다.
+get() : get으로 사용자 정보를 전달 받는다.
 set() : 서버 설정을 위한 속성을 지정한다.
 redirect() : 웹 페이지의 경로를 강제로 이동시킨다.
 send() : 클라이언트에 응답 데이터를 보낸다.
@@ -95,15 +98,16 @@ app.get('/', (req, res) => {
 });
 */
 var url = '';
+//본문을 write 하고 응답을 최종 보내는 send() 메소드는 가장 마지막에 한번 사용해야함
 app.get('/', function(req,res) {
     //Express 에서 응답코드는 자동으로 200 을 셋팅한다
-    res.send('app.js >> /'+ '\n');  //send() 응답은 가장 마지막에 한번 사용해야함
+    res.send('app.js >> /'+ '\n'); 
     url = '/index.html';
 });
 
+//본문을 write 하고 응답을 최종 보내는 send() 메소드는 가장 마지막에 한번 사용해야함
 app.get('/favicon.ico', function(req,res){
-	//Express 에서 응답코드를 셋팅하고 메소드 체이닝으로 응답해보았다.
-    res.status(404).send('app.js >> /favicon.ico' + '\n');  //send() 응답은 가장 마지막에 한번 사용해야함
+    res.status(404).send('app.js >> /favicon.ico' + '\n');  //Express 에서 응답코드를 셋팅하는 방법. (그리고 메소드 체이닝으로 응답해보았다.)
     url = '/error.html';
 });
 
