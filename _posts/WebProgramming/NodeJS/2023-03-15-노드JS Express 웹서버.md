@@ -138,6 +138,67 @@ app.listen(PORT, () => {
 
 ```
 
+## 라우트
+### 모듈화
+**/routes/step1**  
+```js
+const express = require('express');
+const router = express.Router();
+
+// 호출시 next 처리 (마치 생성자 같다.)
+router.use(function(req, res, next) {
+  console.log('라우트 실행..!');
+  next();
+});
+
+// 라우터체이닝으로 구현
+router.get('/', (req, res) => {
+    res.send("고객정보조회");
+    console.log('고객정보조회');
+})
+.post('/insert', (req, res) => {
+	res.send("신규고객추가");
+	console.log('신규고객추가');
+})
+.put('/update', (req, res) => {
+	res.send("고객정보수정");
+	console.log('고객정보수정');
+})
+.delete('/delete', (req, res) => {
+	res.send("기존고객삭제");
+	console.log('기존고객삭제');
+});
+
+module.exports = router;
+
+```
+  
+  
+**app.js**  
+```js
+const express = require('express');
+const app = express();  //생성자: 반드시 이렇게 사용해야 에러가 안난다.
+const PORT = 3000;
+
+// 위에서 생성한 라우터 모듈을 정의
+const customerRoute = require('./routes/step1');
+
+app.listen(PORT, () => {
+	console.log(`Express SERVER START... >> http://localhost:${PORT}`);
+});
+
+app.use('/customer', customerRoute);
+
+```
+
+> ***정리***  
+> /customer 이면 모듈내부의 '/' 매핑 수행  
+> /customer/insert 이면 모듈내부의 '/insert' 매핑 수행  
+>   
+> 이런식으로 사용 가능하다. URL매핑방식이 스프링 어노테이션을 클래스에 붙여놓고 메소드에 붙여넣은 것과 동일하게 작동하는듯 하다.
+
+
+
 ## 미들웨어
 : NodeJs Express에서 미들웨어는 app.use(미들웨어 함수)의 기능을 nodeJs로 구축한 어플리케이션을 실행하여 라우팅 될때마다 실행 되는 것을 말한다.
 
