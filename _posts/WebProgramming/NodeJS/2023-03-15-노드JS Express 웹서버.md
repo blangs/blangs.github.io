@@ -138,8 +138,11 @@ app.listen(PORT, () => {
 
 ```
 
-## 웹서버 미들웨어
-NodeJs Express에서 미들웨어는 app.use(미들웨어 함수)의 기능을 nodeJs로 구축한 어플리케이션을 실행하여 라우팅 될때마다 실행 되는 것을 말한다.
+## 미들웨어
+: NodeJs Express에서 미들웨어는 app.use(미들웨어 함수)의 기능을 nodeJs로 구축한 어플리케이션을 실행하여 라우팅 될때마다 실행 되는 것을 말한다.
+
+1. 미들웨어 함수를 로드하려면 미들웨어 함수를 지정하여 app.use()를 호출한다.
+2. 예를 들면, 다음의 코드는 루트 경로(/)로 라우팅하기 전에 myLogger 미들웨어 함수를 로드한다.
 
 ### 미들웨어 예제(기본)
 
@@ -151,18 +154,22 @@ const PORT = 3000;
 // 미들웨어 정의 
 var requestTime = function (req, res, next) {
   console.log('미들웨어 발동!');
+  req.requestTime = Date.now();
   next();
 };
 
 // 미들웨어 호출
 app.use(requestTime);
 
+//요청1
 app.get('/test1', function(req,res){
     console.log('호출1');
 });
+//요청2
 app.get('/test2', function(req,res){
     console.log('호출2');
 });
+//요청3
 app.post('/test3', function(req,res){
     console.log('호출3');
 });
@@ -186,11 +193,57 @@ app.post('/test3', function(req,res){
 
 ### 미들웨어 예제(메소드 사용하기)
 
- 
+```js
+const express = require('express');
+const app = express();  //생성자: 반드시 이렇게 사용해야 에러가 안난다.
+const PORT = 3000;
+var url = '';
 
-대표적인 미들웨어로는 
+// 미들웨어 정의 
+var requestTime = function (req, res, next) {
+  console.log('미들웨어 발동!');
+  req.requestTime = Date.now();
+  next();
+};
 
-body-parser, compression 등이 있다.
+// 미들웨어 호출
+app.use(requestTime);
+
+// 요청
+app.get('/', function(req,res) {
+    console.log('['+req.requestTime+']'+'app.js >> /'+ '\n');  
+});
+// 요청
+app.get('/favicon.ico', function(req,res){
+    console.log('['+req.requestTime+']'+'app.js >> favicon.ico'+ '\n');       
+});
+// 요청
+app.post('/message', function(req,res) {
+	console.log('['+req.requestTime+']'+'app.js >> /message'+ '\n');       
+});
+
+```
+  
+미들웨어 메소드를 사용할 수 있게 되었다.
+  
+
+```bash
+#/요청
+미들웨어 발동!
+[1679378251419]app.js >> /
+#/favicon.ico 요청
+미들웨어 발동!
+[1679378408535]app.js >> /favicon.ico
+#/message 요청
+미들웨어 발동!
+[1679378408535]app.js >> /message
+
+```
+  
+모든 요청에 대해 필요할때 사용할 수 있는 공통 메소드가 된듯한 기분이다.
+{: .notice--info}
+
+
 
 ### 미들웨어 에러처리
 NodeJs로 구현한 웹 애플리케이션에 클라이언트가 잘못된 주소에 접근하게되면 404 와 같은 에러 처리를 해주어야 한다. 
