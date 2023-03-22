@@ -1,0 +1,33 @@
+---
+title:  "노드JS 미들웨어"
+excerpt: "노드JS 미들웨어 입니다."
+
+categories:
+  - nodejs
+tags:
+  - [node.js]
+
+toc: true
+toc_sticky: true
+
+last_modified_at: 2023-03-13T20:00:00-05:00
+---
+
+## 미들웨어
+작성중
+
+## 패키지 매니저 관련 파일 
+**pacakage.json**  
+: 프로젝트에서 사용되고 있는 패키지를 관리하는 JSON 형태의 파일.  
+  
+**pacakage-lock.json / yarn.lock**  
+: 프로젝트 내에서 팀원들 간에 서로 다른 버전을 설치하지 않고, 동일한 버전을 설치하는 것을 보장하도록 명시된 패키지 잠금 파일.  
+  
+**pacakage-lock.json**  
+: npm 패키지 매니저를 사용 할 경우 사용되는 패키지 잠금 파일.  
+  
+**yarn.lock**  
+: yarn 패키지 매니저를 사용 할 경우 사용되는 패키지 잠금 파일.  
+  
+**node_modules**  
+: pacakge.json 파일에 명시된 패키지에 따라서 설치 된 패키지 디렉토리.  
