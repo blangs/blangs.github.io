@@ -65,11 +65,11 @@ vi db_config.js
 // mysql 접속정보
 const mysql = require('mysql');  // mysql 모듈 로드
 const db = mysql.createPool({
-  host: 'blang.co.kr',
+  host: '호스트주소.co.kr',
   port: 3306,
-  user: "INSTC",
-  password: "a",
-  database: "DSDBDO0",
+  user: "admin",
+  password: "qwer123",
+  database: "DSDBDD0",
 });
 
 module.exports = db;  //모듈 생성
