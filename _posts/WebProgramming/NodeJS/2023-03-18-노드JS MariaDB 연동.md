@@ -1,6 +1,6 @@
 ---
-title:  "노드JS MariaDB 구축"
-excerpt: "노드JS MariaDB 구축 입니다."
+title:  "노드JS MariaDB 연동"
+excerpt: "노드JS MariaDB 연동 입니다."
 
 categories:
   - nodejs
@@ -14,16 +14,16 @@ last_modified_at: 2023-03-18T20:00:00-05:00
 ---
 
 ## 과정
-1. MySQL(MariaDB) 설치
+1. MySQL(MariaDB) 설치(구축)
 2. MySQL(MariaDB) NPM 모듈 설치
 3. config 파일 생성
 4. express와 연동하기
 5. 결과
 
 
-## DB서버 구축
-### MySQL(MariaDB) 설치
-: 해당 내용은 이미 나의 라즈베리파이 4번 서버에 구축해해놔서 생략한다.
+## DB서버 연동
+### MySQL(MariaDB) 설치(구축)
+: 이미 나의 라즈베리파이 4번 서버에 MariaDB 를 구축했기에 생략한다.
 
 ### MySQL(MariaDB) NPM 모듈 설치
 : mysql 연결하기 위한 확장 모듈 설치. (커넥터)
@@ -80,7 +80,6 @@ module.exports = db;  //모듈 생성
 {: .notice--info}
 
 ### express와 연동하기
-: 
 
 ```js
 const express = require('express');
