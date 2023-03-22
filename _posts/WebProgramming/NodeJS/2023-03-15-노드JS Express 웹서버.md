@@ -146,7 +146,7 @@ app.listen(PORT, () => {
 1. 미들웨어 함수를 로드하려면 미들웨어 함수를 지정하여 app.use()를 호출한다.
 2. 예를 들면, 다음의 코드는 루트 경로(/)로 라우팅하기 전에 myLogger 미들웨어 함수를 로드한다.
 
-### 미들웨어 예제(기본)
+### 기본
 
 ```js
 const express = require('express');
@@ -193,7 +193,7 @@ app.post('/test3', function(req,res){
 
 ```
 
-### 미들웨어 예제(메소드 사용하기)
+### 메소드 사용하기
 
 ```js
 const express = require('express');
