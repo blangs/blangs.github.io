@@ -295,7 +295,7 @@ app.listen(PORT, () => {
 	console.log(`Express SERVER START... >> http://localhost:${PORT}`);
 });
 
-app.use('/customer', customerRoute);
+app.use('/customer', customerRoute); 
 
 ```
 
