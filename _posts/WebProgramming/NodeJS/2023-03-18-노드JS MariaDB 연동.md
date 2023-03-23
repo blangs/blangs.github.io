@@ -215,14 +215,20 @@ app.listen(PORT, () => {
 
 ```
 
-조금 이상하다. createConnection, createPool 함수를 사용함을 제외하고는 .query() 으로 코드는 거의 동일하다. 
-<span style="color:red">커넥션 관리를 해주어야 진정한 커넥션 풀인데.. 잘못 구현한 느낌이 든다.</span>  
+***참고)***  
+다른예제제를 보면 connection.connect() 메소드로 연결을 해주는데 
+node-mysql 모듈을 사용하는 경우 mysql.createConnection()을 하고 나면 connection.connect()로 다시 연결할 필요가 없다고 한다. 
+위처럼 모듈호출 -> query() 만 해주어도 잘 작동하는것을 확인했다.
+{: .notice--info}
+
+
+작동은 하지만.. 조금 이상하다. <span style="color:red">커넥션 관리를 해주어야 진정한 커넥션 풀인데.. 자원을 해제하는 로직이 없다. (잘못 구현한 느낌이 든다.)</span>  
   
-1. <span style="color:blue">최대 2개로 제한한 커넥션풀을 만든다.</span>
+1. <span style="color:blue">최대 n개로 제한한 커넥션풀을 만든다.</span>
 2. <span style="color:blue">요청에 대해 커넥션 한다.</span>
 3. <span style="color:blue">요청이 끝나면 반납한다.</span>
   
-즉, 2번과 3번 내용이 없다. 이 부분은 구현이 필요한것으로 보인다. 
+1번은 설정파일에서 정의했고, 2번은 createPool 기능상 자동적으로 맺어주는듯하다. 그런데 3번 내용이 없다. 이 부분은 구현이 필요한것으로 보인다. 
 즉, <span style="color:red">사용 후에 반드시 풀에 다시 반납해야 하는데.. `conn.release();` 를 해주는 부분이 없다.</span>  
   
 > ***커넥션풀이란?***  
@@ -243,13 +249,6 @@ app.listen(PORT, () => {
 > 3. Connection Pool을 사용하면 Connection을 생성하고 닫는 시간이 소모되지 않기 때문에 그만큼 어플리케이션의 실행 속도가 빨라지며, 또한 한 번에 생성될 수 있는 Connection 수를 제어하기 때문에 동시 접속자 수가 몰려도 웹 어플리케이션이 쉽게 다운되지 않는다.
   
 
-***참고)***  
-다른예제제를 보면 connection.connect() 메소드로 연결을 해주는데 
-node-mysql 모듈을 사용하는 경우 mysql.createConnection()을 하고 나면 connection.connect()로 다시 연결할 필요가 없다고 한다. 
-위처럼 모듈호출 -> query() 만 해주어도 잘 작동하는것을 확인했다.
-{: .notice--info}
-
-
 
 ## express와 연동하기 (커넥션관리 추가)
 : app.js파일에서 db.js파일에서 생성해둔 db connection을 import하여 사용하였다 queryDatabase함수를 실행할 때마다 connection을 해주지 않아도 되기 때문에 서버에 부하도 줄고, 재사용성도 높일 수 있다.  
@@ -258,12 +257,12 @@ node-mysql 모듈을 사용하는 경우 mysql.createConnection()을 하고 나�
 ```js
 const mysql = require('mysql2'); 
 const pool = mysql.createPool({
-  host: 'blang.co.kr',
+  host: '호스트주소.co.kr',
   port: 3306,
-  user: "INSTC",
-  password: "a",
-  database: "DSDBDO0",
-  connectionLimit: 10
+  user: "admin",
+  password: "qwer123",
+  database: "DSDBDD0",
+  connectionLimit: 2  //커넥션풀 수
 });
 
 //커넥션 객체를 모듈화
