@@ -13,7 +13,37 @@ toc_sticky: true
 last_modified_at: 2023-03-18T20:00:00-05:00
 ---
 
-## 과정
+## 기본 사용법
+```js
+const mysql = require('mysql2');  // mysql 모듈 로드
+const conn = mysql.createConnection({
+  host: 'blang.co.kr',
+  port: 3306,
+  user: "INSTC",
+  password: "a",
+  database: "DSDBDO0"
+});
+  
+conn.connect();
+  
+conn.query('SELECT * FROM TBDBDW001', (err, data) => {
+    if(!err)
+    {
+      console.log('[SUCCESS]: ' + data);
+    }
+    else
+    {
+      console.log('[FAILED]: ' + data);
+      res.send(data);
+    }
+});
+      
+conn.end();
+
+```
+
+## 모듈화 사용법
+### 과정
 1. MySQL(MariaDB) 설치(구축)
 2. MySQL(MariaDB) NPM 모듈 설치
 3. config 파일 생성
@@ -23,9 +53,9 @@ last_modified_at: 2023-03-18T20:00:00-05:00
 5. 결과
 
 
-## DB서버 연동
 ### (1) MySQL(MariaDB) 설치(구축)
 : 이미 나의 라즈베리파이 4번 서버에 MariaDB 를 구축했기에 생략한다.
+
 
 ### (2) MySQL(MariaDB) NPM 모듈 설치
 : mysql 연결하기 위한 확장 모듈 설치. (커넥터)
@@ -120,6 +150,8 @@ app.listen(PORT, () => {
 app.use('/customer', customerRoute);  //라우트 모듈
 
 ```
+관계형 데이터베이스에 연결할 때는 보통 커넥션 풀(Connection Pool)을 사용한다.  
+이것은 데이터베이스 연결 객체가 너무 많이 만들어지는 것을 막고 한번 만든 연결을 다시 사용할 수 있게 한다. 데이터베이스에 연결하면 메모리 리소스를 많이 차지하므로 한번 만든 연결 객체는 커넥션 풀에 넣어두고 다음번 요청이 있을 때 다시 사용한다. 이때 너무 많은 연결이 만들어지지 않도록 커넥션 풀의 최대 크기를 설정한다. 커넥션 풀을 연결 개수를 제한하므로 연결을 사용한 후에는 반드시 다시 풀에 넣어주어야하는 제약이 있다.
 
 > ***참고)***  
 > 다른예제제를 보면 connection.connect() 메소드로 연결을 해주는데 
@@ -129,7 +161,8 @@ app.use('/customer', customerRoute);  //라우트 모듈
 
 
 ## express와 연동하기(심화)
-: 효율적인 커넥션풀을 사용하는 예예제를 작성한다.
+: 효율적인 커넥션풀을 사용하는 예제를 작성한다.
+
 
 ***db_config.js***
 ```js
@@ -141,6 +174,7 @@ const db = mysql.createPool({
   user: "admin",
   password: "qwer123",
   database: "DSDBDD0",
+  connectionLimit: 2
 });
 
 module.exports = db;  //모듈 생성
