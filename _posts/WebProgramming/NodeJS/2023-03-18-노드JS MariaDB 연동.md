@@ -276,10 +276,8 @@ module.exports = function(callback) {            //단순한 익명 함수를 �
 
 ```
 
-1. 모듈 파일에서 pool.getConnection() 결과를 콜백함수로 만들고 모듈로 넘긴다(exports).
-
+***app.js***
 ```js
-
 const express = require('express');
 const app = express();  //생성자: 반드시 이렇게 사용해야 에러가 안난다.
 const PORT = 3000;
@@ -292,9 +290,10 @@ app.get('/select', (req,res) => {
     
     // getConnection() 콜백함수 모듈을 가져온온다.
     getConnection( function(conn) {
+            //쿼리수행
             conn.query('SELECT * FROM TBDBDW001', function (err, data) {
-            err ? console.log(err) :  console.log('[success]' + res.send(data) );
-    	});
+                    err ? console.log(err) :  console.log('[success]' + res.send(data) );
+    	      });
     });
 
 });
@@ -305,5 +304,44 @@ app.listen(PORT, () => {
 });
 
 ```
+  
+## 콜백 동작과정 이해하기
+### 요약
+```js
+// 정의
+const getConnection = function(callback) { 
+    
+    pool.getConnection(function(err, conn) {
+        if (err) throw error;
+        callback(conn);
+    });
 
-2. 모듈 실행즉시 콜백함수로 넘겨받은 conn 객체를 사용한다.
+}
+
+// 사용
+getConnection( function(conn) {
+    conn.query('SELECT * FROM TBDBDW001', function (err, data) {
+        err ? console.log(err) :  console.log('[success]' + res.send(data) );
+    });
+});
+
+```
+
+[사용] 함수에 인자로 넣은 `[function 덩어리 묶음]` 은 맨마지막에 호출된다.  
+해석하면 다음과 같이 풀이된다.
+
+### 요약 풀이
+```js
+getConnection( function(conn) {
+    pool.getConnection(function(err, conn) {
+        if (err) throw error;
+      
+        //callback(conn); 이 부분이 아래 내용으로 대체되었다.
+        conn.query('SELECT * FROM TBDBDW001', function (err, data) {
+            err ? console.log(err) :  console.log('[success]' + res.send(data) );
+        });
+
+    });
+});
+
+```
