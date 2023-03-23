@@ -216,14 +216,14 @@ app.listen(PORT, () => {
 ```
 
 조금 이상하다. createConnection, createPool 함수를 사용함을 제외하고는 .query() 으로 코드는 거의 동일하다. 
-커넥션 관리를 해주어야 진정한 커넥션 풀인데.. 잘못 구현한 느낌이 든다.  
+<span style="color:red">커넥션 관리를 해주어야 진정한 커넥션 풀인데.. 잘못 구현한 느낌이 든다.</span>  
   
 1. <span style="color:blue">최대 2개로 제한한 커넥션풀을 만든다.</span>
 2. <span style="color:blue">요청에 대해 커넥션 한다.</span>
 3. <span style="color:blue">요청이 끝나면 반납한다.</span>
   
 즉, 2번과 3번 내용이 없다. 이 부분은 구현이 필요한것으로 보인다. 
-즉, 사용 후에 반드시 풀에 다시 반납해야 하는데.. `conn.release();` 를 해주는 부분이 없다.  
+즉, <span style="color:red">사용 후에 반드시 풀에 다시 반납해야 하는데.. `conn.release();` 를 해주는 부분이 없다.</span>  
   
 > ***커넥션풀이란?***  
 > **`미리 Connection 객체를 생성하고 해당 Connection 객체를 관리하는것`**  
@@ -233,7 +233,8 @@ app.listen(PORT, () => {
 > 1. 다수 사용자가 DB 접속. 
 > 2. Connection Pool에 DB와 연결을 해 놓은 객체를 두고 필요할 때마다 Connection Pool에서 Connection을 빌려온다.
 > 3. 그리고 연결이 끝나면 다시 Pool에 돌려준다.
-> 4. 남아있는 Connection이 없을 경우 해당 클라이언트는 대기 상태로 전환이 되고, Connection이 반환되면 대기하고 있는 순서대로 Connection이 제공된다.
+> 4. 남아있는 Connection이 없을 경우 해당 클라이언트는 대기 상태로 전환이 되고, Connection이 반환되면 대기하고 있는 순서대로 Connection이 제공된다.  
+>
 > Connection Pool을 너무 크게 해놓으면 당연히 메모리 소모가 클것이고, 적게 해놓으면 Connection이 많이 발생할 경우 대기시간이 발생하기때문에 웹 사이트 동시 접속자 수 등 서버 부하에 따라 커넥션 풀의 크기를 조정해야 한다.
 >   
 > ***장점***  
@@ -275,7 +276,7 @@ module.exports = function(callback) {            //단순한 익명 함수를 �
 
 ```
 
-1. pool.getConnectio서() 결과를 콜백함수로 만들어서 모듈로 넘긴다.
+1. 모듈 파일에서 pool.getConnection() 결과를 콜백함수로 만들고 모듈로 넘긴다(exports).
 
 ```js
 
