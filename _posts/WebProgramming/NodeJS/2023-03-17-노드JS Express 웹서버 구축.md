@@ -45,16 +45,16 @@ const app = http.createServer( (req, res) => {
 
 var app = http.createServer( function(req, res) {
 	
-	var url = req.url;
-	console.log('__dirname: ' + __dirname);  //결과: /fswas/wasadm/nodeStudy/
-	console.log('url: ' + url);  //결과: /
-	console.log('method: ' + req.method);  //결과: GET
+    var url = req.url;
+    console.log('__dirname: ' + __dirname);  //결과: /fswas/wasadm/nodeStudy/
+    console.log('url: ' + url);  //결과: /
+    console.log('method: ' + req.method);  //결과: GET
+    
+    //디폴트 HTML 설정
+    res.setHeader("Content-Type", "text/html;charset=UTF-8")
 	
-	//디폴트 HTML 설정
-	res.setHeader("Content-Type", "text/html;charset=UTF-8")
-	
-	//본문을 write 하고 응답을 최종 보내는 end() 메소드는 가장 마지막에 한번 사용해야함
-	if(req.url == '/' && req.method == 'GET') {
+    //본문을 write 하고 응답을 최종 보내는 end() 메소드는 가장 마지막에 한번 사용해야함
+    if(req.url == '/' && req.method == 'GET') {
         console.log('app.js >> /'+ '\n'); 
         res.writeHead(200);
         res.write("<html><head></head><body>");
@@ -73,8 +73,8 @@ var app = http.createServer( function(req, res) {
         url = '/error.html';        
     }
     if(req.url == '/message' && req.method == 'POST') {
-		console.log('app.js >> /message'+ '\n');
-		res.writeHead(200);
+        console.log('app.js >> /message'+ '\n');
+        res.writeHead(200);
 		
         url = '/message.html';        
     }
@@ -83,8 +83,9 @@ var app = http.createServer( function(req, res) {
     res.end();     // end하면 클라이언트한테 응답 보냄. 가장 마지막에 작성해야 정상작동 한다.
     
 });
+
 app.listen(PORT, () => {
-	console.log(`http SERVER START... >> http://localhost:${PORT}`);
+    console.log(`http SERVER START... >> http://localhost:${PORT}`);
 });
 
 ```
@@ -133,7 +134,7 @@ app.get('/favicon.ico', function(req,res){
 });
 
 app.listen(PORT, () => {
-	console.log(`Express SERVER START... >> http://localhost:${PORT}`);
+    console.log(`Express SERVER START... >> http://localhost:${PORT}`);
 });
 
 ```

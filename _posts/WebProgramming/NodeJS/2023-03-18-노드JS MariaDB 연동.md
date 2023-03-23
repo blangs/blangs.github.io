@@ -60,7 +60,7 @@ vi db_config.js
 
 ```
   
-**db_config.js**  
+***db_config.js***  
 ```js
 // mysql 접속정보
 const mysql = require('mysql');  // mysql 모듈 로드
@@ -79,8 +79,65 @@ module.exports = db;  //모듈 생성
 'module.exports'는 Node.js에서 모듈을 만들 때 사용하는 객체이다. 이 객체를 사용하면 모듈 밖에서 해당 모듈의 함수, 변수, 객체 등에 접근할 수 있다.
 {: .notice--info}
 
-### express와 연동하기
+### express와 연동하기(기본)
 
+```js
+const express = require('express');
+const app = express();  //생성자: 반드시 이렇게 사용해야 에러가 안난다.
+const PORT = 3000;
+const db = require('./config/db_config.js');  //모듈을 사용한다.
+
+/****************************************
+- DB 연동
+****************************************/
+app.get('/select', (req,res) => {
+    console.log('SELECT 수행');
+    
+    db.query('SELECT * FROM TBDBDW001', (err, data) => {
+    	if(!err)
+        {
+        	console.log('[SUCCESS]: ' + data);
+            res.send(data);
+        }
+        else
+        {
+        	console.log('[FAILED]: ' + data);
+            res.send(data);
+        }
+    });
+});
+
+/****************************************
+- 서버리스너
+****************************************/
+app.listen(PORT, () => {
+	console.log(`Express SERVER START... >> http://localhost:${PORT}`);
+});
+
+app.use('/customer', customerRoute);  //라우트 모듈
+
+```
+
+### express와 연동하기(심화)
+: 효율적인 커넥션풀을 사용하는 예예제를 작성한다.
+
+***db_config.js***
+```js
+// mysql 접속정보
+const mysql = require('mysql');  // mysql 모듈 로드
+const db = mysql.createPool({
+  host: '호스트주소.co.kr',
+  port: 3306,
+  user: "admin",
+  password: "qwer123",
+  database: "DSDBDD0",
+});
+
+module.exports = db;  //모듈 생성
+
+```
+  
+***app.js***  
 ```js
 const express = require('express');
 const app = express();  //생성자: 반드시 이렇게 사용해야 에러가 안난다.
