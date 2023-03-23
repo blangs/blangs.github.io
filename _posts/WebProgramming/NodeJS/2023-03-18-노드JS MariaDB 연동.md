@@ -157,12 +157,12 @@ app.get('/select', (req,res) => {
     conn.query('SELECT * FROM TBDBDW001', (err, data) => {
     	if(!err)
         {
-        	console.log('[SUCCESS]: ' + data);
+            console.log('[SUCCESS]: ' + data);
             res.send(data);
         }
         else
         {
-        	console.log('[FAILED]: ' + data);
+            console.log('[FAILED]: ' + data);
             res.send(data);
         }
     });
@@ -195,12 +195,12 @@ app.get('/select', (req,res) => {
     pool.query('SELECT * FROM TBDBDW001', (err, data) => {
     	if(!err)
         {
-        	console.log('[SUCCESS]: ' + data);
+            console.log('[SUCCESS]: ' + data);
             res.send(data);
         }
         else
         {
-        	console.log('[FAILED]: ' + data);
+            console.log('[FAILED]: ' + data);
             res.send(data);
         }
     });
@@ -220,16 +220,29 @@ app.use('/customer', customerRoute);  //라우트 모듈
 조금 이상하다. createConnection, createPool 함수를 사용함을 제외하고는 .query() 으로 코드는 거의 동일하다. 
 커넥션 관리를 해주어야 진정한 커넥션 풀인데.. 잘못 구현한 느낌이 든다.  
   
-1. 최대 2개로 제한한 커넥션풀을 만든다.
-2. 요청에 대해 커넥션 한다.
-3. 요청이 끝나면 반납한다.
+1. <span style="color:blue">최대 2개로 제한한 커넥션풀을 만든다.</span>
+2. <span style="color:blue">요청에 대해 커넥션 한다.</span>
+3. <span style="color:blue">요청이 끝나면 반납한다.</span>
   
-즉, 2번과 3번 내용이 없다. 이 부분은 구현이 필요한것으로 보인다.
+즉, 2번과 3번 내용이 없다. 이 부분은 구현이 필요한것으로 보인다. 
+즉, 사용 후에 반드시 풀에 다시 반납해야 하는데.. `conn.release();` 를 해주는 부분이 없다.  
+  
+> ***넥션풀이란?***  
+> **`미리 Connection 객체를 생성하고 해당 Connection 객체를 관리하는것`**  
+> 관계형 데이터베이스에 연결할 때는 보통 커넥션 풀(Connection Pool)을 사용한다.  
+>   
+> ***동작과정***  
+> 1. 다수 사용자가 DB 접속. 
+> 2. Connection Pool에 DB와 연결을 해 놓은 객체를 두고 필요할 때마다 Connection Pool에서 빌려온다.
+> 3. 그리고 연결이 끝나면 다시 Pool에 돌려준다.
+> Connection Pool을 너무 크게 해놓으면 당연히 메모리 소모가 클것이고, 적게 해놓으면 Connection이 많이 발생할 경우 대기시간이 발생하기때문에 웹 사이트 동시 접속자 수 등 서버 부하에 따라 커넥션 풀의 크기를 조정해야 한다.
+>   
+> ***특징***  
+> 1. Pool 속에 미리 Connection이 생성되어 있기 때문에 Connection을 생성하는 데 드는 연결 시간이 소비되지 않는다.
+> 2. Connection을 계속해서 재사용하기 때문에 생성되는 Connection 수가 많지 않다. 
+> 3. Connection Pool을 사용하면 Connection을 생성하고 닫는 시간이 소모되지 않기 때문에 그만큼 어플리케이션의 실행 속도가 빨라지며, 또한 한 번에 생성될 수 있는 Connection 수를 제어하기 때문에 동시 접속자 수가 몰려도 웹 어플리케이션이 쉽게 다운되지 않는다.
 
-> 관계형 데이터베이스에 연결할 때는 보통 커넥션 풀(Connection Pool)을 사용한다. 
-> 이것은 데이터베이스 연결 객체가 너무 많이 만들어지는 것을 막고 한번 만든 연결을 다시 사용할 수 있게 한다. 데이터베이스에 연결하면 메모리 리소스를 많이 차지하므로 한번 만든 연결 객체는 커넥션 
-> 풀에 넣어두고 다음번 요청이 있을 때 다시 사용한다. 이때 너무 많은 연결이 만들어지지 않도록 커넥션 풀의 최대 크기를 설정한다. 커넥션 풀을 연결 개수를 제한하므로 연결을 사용한 후에는 반드시 다시 
-> 풀에 넣어주어야하는 제약이 있다.
+Connection Pool에서 생성되어 있는 Connection의 갯수는 한정적입니다. 동시 접속자가 많아지면 Connection Pool은 누군자 접속하면 Connection Pool에 남아 있는 Connection을 제공하는 식입니다. 하지만 남아있는 Connection이 없을 경우 해당 클라이언트는 대기 상태로 전환이 되고, Connection이 반환되면 대기하고 있는 순서대로 Connection이 제공됩니다.
 
 > ***참고)***  
 > 다른예제제를 보면 connection.connect() 메소드로 연결을 해주는데 
