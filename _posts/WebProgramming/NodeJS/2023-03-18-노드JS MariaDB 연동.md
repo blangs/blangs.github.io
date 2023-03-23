@@ -85,7 +85,7 @@ pacakage.json 을 열어보면 정상 추가되었다.
 ### (3) config 파일 생성
 : 생성한 컨피그 js 파일에서 확장모듈 포함 및 DB Connection 정보를 설정한다.
 
-**컨피그 디렉토리 생성**  
+***컨피그 디렉토리 생성***  
 ```bash
 mkdir ./config
 vi db_config.js
