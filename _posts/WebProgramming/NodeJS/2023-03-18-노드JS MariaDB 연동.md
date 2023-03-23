@@ -179,13 +179,12 @@ app.use('/customer', customerRoute);  //라우트 모듈
 
 ```
 
-***app.js (connection 방법)***  
-***app.js***  
+***app.js (createPool 방법)***  
 ```js
 const express = require('express');
 const app = express();  //생성자: 반드시 이렇게 사용해야 에러가 안난다.
 const PORT = 3000;
-const db = require('./config/db_config.js');  //모듈을 사용한다.
+const pool = require('./config/db_config.js');  //모듈을 사용한다.
 
 /****************************************
 - DB 연동
@@ -193,7 +192,7 @@ const db = require('./config/db_config.js');  //모듈을 사용한다.
 app.get('/select', (req,res) => {
     console.log('SELECT 수행');
     
-    db.query('SELECT * FROM TBDBDW001', (err, data) => {
+    pool.query('SELECT * FROM TBDBDW001', (err, data) => {
     	if(!err)
         {
         	console.log('[SUCCESS]: ' + data);
@@ -218,9 +217,19 @@ app.use('/customer', customerRoute);  //라우트 모듈
 
 ```
 
+조금 이상하다. createConnection, createPool 함수를 사용함을 제외하고는 .query() 으로 코드는 거의 동일하다. 
+커넥션 관리를 해주어야 진정한 커넥션 풀인데.. 잘못 구현한 느낌이 든다.  
+  
+1. 최대 2개로 제한한 커넥션풀을 만든다.
+2. 요청에 대해 커넥션 한다.
+3. 요청이 끝나면 반납한다.
+  
+즉, 2번과 3번 내용이 없다. 이 부분은 구현이 필요한것으로 보인다.
 
-관계형 데이터베이스에 연결할 때는 보통 커넥션 풀(Connection Pool)을 사용한다.  
-이것은 데이터베이스 연결 객체가 너무 많이 만들어지는 것을 막고 한번 만든 연결을 다시 사용할 수 있게 한다. 데이터베이스에 연결하면 메모리 리소스를 많이 차지하므로 한번 만든 연결 객체는 커넥션 풀에 넣어두고 다음번 요청이 있을 때 다시 사용한다. 이때 너무 많은 연결이 만들어지지 않도록 커넥션 풀의 최대 크기를 설정한다. 커넥션 풀을 연결 개수를 제한하므로 연결을 사용한 후에는 반드시 다시 풀에 넣어주어야하는 제약이 있다.
+> 관계형 데이터베이스에 연결할 때는 보통 커넥션 풀(Connection Pool)을 사용한다. 
+> 이것은 데이터베이스 연결 객체가 너무 많이 만들어지는 것을 막고 한번 만든 연결을 다시 사용할 수 있게 한다. 데이터베이스에 연결하면 메모리 리소스를 많이 차지하므로 한번 만든 연결 객체는 커넥션 
+> 풀에 넣어두고 다음번 요청이 있을 때 다시 사용한다. 이때 너무 많은 연결이 만들어지지 않도록 커넥션 풀의 최대 크기를 설정한다. 커넥션 풀을 연결 개수를 제한하므로 연결을 사용한 후에는 반드시 다시 
+> 풀에 넣어주어야하는 제약이 있다.
 
 > ***참고)***  
 > 다른예제제를 보면 connection.connect() 메소드로 연결을 해주는데 
@@ -229,7 +238,7 @@ app.use('/customer', customerRoute);  //라우트 모듈
 
 
 
-## express와 연동하기(심화)
+## express와 연동하기 (커넥션관리 추가)
 : app.js파일에서 db.js파일에서 생성해둔 db connection을 import하여 사용하였다 queryDatabase함수를 실행할 때마다 connection을 해주지 않아도 되기 때문에 서버에 부하도 줄고, 재사용성도 높일 수 있다.  
   
 (작성중)
