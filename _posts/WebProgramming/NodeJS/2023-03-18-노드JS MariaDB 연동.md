@@ -18,14 +18,16 @@ last_modified_at: 2023-03-18T20:00:00-05:00
 2. MySQL(MariaDB) NPM 모듈 설치
 3. config 파일 생성
 4. express와 연동하기
+  - createConnection 방법
+  - connection pool 방법
 5. 결과
 
 
 ## DB서버 연동
-### MySQL(MariaDB) 설치(구축)
+### (1) MySQL(MariaDB) 설치(구축)
 : 이미 나의 라즈베리파이 4번 서버에 MariaDB 를 구축했기에 생략한다.
 
-### MySQL(MariaDB) NPM 모듈 설치
+### (2) MySQL(MariaDB) NPM 모듈 설치
 : mysql 연결하기 위한 확장 모듈 설치. (커넥터)
 
 ```bash
@@ -50,7 +52,7 @@ pacakage.json 을 열어보면 정상 추가되었다.
 
 ```
 
-### config 파일 생성
+### (3) config 파일 생성
 : 생성한 컨피그 js 파일에서 확장모듈 포함 및 DB Connection 정보를 설정한다.
 
 **컨피그 디렉토리 생성**  
@@ -63,8 +65,8 @@ vi db_config.js
 ***db_config.js***  
 ```js
 // mysql 접속정보
-const mysql = require('mysql');  // mysql 모듈 로드
-const db = mysql.createPool({
+const mysql = require('mysql2');  // mysql 모듈 로드
+const conn = mysql.createConnection({
   host: '호스트주소.co.kr',
   port: 3306,
   user: "admin",
@@ -72,28 +74,29 @@ const db = mysql.createPool({
   database: "DSDBDD0",
 });
 
-module.exports = db;  //모듈 생성
+
+module.exports = conn;  //모듈 생성
 
 ```
   
 'module.exports'는 Node.js에서 모듈을 만들 때 사용하는 객체이다. 이 객체를 사용하면 모듈 밖에서 해당 모듈의 함수, 변수, 객체 등에 접근할 수 있다.
 {: .notice--info}
 
-### express와 연동하기(기본)
+### (4) express와 연동하기(createConnection 방법)
 
 ```js
 const express = require('express');
 const app = express();  //생성자: 반드시 이렇게 사용해야 에러가 안난다.
 const PORT = 3000;
-const db = require('./config/db_config.js');  //모듈을 사용한다.
+const conn = require('./config/db_config.js');  //모듈을 사용한다.
 
 /****************************************
 - DB 연동
 ****************************************/
 app.get('/select', (req,res) => {
     console.log('SELECT 수행');
-    
-    db.query('SELECT * FROM TBDBDW001', (err, data) => {
+
+    conn.query('SELECT * FROM TBDBDW001', (err, data) => {
     	if(!err)
         {
         	console.log('[SUCCESS]: ' + data);
@@ -118,13 +121,20 @@ app.use('/customer', customerRoute);  //라우트 모듈
 
 ```
 
-### express와 연동하기(심화)
+> ***참고)***  
+> 다른예제제를 보면 connection.connect() 메소드로 연결을 해주는데 
+> node-mysql 모듈을 사용하는 경우 mysql.createConnection()을 하고 나면 connection.connect()로 다시 연결할 필요가 없다고 한다. 
+> 위처럼 모듈호출 -> query() 만 해주어도 잘 작동하는것을 확인했다.
+
+
+
+## express와 연동하기(심화)
 : 효율적인 커넥션풀을 사용하는 예예제를 작성한다.
 
 ***db_config.js***
 ```js
 // mysql 접속정보
-const mysql = require('mysql');  // mysql 모듈 로드
+const mysql = require('mysql2');  // mysql 모듈 로드
 const db = mysql.createPool({
   host: '호스트주소.co.kr',
   port: 3306,
