@@ -322,7 +322,10 @@ const getConnection = function(callback) {
 getConnection( function(conn) {
     conn.query('SELECT * FROM TBDBDW001', function (err, data) {
         err ? console.log(err) :  console.log('[success]' + res.send(data) );
-    });
+    });    
+    
+    //DB 연결 해제 (매우중요)
+    conn.release()  
 });
 
 ```
