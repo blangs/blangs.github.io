@@ -317,7 +317,7 @@ const getConnection = function(callback) {
 
 }
 
-// 사용
+// 사ㅇ
 getConnection( function(conn) {
     conn.query('SELECT * FROM TBDBDW001', function (err, data) {
         err ? console.log(err) :  console.log('[success]' + res.send(data) );
