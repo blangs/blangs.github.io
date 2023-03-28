@@ -271,7 +271,7 @@ module.exports = router;
 
 
 
-### /routes/member/member.js
+### /routes/member/index.js
 ```js
 const express = require('express');
 const router = express.Router();
@@ -315,4 +315,118 @@ module.exports = router;
 
 
 ## STEP4. 라우팅 기능과 서비스 로직을 분리
-먼저 각 end-point폴더의 index.js와 같은 경로에 controller 파일을 만든다
+~~먼저 각 end-point폴더의 index.js와 같은 경로에 controller 파일을 만든다~~  
+
+```bash
+.
+├── app.js
+├── controllers
+│   ├── main
+│   │   └── main.controller.js
+│   └── member
+│        └── member.controller.js
+└── routes
+     ├── index.js         
+     ├── main
+     │    └── index.js   
+     └── member
+           ├── basic
+           │   └── index.js
+           └── index.js
+
+```
+요약하면 다음과 같다.
+1. index.js엔 라우팅 기능만 남긴다.
+2. 자세히 말하자면, 각 라우터들의 end-point 폴더에서 각 파일들(index.js) 로직을 모두 제거하고 컨트롤러를 바라보도록 라우팅 기능만 설정해준다.
+  
+한 폴더에서 관리할까 생각했는데, 귀찮아도 controller 는 명확하게 따로 분리한다.  
+{: .notice--info}
+
+### /app.js
+```js
+/* 기존과 코드 동일 */
+```
+
+### /routes/index.js
+```js
+/* 기존과 코드 동일 */
+```
+
+
+### /routes/main/index.js
+: 컨트롤러 라우터 추가
+
+```js
+const express = require('express');
+const router = express.Router();
+
+const controller = require('../../controllers/main/main.controller')
+
+// 주의) 컨트롤러 모듈기능을 익스포트한 함수에 대한 매핑이다.
+router.get('/', controller.main);
+
+module.exports = router;
+
+```
+
+### /routes/member/index.js
+: 컨트롤러 라우터 추가
+
+```js
+const express = require('express');
+const router = express.Router();
+
+const controller = require('../../controllers/member/member.controller')
+const basicRouter = require('./basic');  // 컨트롤러 없는방식
+
+// 주의) 컨트롤러 모듈기능을 익스포트한 함수에 대한 매핑이다.
+router.get('/select', (req, res, next) => {
+    console.log('테스트');
+    next();
+}, 
+controller.getMember);
+router.get('/insert', controller.insertMember); 
+router.get('/update', controller.updateMember);
+router.get('/delete', controller.deleteMember);
+router.use(basicRouter);
+
+module.exports = router;
+
+```
+
+### /routes/member/basic/index.js
+```js
+/* 기존과 코드 동일 (AS-IS 참고용으로) */
+```
+
+### /controllers/main/main.controller.js
+```js
+exports.main = (req, res, next) => {
+    console.log('main.controller.js >> main()');    
+}
+
+```
+
+### /controllers/member/member.controller.js
+```js
+exports.getMember = (req, res, next) => {
+    console.log('member.controller.js getMember()');
+    //res.render('index', { title: 'Express' });
+}
+exports.insertMember = (req, res, next) => {
+    console.log('member.controller.js insertMember() >> ');
+}
+exports.updateMember = (req, res, next) => {
+    console.log('member.controller.js updateMember() >> ');
+}
+exports.deleteMember = (req, res, next) => {
+    console.log('member.controller.js deleteMember() >> ');
+}
+
+```
+
+
+
+
+
+
