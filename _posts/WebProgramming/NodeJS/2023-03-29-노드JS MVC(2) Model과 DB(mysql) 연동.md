@@ -18,12 +18,20 @@ last_modified_at: 2023-03-29T20:00:00-05:00
 
 ## STEP1. DB 연동 설정파일 준비
 ```sql
+<!-- CREATE -->
 MariaDB [DSDBDO0]> CREATE TABLE MEMBER (
     -> 이름 VARCHAR(20) NOT NULL
     -> , 나이 INT(200)
     -> , 주소 VARCHAR(100)
     -> );
 Query OK, 0 rows affected (0.092 sec)
+
+<!-- INSERT -->
+INSERT INTO MEMBER VALUES (
+'홍길동'
+, 19
+, '서울특별시100'
+);
 
 ```
 
