@@ -32,7 +32,11 @@ INSERT INTO MEMBER VALUES (
 , 19
 , '서울특별시100'
 );
-
+INSERT INTO MEMBER VALUES (
+'김철수'
+, 24
+, '인천광역시10'
+);
 ```
 
 ```bash
