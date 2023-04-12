@@ -811,3 +811,59 @@ function fn_delete(obj) {
 ```
 
 
+## MVC패턴 완성 후 정리
+현재까지 완성환 구조는 다음과 같다.  
+MVC 패턴이 완성되었다.
+
+```bash
+$ tree -I ./node_modules/
+.
+├── app.js
+├── config
+│   ├── conf_database
+│   │   └── db_config.js
+│   ├── conf_env
+│   │   ├── .env.development
+│   │   ├── .env.local
+│   │   └── .env.production
+│   ├── conf_json             #학습용
+│   │   ├── default.json     #학습용
+│   │   ├── development.json #학습용
+│   │   └── production.json  #학습용 
+│   ├── config.js
+│   └── db_config.js
+├── controllers
+│   ├── main
+│   │   └── main.controller.js
+│   └── member
+│       └── member.controller.js
+├── middlewares
+│   ├── basicErr.js
+│   ├── customErr.js
+│   └── logger.js
+├── models
+│   └── member.model.js
+├── node_modules
+│#   └── (중략)
+├── package-lock.json
+├── package.json
+├── public
+│   ├── css
+│   │   └── test_css.css
+│   ├── index.html
+│   └── js
+│        ├── jquery-3.6.4.min.js
+│        ├── select_test_js_Ajax.js
+│        ├── select_test_js_Promise.js
+│        └── select_test_js_XMLHttpRequest.js
+├── routes
+│   ├── index.js
+│   ├── main
+│   │   └── index.js
+│   └── member
+│       ├── basic
+│       │   └── index.js
+│       └── index.js
+└── server.js
+
+```
