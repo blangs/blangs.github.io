@@ -273,7 +273,7 @@ module.exports = Member;
 ```
 
 
-## STEP2. 컨트롤러(Controller) 에서 모델 사용
+## STEP3. 컨트롤러(Controller) 에서 모델 사용
 ### /controllers/member.controller.js
 ```js
 const Member = require("../../models/member.model.js");  // 모델 Import
@@ -424,8 +424,8 @@ exports.deleteMbr = (req, res, next) => {
 ```
 
 
-## STEP3. 화면에서 컨트롤러 호출
-### index.html
+## STEP4. 화면에서 컨트롤러 호출
+### /public/index.html
 ```html
 <!DOCTYPE html>
 
