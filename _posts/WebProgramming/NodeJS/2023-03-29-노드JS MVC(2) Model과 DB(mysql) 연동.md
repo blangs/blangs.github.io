@@ -898,15 +898,16 @@ public class UserDaoImpl implements UserDao {
 
 ### 스프링 VS Node.js 간 MVC 패턴에서 DAO
 <span style="color:green"><b>***스프링***</b></span>  
-: 스프링 프레임워크는 Java 기반의 웹 애플리케이션 개발을 위한 프레임워크로, <span style="color:red"><b>DAO 로직을 별도의 DAO(Data Access Object) 클래스에 구현하여 데이터 접근과 관련된 로직을 분리하는 것이 일반적인 설계 패턴</b></span> 중 하나이다.
+스프링 프레임워크는 Java 기반의 웹 애플리케이션 개발을 위한 프레임워크로, <span style="color:red"><b>DAO 로직을 별도의 DAO(Data Access Object) 클래스에 구현하여 데이터 접근과 관련된 로직을 분리하는 것이 일반적인 설계 패턴</b></span> 중 하나이다.
   
 다시말하면, 스프링 프레임워크에서는 보통 MyBatis, Hibernate, JPA 등의 ORM(Object-Relational Mapping) 라이브러리를 사용하여 데이터베이스와의 상호작용을 처리하고, 이를 위한 DAO 클래스를 별도로 작성하는 것이 일반적이다.
   
 내가 담당했던, 그리고 그 밖에 서브로 담당했던 스프링 프로젝트에서도 DAO 로직을 별도의 DAO 파일로 분리하는 방식으로 구현되어 있었다.  
-
+  
+___
 
 <span style="color:green"><b>***Node.js***</b></span>  
-: 그러나 지금까지 구현한 Node.js의 경우, <span style="color:red"><b>Model 파일에 DAO 로직을 구현하는 방식을 고수</b></span>하고있다. (인터넷이나 깃허브의 대부분의 소스들이 그랬다.)
+그러나 지금까지 구현한 Node.js의 경우, <span style="color:red"><b>Model 파일에 DAO 로직을 구현하는 방식을 고수</b></span>하고있다. (인터넷이나 깃허브의 대부분의 소스들이 그랬다.)
   
 찾아보니 <span style="color:red"><b>일부 프레임워크나 라이브러리에서는 Model 파일에 DAO 로직을 구현하는 방식을 사용하는 경우가 있다고 한다.</b></span> 예를 들면, Express.js와 같은 인기 있는 Node.js 웹 프레임워크에서는 모델 파일에 데이터베이스와의 상호작용을 담당하는 DAO 로직을 구현하는 경우라고 설명한다.
   
@@ -926,3 +927,4 @@ public class UserDaoImpl implements UserDao {
   
 물론 DAO 로직을 별도의 파일로 분리할지, 모델 파일에 구현할지는 프로젝트의 구조 및 개발 환경에 따라 다를 수 있다. 한가지 더 느끼는건 <span style="color:red"><b>소규모 프로젝트에선 가성비있고 좋지만, 프로젝트가 크면 클 수록 Node 는 사용되지 않겠구나!</b></span> 라는 점이 더욱 확실해졌다. 
 
+___
