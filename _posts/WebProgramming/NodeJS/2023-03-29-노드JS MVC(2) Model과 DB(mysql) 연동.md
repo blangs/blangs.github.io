@@ -65,6 +65,9 @@ touch /confing/conf_database/db_config.js
 │   ├── conf_database  # DB설정 디렉토리 및 설정파일 생성
 │   │   └── db_config.js
 │   ├── conf_env
+│   │   ├── .env.development
+│   │   ├── .env.local
+│   │   └── .env.production
 │   ├── conf_json
 │   ├── config.js
 │   └── db_config.js
@@ -76,27 +79,32 @@ touch /confing/conf_database/db_config.js
 
 ```
 
+
 ### /confing/conf_database/db_config.js
 ```js
 const mysql = require('mysql2'); 
 const pool = mysql.createPool({
-  host: 'blang.co.kr',
-  port: 3306,
-  user: "INSTC",
-  password: "a",
-  database: "DSDBDO0",
-  connectionLimit: 10
+  host: process.env.DB_HOST, // 환경 변수에서 호스트 정보 가져오기
+  port: process.env.DB_PORT, // 환경 변수에서 포트 정보 가져오기
+  user: process.env.DB_USER, // 환경 변수에서 사용자 정보 가져오기
+  password: process.env.DB_PASSWORD, // 환경 변수에서 패스워드 정보 가져오기
+  database: process.env.DB_DATABASE, // 환경 변수에서 데이터베이스 정보 가져오기
+  connectionLimit: process.env.DB_CONNECTIONLIMIT // 환경 변수에서 커넥션 리밋 정보 가져오기
 });
 
 //커넥션 객체를 모듈화
 module.exports = function(callback) {            //단순한 익명 함수를 리턴함
     pool.getConnection(function(err, conn) {    // getConnection() 함수가 구현한 콜백함수로 conn 리턴함
         if (err) throw error;
-        callback(conn);
+        callback(conn);  //실제 DB 쿼리로직이 담긴 함수가 들어올것이다.
     });
 }
 
 ```
+
+이전에 config.js 모듈을 통해 런타임환경별 .env 파일을 로드했다. 그래서 위처럼 사용이 가능해졌다!
+
+
 
 ## STEP2. 모델(Model) 생성
 ```bash
@@ -112,8 +120,12 @@ touch /model/member.model.js
 │   ├── conf_database  # DB설정 디렉토리 및 설정파일 생성
 │   │   └── db_config.js
 │   ├── conf_env
+│   │   ├── .env.development
+│   │   ├── .env.local
+│   │   └── .env.production
 │   ├── conf_json
 │   ├── config.js
+│   └── db_config.js
 ├── controllers
 │   ├── main
 │   │   └── main.controller.js
@@ -121,96 +133,670 @@ touch /model/member.model.js
 │       └── member.controller.js
 ├── models # 모델(Model) 디렉토리 및 파일 생성
 │   └── member.model.js
-
 ```
-
 
 ### /models/member.model.js
 ```js
-const getConnection = require("../config/conf_database/db_config.js");
-
+/* 해당 JS파일은 단순한 DTO 를 담는 형태가 아닌 DAO 로직이 포함되어있는 형태다. */
+const getConnection = require("../config/conf_database/db_config.js"); // 콜백 모듈
 
 // constructor 생성자
+// req.body 또는 req.query 를 넣으면 생성가능
 const Member = function(member) {
-  this.name = member.name;
-  this.age = member.age;
-  this.address = member.address;
+    this.회원번호 = member.id;
+    this.이름 = member.name;
+    this.나이 = member.age;
+    this.주소 = member.address;
 };
 
-// insert 를 정의한다. 즉, DAO 로직이 모델에 담겨있는 형태이다.
-// 생성자를 통해 은닉화된 필드를 newMember 인자로 만들어서 INSERT 한다.
 
-Member.insert = (newMember, result) => {
-/*
-    sql.query("INSERT INTO MEMBER SET ?", newMember, (err, res) => {
-    if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        return;
-    }
-  });
-    console.log("created member: ", { id: res.insertId, ...newMember });
-    result(null, { id: res.insertId, ...newMember });
-*/
-
-    //모듈의 Connection 을 가져온다.
-    getConnection( function(conn) {
-            conn.query('SELECT * FROM TBDBDW001', function (err, data) {
-                err ? console.log(err) :  console.log('[success]' + res.send(data) );
-        	});
-           console.log('dddd');
-            //DB 연결 해제 (매우중요)
-            conn.release() 
-    });            
+/* 
+ * SELECT 모델
+ */
+Member.selectArr = (param, result) => {    
+	console.log('member.model.js getMember() >> ');
+	
+    //1. 조회 쿼리 생성
+    let query = "SELECT * FROM MEMBER";
+    if (param) query += param;
+    console.log(query);
     
+    //2. Connection Pool 모듈 콜백 함수
+    getConnection( function(conn) {
+        conn.query(query, function (err, data) { 
+        	
+            data.forEach((row) => {
+                console.log(`회원번호: ${row.회원번호} 이름: ${row.이름}, 나이: ${row.나이} 주소: ${row.주소}`);
+            });
+  
+            //param1: 에러가 발생하지 않았음을 나타낸다. (에러가 아님을 확정지은 의미적인 SET 이다.)
+            //param2: DB 조회 결과를 SET
+            result(null, data); 
+        });
+        //지역변수 conn 으로 DB 연결 해제 (매우중요) 
+        conn.release();         
+
+    });   
 };
+
+
+/* 
+ * INSERT 모델
+ */
+Member.setInsert = (newMember, result) => {
+console.log('member.model.js getMember() >> ');
+    // 생성자를 통해 은닉화된 필드를 newMember 인자로 만들어서 INSERT 한다.
+     
+    // Template Literal 사용법
+    // Template Literal을 사용하면 ${...} 문법을 사용하여 객체를 삽입 가능하다 ...은 객체를 복사하거나 배열을 펼치는 연산자로 사용한다.
+    // 그 외에도 만약 문자열과 객체를 연결하기 위해서는 + 대신에 Template Literal을 사용한다.
+     console.log("GET newMember1: ", {...newMember });  //객체 또는 배열을 리터럴을 출력한다.
+     console.log("GET newMember2: ", {id: 'MT01301', ...newMember });  //Spread Syntax (...)을 이용하여 새로운 id 객체를 합치고 객체리터럴을 출력한다.
+     console.log(`GET newMember3: 회원번호=${newMember.회원번호}, 이름='${newMember.이름}'`); //문자열과 합쳐서  출력한다.
+            
+    //1. 쿼리 생성
+    let query = 'INSERT INTO MEMBER SET ?';
+    console.log(query);
+    console.log(`GET Parameter ==> 회원번호=[auto], 이름='${newMember.이름}', 나이=${newMember.나이}, 주소='${newMember.주소}`);
+    
+    //2. Connection Pool 모듈 콜백 함수
+    getConnection( function(conn) {
+        //conn.query('INSERT INTO MEMBER (이름, 나이, 주소) VALUES ?', {...newMember}, function (err, data) {
+        conn.query('INSERT INTO MEMBER SET ?', {...newMember}, function (err, data) {
+
+            //결과
+            result(null, data.insertId);
+                    
+        });
+        //지역변수 conn 으로 DB 연결 해제 (매우중요) 
+        conn.release();            
+
+    });   
+};
+
+
+/* 
+ * UPDATE 모델
+ */
+Member.setUpdate = (updateMember, result) => {
+    // 생성자를 통해 은닉화된 필드를 newMember 인자로 만들어서 UPDATE 한다.
+ 
+    //1. 쿼리 생성
+    let query = 'UPDATE MEMBER SET 이름=?, 나이=?, 주소=? WHERE 회원번호 = ?';
+    console.log(query);
+    console.log("GET Parameter ==> ", {...updateMember });  //합쳐서 나열하여 출력한다.
+    
+    //2. Connection Pool 모듈 콜백 함수
+    getConnection( function(conn) {
+        //conn.query('UPDATE MEMBER SET (이름, 나이, 주소) VALUES ?', {...newMember}, function (err, data) {
+        conn.query(query, [`${updateMember.이름}`, `${updateMember.나이}`, `${updateMember.주소}`, `${updateMember.회원번호}`], function (err, data) {
+
+            //결과
+            result(null, data);
+                    
+        });
+        //지역변수 conn 으로 DB 연결 해제 (매우중요) 
+        conn.release();            
+
+    });   
+};
+
+/* 
+ * DELETE 모델
+ */
+Member.setDelete = (deleteMember, result) => {
+   // 생성자를 통해 은닉화된 필드를 newMember 인자로 만들어서 INSERT 한다.
+ 
+    //1. 쿼리 생성
+    let query = 'DELETE FROM MEMBER WHERE 회원번호 = ?';
+    console.log(query);
+    console.log("GET Parameter ==> ", {...deleteMember });  //합쳐서 나열하여 출력한다.
+    
+    //2. Connection Pool 모듈 콜백 함수
+    getConnection( function(conn) {
+        //conn.query('UPDATE MEMBER SET (이름, 나이, 주소) VALUES ?', {...newMember}, function (err, data) {
+        conn.query(query, [`${deleteMember.회원번호}`], function (err, data) {
+            
+            //결과
+            result(null, data);
+                    
+        });
+        //지역변수 conn 으로 DB 연결 해제 (매우중요) 
+        conn.release();            
+
+    });   
+};
+
+
+module.exports = Member;
 
 ```
 
 
-
+## STEP2. 컨트롤러(Controller) 에서 모델 사용
 ### /controllers/member.controller.js
 ```js
-// 위에 작성한 모델을 임포트 했다.
-const Member = require("../../models/member.model.js");
+const Member = require("../../models/member.model.js");  // 모델 Import
+const path = require('path');
 
-exports.getMember = (req, res, next) => {
-    console.log('member.controller.js getMember()');
+/* 
+ * SELECT 
+ * Example: http://blang.co.kr:30001/member/searchMbr?name=홍
+ */
+exports.searchMbr = (req, res, next) => {
+    console.log('member.controller.js getMember() >> ');
+
+    //1. URL 쿼리스트링 GET
+    //console.log('req.query: ' + req.query);    // 그냥 이렇게 사용하면 object 으로 받음
+    const { name, age, address } = req.query;
+    const msg = (name !== null && name !== '' && name !== undefined) ? '[상세조회]' : '[전체조회]'
+    console.log('GET name: ' + name);
+    console.log('GET age: ' + age);
+    console.log('GET address: ' + address); 
+    
+    //2. 유형별 쿼리 조합
+    var param='';
+    if (name) param += ` WHERE 이름 LIKE '%${name}%'`;
+    if (age) param += ` WHERE 나이 LIKE '%${age}%'`;    
+    if (address) param += ` WHERE 주소 LIKE '%${address}%'`;
+
+    //3. 모델(Model) 정적메소드 호출 (보통 이런 형태로 에러처리한다.)	
+    Member.selectArr(param, (err, data) => {
+
+        if (err) res.status(500).send(null, { message:err.message || "에러"});    
+          // 잘못된 코드
+          //if (err) res.status(500).send({ message:err.message || "에러"}); 
+
+          /* 아래 함수로 리디렉션이 안되는 이유
+          res.sendFile 메소드는 서버에서 파일을 클라이언트에 전송하는 메소드로, 파일을 전송하여 브라우저에서 
+          해당 파일을 다운로드하거나 표시할 수 있도록 합니다. 따라서 res.sendFile 메소드를 호출해도 
+          페이지 이동이 발생하지 않습니다. 이는 단순히 파일을 전송하는 것이기 때문입니다. 
+          만약 페이지 이동을 원한다면, 클라이언트 측에서 리다이렉션을 처리해야 합니다.
+          예시로는 window.location 입니다.
+
+          res.redirect('./js/common-page.html');
+	 	  return res.redirect('./js/common-page.html');
+	      res.redirect('http://www.naver.om');
+	      res.sendFile(path.join(__dirname, '/../../public/index.html'));
+          */
+       
+          // Alert 보내는법
+		  //res.send("<script type='text/javascript'>alert('" +msg+"');</script>" + data);
+
+          // 응답결과 보내는법
+          res.send(data);  //응답결과를 라우터에게 보내줘야한다.
+        
+    });
+    
+    
 }
-exports.insertMember = (req, res, next) => {
+
+/* 
+ * INSERT
+ * Example: http://blang.co.kr:30001/member/insertMbr?name=홍길동&age=19&address=서울특별시100
+ */
+exports.insertMbr = function(req, res, next)  {
     console.log('member.controller.js insertMember() >> ');
 
-    // http://blang.co.kr:30001/member/insert?name=홍길동&age=19&address=서울특별시 100
-    // 요청값 검증
-    if (!req.body) {
-        res.status(400).send({
-            message: "내용이 없습니다."
-        });
-    }
+    //1. body DATA GET (bodyParser 모듈로 인해 사용가능해짐)
+    //console.log('req.body: ' + req.body);    // 그냥 이렇게 사용하면 에러 발생함. req.body.name 이렇게 사용해야함
+    const { name, age, address } = req.body;
+    console.log('GET name: ' + name);
+    console.log('GET age: ' + age);
+    console.log('GET address: ' + address);
+    
+    // 2. 요청값 검증
+    if (!req.query) res.status(400).send({message: "내용이 없습니다."});
 
-    // Member 모델 생성
-    const member = new Member({
-        name: req.body.name,
-        age: req.body.age,
-        adress: req.body.adress || false
-    });
-
-    // Member 모델 DB 저장
-    Member.insert(member, (err, data) => {
+    // 3. Member 모델 생성 (은닉화)
+    //  const member = new Member({name: name, age: age, address: address || false});   // 방법1
+    const member = new Member(req.body);   // 방법2
+    
+    // 4. 모델(Model) 정적메소드 호출 (보통 이런 형태로 에러처리한다.)	
+    Member.setInsert(member, (err, data) => {
         if (err) res.status(500).send({message: err.message || "에러"});
-        else res.send(data);
-    });
 
-
+        //res.send('삽입된 ROW 갯수: ' + data);
+    });   
 }
-exports.updateMember = (req, res, next) => {
+
+/* 
+ * UPDATE
+ * Example: http://blang.co.kr:30001/member/updateMbr?id=3&name='홍길동'&age='18'&address='서울특별시종로구100'
+ */
+exports.updateMbr = (req, res, next) => {
     console.log('member.controller.js updateMember() >> ');
+    
+    //1. body DATA GET (bodyParser 모듈로 인해 사용가능해짐)
+    //console.log('req.body: ' + req.body);    // 그냥 이렇게 사용하면 에러 발생함. req.body.name 이렇게 사용해야함
+    const { id, name, age, address } = req.body;
+    console.log('GET id: ' + id);
+    console.log('GET name: ' + name);
+    console.log('GET age: ' + age);
+    console.log('GET address: ' + address);
+    
+    // 2. 요청값 검증
+    if (!req.body) res.status(400).send({message: "내용이 없습니다."});
+    
+    // 3. Member 모델 생성 (은닉화)
+    //  const member = new Member({name: name, age: age, address: address || false});   // 방법1
+    const member = new Member(req.body);   // 방법2
+    
+    // 4. 모델(Model) 정적메소드 호출 (보통 이런 형태로 에러처리한다.)	
+    Member.setUpdate(member, (err, data) => {
+        if (err) res.status(500).send({message: err.message || "에러"});
+
+        res.send(data);
+    });   
+    
+    
 }
-exports.deleteMember = (req, res, next) => {
+
+/* 
+ * DELETE
+ * Example: http://blang.co.kr:30001/member/updateMbr?id=3
+ */
+exports.deleteMbr = (req, res, next) => {
     console.log('member.controller.js deleteMember() >> ');
+    
+    //1. body DATA GET (bodyParser 모듈로 인해 사용가능해짐)
+    //console.log('req.body: ' + req.body);    // 그냥 이렇게 사용하면 에러 발생함. req.body.name 이렇게 사용해야함
+    const { id } = req.body;
+    console.log('GET id: ' + id);
+    
+    // 2. 요청값 검증
+    if (!req.body) res.status(400).send({message: "내용이 없습니다."});
+    
+    // 3. Member 모델 생성 (은닉화)
+    //  const member = new Member({name: name, age: age, address: address || false});   // 방법1
+    const member = new Member(req.body);   // 방법2
+    
+    // 4. 모델(Model) 정적메소드 호출 (보통 이런 형태로 에러처리한다.)	
+    Member.setDelete(member, (err, data) => {
+        if (err) res.status(500).send({message: err.message || "에러"});
+
+        res.send('삭제된 ROW 갯수: ' + data);
+        
+    });   
+   
 }
 
 ```
 
+
+## STEP3. 화면에서 컨트롤러 호출
+### index.html
+```html
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src='js/jquery-3.6.4.min.js'></script>	
+    <link rel='stylesheet' type='text/css' href='css/test_css.css'>    
+    
+	
+    <title>Example</title>
+</head>
+<body>
+
+<div class="search-container">
+    <input type="text" placeholder="검색어 입력.." name="search" id="search-input">
+    <input type="radio" name="search-type" value="all" id="search-all" checked>
+    <label for="search-all">전체</label>
+    <input type="radio" name="search-type" value="name" id="search-name">
+    <label for="search-name">이름</label>
+    <input type="radio" name="search-type" value="age" id="search-age">
+    <label for="search-age">나이</label>
+    <input type="radio" name="search-type" value="address" id="search-address">
+    <label for="search-address">주소</label>
+    <button type="button" id="search-btn">검색</button>
+</div>
+
+
+<div class='table-col'>
+    <table>
+      <thead>
+        <tr>
+          <th scope='col'>회원번호</th>
+          <th scope='col'>이름</th>
+          <th scope='col'>나이</th>
+          <th scope='col'>주소</th>
+          <th scope='col'>수정</th>          
+          <th scope='col'>삭제</th>          
+        </tr>
+      </thead>
+      <tbody>
+
+<!--
+        <tr>
+          <td>값1-1</td>
+          <td>값1-2</td>
+          <td>값1-3</td>
+        </tr>
+        <tr>
+          <td>값2-1</td>
+          <td>값2-2</td>
+          <td>값2-3</td>
+        </tr>
+        <tr>
+          <td>값3-1</td>
+          <td>값3-2</td>
+          <td>값3-3</td>
+        </tr>
+-->
+
+      </tbody>
+    </table>
+</div>
+
+<button id='testBtn' style='width:100%;margin-bottom:20px'>절취선</button>
+</body>
+
+
+<script>
+
+// 전역변수
+let param = '';
+let containParamURL = ''; 
+
+let idInput = '';
+let nameInput = '';
+let ageInput = '';
+let addressInput = '';
+
+
+// 온로드
+window.onload = function() {    
+	
+const testButton = document.getElementById('testBtn');
+
+// 테스트버튼 클릭 이벤리스너
+testButton.addEventListener('click', function() {
+	var newURL = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname;
+    alert(newURL);
+});
+    
+    
+
+const searchBtn = document.querySelector('#search-btn');       // 검색버튼
+const searchAllRadio = document.querySelector('#search-all');  // 라디오버튼
+const searchInput = document.querySelector('#search-input');   // 검색내용
+const tableBody = document.querySelector('tbody');             //  tbody 태그 선택
+
+// 조회버튼 클릭 이벤트리스너
+searchBtn.addEventListener('click', () => {
+    tableBody.innerHTML = ''; 
+
+    const searchTypeRadios = document.querySelectorAll('input[name="search-type"]');
+    let selectedType = '';
+
+    for (let i = 0; i < searchTypeRadios.length; i++) {
+        if (searchTypeRadios[i].checked) {
+            selectedType = searchTypeRadios[i].value;  //선택한 체크박스의 VALUE 값 Ex) id, name, age, address
+            //alert('selectedType: ' + selectedType); 
+            break;
+        }
+    }
+    
+    // 입력한 검색어
+    let searchValue = searchInput.value.trim();  
+
+    // 입력한 파라미터
+    if (selectedType != 'all') {        
+        param = '?' + selectedType + '=' + searchValue;
+    }
+    
+    // 요청URL 설정
+    containParamURL = '/member/searchMbr'+param;
+
+    //fn_select1(containParamURL);    // 조회 비동기 통신 (XMLHttpRequest 방식)
+    //fn_select2(containParamURL);    // 조회 비동기 통신 (Ajax 방식)
+    fn_select3(containParamURL);       // 조회 비동기 통신 (Promiss 방식)
+
+}); // END addEvent
+
+}  //END Windowonload
+
+
+
+// 조회 비동기 통신 (XMLHttpRequest 방식)
+function fn_select1(containParamURL) {
+	
+	// AS-IS (아래와 같이 호출하면 로드 시간이 걸린다. 그래서 1회정도 무반응하는 현상이 발생한다.)
+    //script.src = './js/select_test_js_XMLHttpRequest.js';
+    //document.head.appendChild(script);
+    //start_XMLHttpRequest(containParamURL, fn_XMLHttpRequest);
+
+    // TO-BE
+    var script = document.createElement('script');
+    script.src = './js/select_test_js_XMLHttpRequest.js';            
+    script.onload = function() {
+      // 스크립트 파일 로드 완료 후 실행되는 코드
+        start_XMLHttpRequest(containParamURL, fn_XMLHttpRequest);
+    };
+    document.head.appendChild(script);
+         
+}
+
+// 조회 비동기 통신 (Ajax 방식)
+function fn_select2(containParamURL) {
+   
+    var script = document.createElement('script');
+    script.src = './js/select_test_js_Ajax.js';
+    script.onload = function() {
+        // 스크립트 파일 로드 완료 후 실행되는 코드
+        startAjax(containParamURL, fn_Ajax);
+
+    };
+    document.head.appendChild(script);
+    
+}
+
+
+// 조회 비동기 통신 (Promiss 방식)
+function fn_select3(containParamURL) {
+   
+    var script = document.createElement('script');
+    script.src = './js/select_test_js_Promise.js';
+    script.onload = function() {
+        // 스크립트 파일 로드 완료 후 실행되는 코드
+        startPromise(containParamURL, fn_promise);
+
+    };
+    document.head.appendChild(script);
+    
+}
+
+
+
+
+// 업데이트 비동기 통신 (여기서부턴 그냥 통합해서 작성함. 원하는 방식외에 주석처리해서 사용법 숙지하기)
+function fn_update(obj) {
+	
+	// (공통) 전달 DATA 설정
+    idInput = $("#" + obj.id).closest("tr").find("#id").val();
+    nameInput = $("#" + obj.id).closest("tr").find("#name").val();
+    ageInput = $("#" + obj.id).closest("tr").find("#age").val();
+    addressInput = $("#" + obj.id).closest("tr").find("#address").val();
+    
+    alert('[obj.id]: ' + obj.id                    + ', \n' +
+      'idInput: ' + idInput                        + ', \n' +
+      'nameInput: ' + nameInput          + ', \n' +
+      'ageInput: ' + ageInput                 + ', \n' +
+      'addressInput: ' + addressInput);
+
+	// (공통) 요청URL 설정
+    containParamURL = '/member/updateMbr'
+    
+	
+    // 비동기통신기법1. Ajax 사용으로 POST 요청을 수행한다.
+    /*
+    $.ajax({
+	    type: 'POST', 
+	    data: {id: idInput, name: nameInput, age: ageInput, address: addressInput}, 
+	    dataType: 'json', 
+	    url: containParamURL, 
+	    success: function(data) {
+		
+		    alert("결과: " + data);   // 얼럿에서는 [object] 으로 출력되어 확인을 못한다.
+
+            // CASE1. console.log()를 사용하여 객체 내용을 브라우저 개발자 도구의 콘솔에 출력하기:
+		    console.log("결과: " + data);   // 브라우저에서 확인
+		
+		   // CASE2. 객체의 속성에 접근하여 값을 읽기
+		    alert("결과: " + data.affectedRows);   // 수정 성공 count
+		    
+		   // CASE3. 객체를 JSON 문자열로 변환 => JSON 문자열 출력
+		    var jsonString = JSON.stringify(data);   
+            alert("결과: " + jsonString);
+		
+	    }, error: function(xhr, status, error) {
+		    alert("error" + xhr.status + error);
+	    }
+    });
+    */
+	
+	
+    // 비동기통신기법2. XMLHttpRequest 사용으로 POST 요청을 수행한다.
+	/*
+	//부모 tr 요소를 선택하고, tr 요소 내에서 id 속성값이 'id'인 요소를 선택
+    idInput = obj.parentNode.parentNode.querySelector('#id').value;  
+    nameInput = obj.parentNode.parentNode.querySelector('#name').value;
+    ageInput = obj.parentNode.parentNode.querySelector('#age').value;
+    addressInput = obj.parentNode.parentNode.querySelector('#address').value;
+    
+    // 0. body 데이터 생성
+	const params = new URLSearchParams();
+	params.append('id', idInput);
+	params.append('name', nameInput);
+	params.append('age', ageInput);
+	params.append('address', addressInput);
+    
+    // 1. XMLHttpRequest 객체 생성
+    const request = new XMLHttpRequest();
+    
+    // 2. onreadystatechage 이벤트리스너 등록
+    request.onreadystatechange = function(event){
+        // 응답코드 200(성공)을 받았는지 체크
+        if(request.readyState == 4 && request.status == 200){
+            
+            const responseData = request.responseText;
+            alert("결과: " + responseData);
+        }
+    }
+
+    // 3. 요청 초기화 (동기식)
+    request.open('POST', '/member/updateMbr', false);
+
+    // 4. 요청 전송
+    request.send(params);
+    */
+    
+    
+    
+    // 비동기통신기법3. Promise 사용으로 POST 요청을 수행한다.
+	// [Promise 객체 생성]
+    var data = new Promise((resolve, reject) => {
+    
+        // [Promise 동작내용 작성]
+        $.ajax({
+	        type: 'POST', 
+	        data: {id: idInput, name: nameInput, age: ageInput, address: addressInput}, 
+	        dataType: 'json', 
+	        url: containParamURL, 
+	        success: function(data) {
+		
+		        alert("결과: " + data);   // 얼럿에서는 [object] 으로 출력되어 확인을 못한다.
+
+                // CASE1. console.log()를 사용하여 객체 내용을 브라우저 개발자 도구의 콘솔에 출력하기
+		        console.log("결과: " + data);   // 브라우저에서 확인
+		
+		       // CASE2. 객체의 속성에 접근하여 값을 읽기
+		        alert("결과: " + data.affectedRows);   // 12
+		    
+		       // CASE3. 객체를 JSON 문자열로 변환 => JSON 문자열 출력
+		        var jsonString = JSON.stringify(data);   
+                alert("결과: " + jsonString);
+		
+	        }, error: function(xhr, status, error) {
+		        alert("error" + xhr.status + error);
+	        }
+        });
+    
+    });
+  
+    // CASE1. then-catch문법을 사용하여 Promise 객체를 읽기
+    data.then(function(result) {  
+        // 성공 시 실행될 코드
+        alert("[then-catch문법]성공 결과: ", result);
+        
+    }).catch(function(error) {
+        // 실패 시 실행될 코드
+        alert("[then-catch문법]실패 결과: ", error);
+    });
+
+  
+    // CSAE2. async/await 문법을 사용하여 Promise 객체를 읽기
+    (async function() {
+    try {
+        var result = await data; // 비동기 작업이 완료될 때까지 대기하고 결과를 받음
+        alert("[async/await 문법]성공 결과: ", result);
+        
+    } catch (error) {
+        alert("[async/await 문법]실패 결과: ", error);
+    }
+    })();
+
+}
+
+
+
+// 삭제 비동기 통신 (여기서부턴 그냥 통합해서 작성함. 원하는 방식외에 주석처리해서 사용법 숙지하기)
+function fn_delete(obj) {
+	
+    // 비동기통신기법1. Ajax 사용으로 POST 요청을 수행한다.
+    /*
+    */
+    
+    // 비동기통신기법2. XMLHttpRequest 사용으로 POST 요청을 수행한다.
+	
+    //부모 tr 요소를 선택하고, tr 요소 내에서 id 속성값이 'id'인 요소를 선택
+    idInput = obj.parentNode.parentNode.querySelector('#id').value;  
+    
+    // 0. body 데이터 생성
+	const params = new URLSearchParams();
+	params.append('id', idInput);
+	
+    // 1. XMLHttpRequest 객체 생성
+    const request = new XMLHttpRequest();
+    
+    // 2. onreadystatechage 이벤트리스너 등록
+    request.onreadystatechange = function(event){
+        // 응답코드 200(성공)을 받았는지 체크
+        if(request.readyState == 4 && request.status == 200){
+            
+            const responseData = request.responseText;
+            alert("결과: " + responseData);
+        }
+    }
+    
+    // 3. 요청 초기화 (동기식)
+    request.open('POST', '/member/deleteMbr', false);
+
+    // 4. 요청 전송
+    request.send(params);
+    
+    
+    // 비동기통신기법3. Promise 사용으로 POST 요청을 수행한다.
+    /*
+    */
+        
+}
+
+</script>
+</html>
+
+```
 
 
