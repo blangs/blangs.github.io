@@ -527,6 +527,7 @@ const tableBody = document.querySelector('tbody');             //  tbody 태그 
 // 조회버튼 클릭 이벤트리스너
 searchBtn.addEventListener('click', () => {
     tableBody.innerHTML = ''; 
+        
 
     const searchTypeRadios = document.querySelectorAll('input[name="search-type"]');
     let selectedType = '';
@@ -539,13 +540,21 @@ searchBtn.addEventListener('click', () => {
         }
     }
     
-    // 입력한 검색어
-    let searchValue = searchInput.value.trim();  
-
-    // 입력한 파라미터
-    if (selectedType != 'all') {        
-        param = '?' + selectedType + '=' + searchValue;
+    // 입력한 검색어 설정
+    //let searchValue = document.querySelector('#search-input').value.trim();
+    let searchValue = $('#search-input').val().trim();
+    
+    // 입력한 검색어를 파라미터로 조립
+    if (selectedType == 'all') {    
+        param = '';    
+    }else {
+    	param = '?' + selectedType + '=' + searchValue;
     }
+    
+    // 컨트롤에 입력된 검색어 초기화
+    //document.getElementById('search-input').value = ''; 
+    $('#search-input').val(''); 
+
     
     // 요청URL 설정
     containParamURL = '/member/searchMbr'+param;
@@ -757,6 +766,7 @@ function fn_delete(obj) {
 	
     // 비동기통신기법1. Ajax 사용으로 POST 요청을 수행한다.
     /*
+    * 생략
     */
     
     // 비동기통신기법2. XMLHttpRequest 사용으로 POST 요청을 수행한다.
@@ -790,6 +800,7 @@ function fn_delete(obj) {
     
     // 비동기통신기법3. Promise 사용으로 POST 요청을 수행한다.
     /*
+    * 생략
     */
         
 }
