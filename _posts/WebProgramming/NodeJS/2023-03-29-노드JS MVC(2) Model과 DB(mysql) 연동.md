@@ -423,8 +423,121 @@ exports.deleteMbr = (req, res, next) => {
 
 ```
 
+## STEP4. 메인 및 라우터
+### /server.js
+```js
+// AS-IS (메인 .env 로드)
+//require('dotenv').config();
 
-## STEP4. 화면에서 컨트롤러 호출
+const config = require('./config/config.js');
+const app = require('./app.js');
+const PORT = process.env.PORT || 3000;
+
+
+console.log('process.env.DB_HOST: ' + process.env.DB_HOST); // 환경 변수에서 호스트 정보 가져오기
+console.log('port: process.env.DB_PORT: ' + process.env.DB_PORT); // 환경 변수에서 포트 정보 가져오기
+console.log('user: process.env.DB_USER: ' + process.env.DB_USER); // 환경 변수에서 사용자 정보 가져오기
+console.log('password: process.env.DB_PASSWORD: ' + process.env.DB_PASSWORD); // 환경 변수에서 패스워드 정보 가져오기
+console.log('database: process.env.DB_DATABASE: '  + process.env.DB_DATABASE); // 환경 변수에서 데이터베이스 정보 가져오기
+console.log('connectionLimit: process.env.DB_CONNECTIONLIMIT: ' + process.env.DB_CONNECTIONLIMIT); // 환경 변수에서 커넥션 리밋 정보 가져오기
+
+app.listen(PORT, () => {
+    console.log('/******************************************************');
+    console.log('서버가 실행됩니다.. http://127.0.0.1:' + PORT + '/');
+    console.log('환경설정파일:  ' + process.env.DESCRIPTION);
+    console.log('******************************************************/');    
+});
+
+```
+
+### /app.js  
+```js
+const express = require('express');
+const logger = require('./middlewares/logger');
+const customErr = require('./middlewares/customErr');
+const basicErr = require('./middlewares/basicErr');
+
+class App {
+    constructor() {
+	    this.app = express();
+	    this.setMiddlewares();
+	    this.setRouting();
+	
+        //특수한 Express 에러처리 미들웨어 생명주기로 인한 별도로 맨 마지막 등록
+        this.app.use(basicErr);      // (추가) next() 로직이 없기때문에 여기서 끝난다.
+	    this.app.use(customErr);
+    }
+    
+    setMiddlewares() {
+        //커스텀로거
+        this.app.use(logger);
+        
+        //정적디렉토리설정
+        this.app.use('/', express.static('public'));
+        this.app.use('/member', express.static('./public')); // http:/주소:포트/member/css/test_css.css 가능해짐
+        
+         //bodyParser(BODY 데이터 핸들링)
+        const bodyParser = require('body-parser');
+	    this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.app.use(bodyParser.json());    
+    }
+        
+    setRouting() {
+        const routes = require('./routes'); 
+        this.app.use('/', routes);
+    }    
+}
+
+module.exports = new App().app;
+
+```
+
+### /routes/index.js
+```js
+const express = require('express');
+const router = express.Router();
+
+const main = require('./main');     //main 디렉토리 안에 동일명이 없으면 index.js 호출
+const member = require('./member'); //member 디렉토리 안에 동일명이 없으면 index.js 호출
+
+// URL 관리가 한눈에 들어온다.
+router.use('/', main);
+router.use('/member', member);
+
+module.exports = router;
+
+```
+
+### /routes/member/index.js
+```js
+const express = require('express');
+const router = express.Router();
+
+const controller = require('../../controllers/member/member.controller');
+const basicRouter = require('./basic');  // 컨트롤러 없는방식
+
+// 주의) 컨트롤러 모듈기능을 익스포트한 함수에 대한 매핑이다.
+/*
+router.get('/searchMbr', (req, res, next) => {
+    console.log('member 라우터 미들웨어에 오신것을 환영합니다.');
+    next();
+}, 
+controller.searchMbr); 
+*/
+
+router.get('/searchMbr', controller.searchMbr);
+router.post('/insertMbr', controller.insertMbr); 
+router.post('/updateMbr', controller.updateMbr);
+router.post('/deleteMbr', controller.deleteMbr);
+router.use(basicRouter);
+
+module.exports = router;
+
+```
+
+
+
+## STEP5. 화면에서 컨트롤러 호출
 ### /public/index.html
 ```html
 <!DOCTYPE html>
@@ -809,6 +922,11 @@ function fn_delete(obj) {
 </html>
 
 ```
+
+## 기타
+
+
+### 
 
 
 ## MVC패턴 완성 후 정리
