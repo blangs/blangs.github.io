@@ -11,12 +11,16 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "/blang-react-pages/",
+  "homepage": "/blang-react-pages/build/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "purge": "rm -rf ../awesome-tools/static && cp -fR ./build/* ../awesome-tools",
+    "frontmatter": "echo '---\ntitle: Awesome Tools\nlayout: null\n---\n' | cat - ../awesome-tools/index.html > temp && mv temp ../awesome-tools/index.html",
+    "deploy": "npm run purge && npm run frontmatter"
   },
   "eslintConfig": {
     "extends": [

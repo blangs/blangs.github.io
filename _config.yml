@@ -183,6 +183,8 @@ exclude:
   - tmp
   - /docs # ignore Minimal Mistakes /docs
   - /test # ignore Minimal Mistakes /test
+  - node_modules
+  - blang-react-pages
 keep_files:
   - .git
   - .svn
