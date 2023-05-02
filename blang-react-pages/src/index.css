@@ -14,8 +14,142 @@ code {
 
 /*--------------------------------------------------------------*/
 /* CTH 추가 */
-/* TEST */
+
+/***************************************
+-  기본레이아웃 만들기 (전체구조)
+    - React 라이브러리는 상위 요소가 html -> body -> root인 구조
+    - root 레이아웃까지 height 지정.
+***************************************/
+html, body{
+	height: 100%;
+}
+#root {
+  height: 100%;
+}
+
+/***************************************
+-  기본레이아웃 만들기
+***************************************/
+.wrap {
+    display: flex;
+    flex-direction: column;
+	height: 100%;
+}
+.header {
+  display: flex;
+  height: 65px;
+}
+.tablist {
+	display: flex;
+	flex-wrap: nowrap;
+    height: 70px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.1);
+}
+.content {
+    display: flex;
+    flex: 1;
+}
+.aside {
+    display: flex;
+    flex: none;
+    width: 150px;
+}
+.main{
+	flex: 1;
+    display: flex;
+}
+
+/***************************************
+-  기본레이아웃 각 영역의  컴포넌트
+***************************************/
+.header-inner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background: black; 
+    width: 100%;
+    color: white;
+    padding-left: 20px;
+}
+
+.tablist-inner {
+	display: flex;
+    flex-direction: row;
+	background: white;
+	width: 100%;
+	color: black;
+}
+.aside-inner {
+	flex: auto;
+	display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: #bfbab078;
+}
+.main-inner {
+	flex: 1 0 auto;
+	display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+.main-inner-list {
+	box-sizing: border-box;
+	border-bottom: 1px solid grey;
+    padding-left: 20px;
+    text-align: left;
+    /* CSS에서 width 속성을 100%로 주면 부모의 width 만큼 너비가 설정됩니다. 하지만 content-box일 때 width: 100%에 이어 padding이나 border를 주게 될 경우 부모의 영역을 초과해서 너비가 정해지는 문제가 생길 수 있습니다. */
+    /* .test-div {box-sizing: content-box;}*/ /* default  너비 및 높이는 오직 content 영역의 크기에만 영향. 테두리,패딩,마진 등은 포함하지않음. */
+    /* 해당요소에 직관적으로 지정한 너비 및 높이 그대로 기준으로 하여 테두리,패딩,마진 등의 크기로 줄어드는 형태. */    
+}
+
+
+
+
+
+/* 테스트 박스 */
+.test-box-row {
+    flex: 1;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+.test-box-col {
+    flex: 0 1 auto;
+    height: 50px;
+    width: 100%;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+
+/*----------------------------------------------------------------------------------------------------------*/
 .test {background-color: aqua;color: black;}
+
+
+.test-box1 {background-color: red;color: black;width: 100px;height:100px}
+.test-box2 {background-color: blue;color: black;width: 100px;height:100px}
+.test-box3 {background-color: green;color: black;width: 100px;height:100px}
+
+
+
+.test-black-nav {
+display: flex;
+flex-direction: row; /* default 가로정렬 */
+/* flex-wrap: no-wrap;*/ /* default 자식요소가 넘치면 부모넓이에 맞게 모두 width가 자동으로 축소 */
+flex-wrap: wrap; /* 자식요소가 넘치면 아이템들은 자연스럽게 개행 */
+background: black; 
+width: 100%; /* border-box 조합과 함께 사용하요 초과방지 */
+color: white;
+padding-left: 20px;
+}
+
+.test-black-nav-inner {
+display: flex;
+}
 
 
 /* Reset */

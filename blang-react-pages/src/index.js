@@ -64,16 +64,19 @@ const root = ReactDOM.createRoot(container);
 root.render(
   <React.StrictMode>
     <App />
-	<br />
+	
+	{/*
 	<ul>
 		<li><TestClassComponent /></li><br/>
 		<li><TestFunctionComponent /></li>
 	</ul>
-    
-	<b>------------------------------------</b><br/>
-    <Test1 /><br/><br/>
+	<Test1 /><br/><br/>
     <Test2 /><br/><br/>    
     <Example />
+    
+    */}   
+	
+
   </React.StrictMode>
 );
 

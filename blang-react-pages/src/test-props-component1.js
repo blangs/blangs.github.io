@@ -56,7 +56,7 @@ propsCompoBasic.defaultProps = {
 {/* props 타입지정(필수,일반) */}
 propsCompoBasic.propTypes = {
 	//title: PropTypes.string.isRequired,
-	//description: PropTypes.string
+	description: PropTypes.string 
 };
 
 export default propsCompoBasic;

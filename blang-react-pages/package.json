@@ -1,5 +1,5 @@
 {
-  "name": "blang-react-pages",
+  "name": "bck",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,11 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "purge": "rm -rf ../awesome-tools/static && cp -fR ./build/* ../awesome-tools",
-    "frontmatter": "echo '---\ntitle: Awesome Tools\nlayout: null\n---\n' | cat - ../awesome-tools/index.html > temp && mv temp ../awesome-tools/index.html",
-    "deploy": "npm run purge && npm run frontmatter"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
