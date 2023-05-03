@@ -183,8 +183,8 @@ exclude:
   - tmp
   - /docs # ignore Minimal Mistakes /docs
   - /test # ignore Minimal Mistakes /test
-  - node_modules        # CTH for reactProject
-  # - blang-react-pages # CTH for reactProject 
+  - node_modules          # CTH for reactProject
+  - dev-blang-react-pages # CTH for reactProject 
 keep_files:
   - .git
   - .svn

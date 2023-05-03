@@ -29,5 +29,5 @@ _asset_bundler_cache
 _site
 
 # CTH ADD
-blang-react-pages/node_modules/
-# blang-react-pages/build/
+dev-blang-react-pages/node_modules/
+dev-blang-react-pages/build/
