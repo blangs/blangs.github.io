@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/blang-react-pages/static/css/main.073c9b0a.css",
+    "main.js": "/blang-react-pages/static/js/main.88cdfdbc.js",
+    "static/js/787.cb0403dd.chunk.js": "/blang-react-pages/static/js/787.cb0403dd.chunk.js",
+    "static/media/logo.svg": "/blang-react-pages/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/blang-react-pages/index.html",
+    "main.073c9b0a.css.map": "/blang-react-pages/static/css/main.073c9b0a.css.map",
+    "main.88cdfdbc.js.map": "/blang-react-pages/static/js/main.88cdfdbc.js.map",
+    "787.cb0403dd.chunk.js.map": "/blang-react-pages/static/js/787.cb0403dd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.88cdfdbc.js"
+  ]
+}
