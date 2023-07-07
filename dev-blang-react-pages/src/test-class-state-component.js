@@ -57,7 +57,7 @@ class ClssCmpoStat extends Component {
 				
 	
 				{/* 기본 사용법 (setState 에 객체대신 함수인자 전달하는 사용법) */}
-				<button onClick={() => { this.setState(prevState => ({ number: prevState.number +1 }));  }}>
+				<button onClick={() => { this.setState( prevState => ({ number: prevState.number +1 })  );  }}>
 				버튼3(함수인자 전달 사용법)
 				</button>
 				
