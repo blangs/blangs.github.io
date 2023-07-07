@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/blang-react-pages/static/css/main.3e1b1eec.css",
-    "main.js": "/blang-react-pages/static/js/main.54942d3b.js",
+    "main.css": "/blang-react-pages/static/css/main.c3730b91.css",
+    "main.js": "/blang-react-pages/static/js/main.05a1786a.js",
     "static/js/787.cb0403dd.chunk.js": "/blang-react-pages/static/js/787.cb0403dd.chunk.js",
     "static/media/test-react-icon.png": "/blang-react-pages/static/media/test-react-icon.20adfb35ae6a6e5817bf.png",
     "index.html": "/blang-react-pages/index.html",
-    "main.3e1b1eec.css.map": "/blang-react-pages/static/css/main.3e1b1eec.css.map",
-    "main.54942d3b.js.map": "/blang-react-pages/static/js/main.54942d3b.js.map",
+    "main.c3730b91.css.map": "/blang-react-pages/static/css/main.c3730b91.css.map",
+    "main.05a1786a.js.map": "/blang-react-pages/static/js/main.05a1786a.js.map",
     "787.cb0403dd.chunk.js.map": "/blang-react-pages/static/js/787.cb0403dd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3e1b1eec.css",
-    "static/js/main.54942d3b.js"
+    "static/css/main.c3730b91.css",
+    "static/js/main.05a1786a.js"
   ]
 }

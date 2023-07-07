@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const aa = () => {
+const Aa = () => {
 	const [name, setName] = useState('');
 	const onClickEnter = () => { setName('홍길동') };
 	
@@ -15,4 +15,4 @@ const aa = () => {
 	);
 }
 
-export default aa;
+export default Aa;
