@@ -37,7 +37,7 @@ html, body{
 }
 .header {
   display: flex;
-  height: 65px;
+  height: 150px;
 }
 .tablist {
 	display: flex;
@@ -52,7 +52,7 @@ html, body{
 .aside {
     display: flex;
     flex: none;
-    width: 150px;
+    width: 120px;
 }
 .main{
 	flex: 1;
@@ -69,6 +69,7 @@ html, body{
     flex-wrap: wrap;
     background: black; 
     width: 100%;
+    height: 120px;
     color: white;
     padding-left: 20px;
 }
@@ -78,6 +79,7 @@ html, body{
     flex-direction: row;
 	background: white;
 	width: 100%;
+    height: 60px;
 	color: black;
 }
 .aside-inner {

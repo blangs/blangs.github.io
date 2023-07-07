@@ -30,9 +30,9 @@ const propsCompoBasic = props => {
 										<div className="detail-rating">
 											<ul>
 												<li className="list02">
-													<span className="blind">LIKE</span> 11</li>
+													<span className="blind">LIKE</span> 500</li>
 												<li className="list03">
-													<span className="blind">VEIW</span> 395</li>
+													<span className="blind">VEIW</span> 5000</li>
 											</ul>
 										</div>
 									</div>

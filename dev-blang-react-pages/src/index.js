@@ -11,9 +11,9 @@ import  TestFunctionComponent from './test-function-component';
   
 const flag = false;
 /*************************************************************
-- 익명 함수
+- 삼항연산자로 컴포넌트 호출하기
 *************************************************************/
-// 일반 함수선언문
+// CASE1. 일반 함수선언문
 function Test1() { 
 	return (
 	    <>	        
@@ -24,7 +24,7 @@ function Test1() {
 	);
 };
 
-// 화살표 함수[ES6(ES2015)]
+// CASE2. 화살표 함수[ES6(ES2015)]
 const Test2 = () => { 
 	return (
 	    <>	        
@@ -35,6 +35,23 @@ const Test2 = () => {
 	);
 };
 
+/*************************************************************
+- 훅 사용법
+*************************************************************/
+const Test3 = function() {
+	const [number, setNumber] = useState(2);
+	
+	function increase() {
+		setNumber(number + 1);
+	}
+	
+	return(
+		<div>
+		<p>devops</p>
+		<button onClick={increase}>클릭하세요: {number}</button>
+		</div>
+	);
+}
 
 // 추가 CTH
 const Example = () => {
@@ -46,7 +63,7 @@ const Example = () => {
 	
 	return (
 	    <div>
-	        <b>Test3) 클로저 </b>
+	        <b>Test4) 클로저 </b>
 	        <button onClick={handleClick}>Click me</button>
 	    </div>
 	);
@@ -63,7 +80,7 @@ const root = ReactDOM.createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <App />
+   <App />
 	
 	{/*
 	<ul>

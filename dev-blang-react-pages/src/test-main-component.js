@@ -4,6 +4,7 @@ import TestFunctionComponent from './test-function-component';
 import TestChildrenComponent from './test-children-component';
 import TestClassStateComponent from './test-class-state-component';
 
+import TestPropsComponent2 from './test-props-component2';
 
 const mainCompo = () => {
 	
@@ -32,6 +33,9 @@ const mainCompo = () => {
 		<h4>JSX문법과 기본기 알아가기2</h4>
 		<p>2023년05월 수정</p>
 		</div>
+       
+       <TestPropsComponent2 param1='기본' param2="테스트"  />
+       <TestPropsComponent2 param1='기본'  />
     
     	{/* 기본*/}
 		<TestPropsComponent1 title='기본' description="<b>Hello Blang!</b>" result=<b>Hello Blang!</b> category='기본' />

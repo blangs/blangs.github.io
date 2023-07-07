@@ -28,7 +28,7 @@ function App() {
                 <div className="aside"><TestAsideComponent /></div>
                 <div className="main">
                     <StudyComponent />
-				    <TestMainComponent />
+                    <TestMainComponent />
 				
 			    </div>
             </div>
