@@ -12,7 +12,6 @@ import TestTabListComponent from './test-tablist-component.js';
 import TestAsideComponent from './test-aside-component.js';
 import TestMainComponent from './test-main-component.js';
 
-import StudyComponent from './study-component.js'
 
 
 function App() {
@@ -27,9 +26,8 @@ function App() {
             <div className="content">
                 <div className="aside"><TestAsideComponent /></div>
                 <div className="main">
-                    <StudyComponent />
                     <TestMainComponent />
-				
+			
 			    </div>
             </div>
         </div>

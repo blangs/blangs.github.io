@@ -1,10 +1,15 @@
-import TestPropsComponent1 from './test-props-component1';
 import TestClassComponent from './test-class-component';
 import TestFunctionComponent from './test-function-component';
 import TestChildrenComponent from './test-children-component';
 import TestClassStateComponent from './test-class-state-component';
-
+import TestPropsComponent1 from './test-props-component1';
 import TestPropsComponent2 from './test-props-component2';
+
+import StudyComponent from './study-component.js'
+import TestEventPracticeComponent1 from './test-class-event-component.js'
+import TestEventPracticeComponent2 from './test-function-event-component.js'
+
+
 
 const mainCompo = () => {
 	
@@ -24,7 +29,18 @@ const mainCompo = () => {
     /* 결과 */
 	return(
 		<div className='main-inner'>
-
+	      
+        {/* function event 연습 */}
+	    <TestEventPracticeComponent2 />
+	
+	    {/* class event 연습 */}
+	    <TestEventPracticeComponent1 />
+	
+	
+	    {/* function Hook 연습 */} 
+        <StudyComponent />
+        
+    	{/* 기본 */}
 		<div className='main-inner-list'>
 		<h4>JSX문법과 기본기 알아가기</h4>
 		<p>2023년05월 작성</p>
@@ -34,10 +50,11 @@ const mainCompo = () => {
 		<p>2023년05월 수정</p>
 		</div>
        
+   	{/* Props 연습2 */}
        <TestPropsComponent2 param1='기본' param2="테스트"  />
        <TestPropsComponent2 param1='기본'  />
     
-    	{/* 기본*/}
+   	{/* Props 연습1 */}
 		<TestPropsComponent1 title='기본' description="<b>Hello Blang!</b>" result=<b>Hello Blang!</b> category='기본' />
 		<TestPropsComponent1 title='표현식' description="<b>{name}</b>" result=<b>{name}</b> category='기본' />
 		<TestPropsComponent1 title='삼항연산자(조건부연산자)' description="{name == 'Blang' ? <b>YES Blang</b> : <b>NO Blang</b> }" result={name == 'Blang' ? <b>YES Blang</b> : <b>NO Blang</b> } category='기본' />	

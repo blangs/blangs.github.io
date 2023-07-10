@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import icon from './test-react-icon.png';
 
 
-const propsCompoBasic = props => {
+const propsCompoBasic1 = props => {
 	
 	const { children } = props;  {/* props 비구조화할당 방법 */}
 	
@@ -46,7 +46,7 @@ const propsCompoBasic = props => {
 }
 
 {/* props 디폴트값 지정 */}
-propsCompoBasic.defaultProps = {
+propsCompoBasic1.defaultProps = {
   //title: '이름없음',
   description: '내용없음',
 	result: '결과없음',
@@ -54,9 +54,9 @@ propsCompoBasic.defaultProps = {
 }
 
 {/* props 타입지정(필수,일반) */}
-propsCompoBasic.propTypes = {
+propsCompoBasic1.propTypes = {
 	//title: PropTypes.string.isRequired,
 	description: PropTypes.string 
 };
 
-export default propsCompoBasic;
+export default propsCompoBasic1;
