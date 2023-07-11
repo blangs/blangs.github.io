@@ -30,6 +30,7 @@ const propsCompoBasic2 = ({ param1, param2, children} ) => {
 	
 	return (
 		    <div className='main-inner-list'>
+		        <h4>props 연습(기본, 칠드런, 비구조화할당)</h4>
 				<p>파라미터1: {param1}</p>
 				<p>파라미터2: {param2}</p>
 				{children && <p>기본할당으로 받은 children: {children}</p>}

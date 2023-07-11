@@ -17,7 +17,10 @@ const Aa = () => {
 	    <div className='main-inner-list'>
 		<b>[테스트]</b><p>이름: {name} / 숫자: {count}</p>
 		<span><button onClick={NameMaker}>이름 생성</button><button onClick={CountMaker}>숫자 생성</button></span>
+		
+		
 		</div>
+		
 	);
 }
 
