@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/blang-react-pages/static/css/main.8f90ddae.css",
-    "main.js": "/blang-react-pages/static/js/main.56b8d056.js",
+    "main.js": "/blang-react-pages/static/js/main.638fa0e7.js",
     "static/js/787.cb0403dd.chunk.js": "/blang-react-pages/static/js/787.cb0403dd.chunk.js",
     "static/media/test-react-icon.png": "/blang-react-pages/static/media/test-react-icon.20adfb35ae6a6e5817bf.png",
     "index.html": "/blang-react-pages/index.html",
     "main.8f90ddae.css.map": "/blang-react-pages/static/css/main.8f90ddae.css.map",
-    "main.56b8d056.js.map": "/blang-react-pages/static/js/main.56b8d056.js.map",
+    "main.638fa0e7.js.map": "/blang-react-pages/static/js/main.638fa0e7.js.map",
     "787.cb0403dd.chunk.js.map": "/blang-react-pages/static/js/787.cb0403dd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8f90ddae.css",
-    "static/js/main.56b8d056.js"
+    "static/js/main.638fa0e7.js"
   ]
 }
