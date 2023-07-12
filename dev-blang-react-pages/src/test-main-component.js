@@ -9,6 +9,9 @@ import StudyComponent from './study-component.js'
 import TestEventPracticeComponent1 from './test-class-event-component.js'
 import TestEventPracticeComponent2 from './test-function-event-component.js'
 
+import TestValidationComponent1 from './test-class-validation-component.js'
+import TestValidationComponent2 from './test-function-validation-component.js'
+
 
 
 const mainCompo = () => {
@@ -29,10 +32,14 @@ const mainCompo = () => {
     /* 결과 */
 	return(
 		<div className='main-inner'>
-	      
+	
+        {/* function ref: 연습 */}
+	    <TestValidationComponent2 />
+	    {/* class ref: 연습 */}
+	    <TestValidationComponent1 />
+	
         {/* function event 연습 */}
 	    <TestEventPracticeComponent2 />
-	
 	    {/* class event 연습 */}
 	    <TestEventPracticeComponent1 />
 	

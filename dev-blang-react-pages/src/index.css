@@ -123,7 +123,13 @@ html, body{
     box-sizing: border-box;
 }
 
+.success {
+	background-color: lightgreen;
+}
 
+.failure {
+	background-color: lightcoral;
+}
 
 
 

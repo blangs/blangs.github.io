@@ -58,12 +58,13 @@ const EventPractice2 = () => {
 	const [form2, setForm2] = useState({ username_v4: '', message_v4: '' });
 	const { username_v4, message_v4 } = form2;
 	
+	// 이렇게 하면 username, message 무엇이든 동적으로 set 가능해진다.
 	const onChange_v4 = (e) => {
 		const nextform2 = {
 			...form2,              //기존의 from 내용을 이곳에 복사한뒤 ex) username_v3: '', message_v3: ''
 			[e.target.name]: e.target.value    //덮어쓰기!!!
 		}
-		setForm2(nextform2);
+		setForm2(nextform2);  // Hook 으로 SET
 	};
 	
     const onClick_v4 = () => {  alert(username_v4 + ' : ' + message_v4);  setForm2({ username_v4: '', message_v4: '' }); };   
@@ -77,7 +78,7 @@ const EventPractice2 = () => {
 	return(
         <div className='main-inner-list'>
 	        <h4>이벤트 연습(함수형)</h4>
-	
+			<p>기본 사용법</p>
 	            {/* 기본 사용법(일반함수) */}
 		        <b>[v1]username: </b>    <input type="text" name="username" value={username} onChange={onChangeUsername_v1} onKeyPress={handlerKeyPress_v1} />
 		        <b>[v1]message: </b>     <input type="text" name="message" value={message} onChange={onChangeMessage_v1} onKeyPress={handlerKeyPress_v1} />
@@ -89,6 +90,7 @@ const EventPractice2 = () => {
 		        <button onClick={onClick_v2}>[v2]상태 확인</button>
 				<br/>
 				<br/>
+			<p>인풋 여러개 다루기</p>
 				{/* 인풋 여러개 다루기(일반함수) */}
                 <b>[v3]username: </b>    <input type="text" name="username_v3" value={username_v3} onChange={onChange_v3} onKeyPress={handlerKeyPress_v3} />
 		        <b>[v3]message: </b>     <input type="text" name="message_v3" value={message_v3} onChange={onChange_v3} onKeyPress={handlerKeyPress_v3} />
