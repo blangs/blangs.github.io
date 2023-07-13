@@ -11,6 +11,7 @@ import TestEventPracticeComponent2 from './test-function-event-component.js'
 
 import TestValidationComponent1 from './test-class-validation-component.js'
 import TestValidationComponent2 from './test-function-validation-component.js'
+import TestIterationComponent1 from './test-function-iteration-component.js'
 
 
 
@@ -32,6 +33,9 @@ const mainCompo = () => {
     /* 결과 */
 	return(
 		<div className='main-inner'>
+	
+        {/* function map 연습 */}
+	    <TestIterationComponent1 />
 	
         {/* function ref: 연습 */}
 	    <TestValidationComponent2 />

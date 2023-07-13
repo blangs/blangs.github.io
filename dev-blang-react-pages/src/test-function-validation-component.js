@@ -35,9 +35,7 @@ const ValidationSample2 = () => {
 		<input type="password" value={state.password} onChange={handleChange} className={state.clicked ? (state.validated ? 'success' : 'failure') : ' ' }  />
 		*/}
 		</div>
-
-
-	
+		
 	);
 }
 

@@ -14,7 +14,7 @@ const asideCompo = () => {
 		
 		    {idx.map( (titleNum) => {
 			     return(
-			    <div className='test-box-col'>aside 컴포넌트 영역 {titleNum}</div>
+			     <div className='test-box-col'>aside 컴포넌트 영역 {titleNum}</div>
 			     );
 			}
 			)}

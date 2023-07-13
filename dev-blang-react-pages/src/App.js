@@ -11,6 +11,7 @@ import TestHeaderComponent from './test-header-component.js';
 import TestTabListComponent from './test-tablist-component.js';
 import TestAsideComponent from './test-aside-component.js';
 import TestMainComponent from './test-main-component.js';
+import TestMainComponent2 from './test-main-component2.js';
 
 
 
@@ -26,7 +27,8 @@ function App() {
             <div className="content">
                 <div className="aside"><TestAsideComponent /></div>
                 <div className="main">
-                    <TestMainComponent />
+                    {/*<TestMainComponent />*/}
+                    <TestMainComponent2 />
 			
 			    </div>
             </div>

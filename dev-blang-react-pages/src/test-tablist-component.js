@@ -14,15 +14,7 @@ const tablistCompo = () => {
 		    */}
 	
 		    <div className='test-box-row'>tablist 컴포넌트 영역 {idxCustom} </div>
- 
- 			
-            idxCustom.filter{function(item){
-//                    (item === 1 ? {...item, value: false} : item)
-<b>
-{item}
-</b>
-             }}
-       
+
             {idx.map((titleNum, index) => {
                 return (
                     <div className='test-box-row'>tablist 컴포넌트 영역 {titleNum}</div>
