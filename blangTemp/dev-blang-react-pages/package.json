@@ -11,7 +11,7 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "https://blang.co.kr/",
+  "proxy": "http://blang.co.kr:8080/",
   "homepage": "/blang-react-pages/",
   "scripts": {
     "start": "react-scripts start",
