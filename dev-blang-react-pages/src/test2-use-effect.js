@@ -12,14 +12,14 @@ const TestUseEffect = () => {
 		setName('loading SUCCESS...!');
 	});
 	*/
-	/*
+	
 	// CSAE2. 마운트될때만 실행
 	useEffect( () => {
-		setName('loading SUCCESS...!'); 
+		//setName('loading SUCCESS...!'); 
 		setViewValue(viewValue + 1);
-		alert("＊마운트 되었습니다.");
+		//alert("＊마운트 되었습니다.");
 	}, []);
-	*/
+	
 	/*
 	// CSAE3. 특정 값이 업데이트될 때만 실행
 	useEffect( () => {
@@ -28,7 +28,7 @@ const TestUseEffect = () => {
 	}, [value]);
 	*/
 	
-	
+	/*
 	// CSAE4. 컴포넌트가 언마운트 되기전   OR  컴포넌트가 업데이트 되기 직전에 수행
 	useEffect( () => {
 		//setName('loading SUCCESS...!'); 
@@ -38,7 +38,7 @@ const TestUseEffect = () => {
 			//alert("＊언마운트 되었습니다.");
 		}
 	}, [value]);
-	
+	*/
 	
 	const onChangeName = (e) => {
 		setName(e.target.value);
@@ -49,7 +49,6 @@ const TestUseEffect = () => {
 	
 	return(
 		<div className='main-inner-list'>
-			<h4> UseEffct 종류별 테스트</h4>
 			
 		    <p>현재 카운터 값은 <b>{value}</b> 입니다.</p>
 		    <button onClick={() => setValue(value+1)}>+1</button>
@@ -66,7 +65,7 @@ const TestUseEffect = () => {
 			    <b>닉네임: {nickname}</b>
 			</div>
 			<div>
-			    <b>뷰벨류: {viewValue}</b>
+			    <b>UseEffect 상태값: {viewValue}</b>
 			</div>
 			
 		</div>
