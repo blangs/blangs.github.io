@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const Info = () => {
+const TestUseEffect = () => {
 	const [value, setValue] = useState(0);
 	const [name, setName] = useState('');
 	const [nickname, setNickName] = useState('');
@@ -32,10 +32,10 @@ const Info = () => {
 	// CSAE4. 컴포넌트가 언마운트 되기전   OR  컴포넌트가 업데이트 되기 직전에 수행
 	useEffect( () => {
 		//setName('loading SUCCESS...!'); 
-		alert("＊마운트 되었습니다.");
+		//alert("＊마운트 되었습니다.");
 		return () => {
 			//setName('loading SUCCESS...!  (cleanup 모드)'); 
-			alert("＊언마운트 되었습니다.");
+			//alert("＊언마운트 되었습니다.");
 		}
 	}, [value]);
 	
@@ -48,7 +48,9 @@ const Info = () => {
 	};
 	
 	return(
-		<div>
+		<div className='main-inner-list'>
+			<h4> UseEffct 종류별 테스트</h4>
+			
 		    <p>현재 카운터 값은 <b>{value}</b> 입니다.</p>
 		    <button onClick={() => setValue(value+1)}>+1</button>
 		    <button onClick={() => setValue(value-1)}>-1</button>
@@ -71,4 +73,4 @@ const Info = () => {
 	);
 }
 
-export default Info;
+export default TestUseEffect;
