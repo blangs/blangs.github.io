@@ -59,12 +59,17 @@ Maven은 XML을 사용하여 빌드 파일을 정의하고, Gradle은 Groovy나 
 </dependencies>
 
 ```
-    
+## 이클립스에서 Maven 사용법  
+> 참고) [https://javacan.tistory.com/entry/import-maven-project](https://javacan.tistory.com/entry/import-maven-project)
+
+
+
 ## 그래들(Gradle)
 - gradle Download
 - groovy Download
 - 각 설치 파일 압축 해제
 - 환경 변수 또는 path 등록
+
 
 ### 설치
 1. 그래들 홈페이지[https://gradle.org/](https://gradle.org/) 에서 OS에 맞도록 설치
@@ -78,8 +83,9 @@ Maven은 XML을 사용하여 빌드 파일을 정의하고, Gradle은 Groovy나 
     gradle -v   # 정상이면 정보가 출력된다
     
     ```
-## 기본 Gradle 사용법
 
+
+## 기본 Gradle 사용법
 ### (1) 어플리케이션 생성
 
 ```bash 
@@ -256,9 +262,8 @@ Hello world!
 > 지금까지 그래들(Gradle) 사용방법을 알아보았다.
   
   
-  
-  
-## 전체 기본 Gradle 소스코드 정리
+
+## 설치 후 디폴트 Gradle 소스코드 정리
 : 최소한의 Gradle 소스코드는 다음을 참고하면 된다.
 
 ```xml
@@ -294,10 +299,8 @@ tasks.named('test') {
 
 ```
 
-
-
-
 ## 이클립스에서 Gradle 사용법  
+> 참고) [https://javacan.tistory.com/entry/import-maven-project](https://javacan.tistory.com/entry/import-maven-project)
 ### 이클립스 설정
 : 이클립스 또는 STS 에서 사용하려면 아래 내용을 설정한다.
 
