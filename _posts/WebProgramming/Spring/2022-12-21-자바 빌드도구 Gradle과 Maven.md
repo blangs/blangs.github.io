@@ -64,6 +64,53 @@ Maven은 XML을 사용하여 빌드 파일을 정의하고, Gradle은 Groovy나 
 
 
 
+
+## 메이븐(Maven) 로컬레파지토리 사용하기 
+### STEP1. (setting.xml) 로컬레파지토리 설정
+setting.xml파일 수정이 필요하다. (초기라면 없을 수 있다. 없다면 생성한다.)  
+요약하면 다음과 같다.
+
+1. setting.xml 파일 생성
+2. 이클립스에서 해당 파일을 설정
+
+![사진](/assets/images/WebProgramming/Spring/spring_maven01.jpg)
+
+
+
+### STEP2. (pom.xml) 로컬레파지토리에 존재하는 라이브러리리와 동일하게 작성
+.m2 경로 repository 그대로 썻다면 dependency도 그대로 사용하면 된다.
+
+
+```xml
+<!---
+예시) 로컬컬레파지토리에 존재한다면 실제로는 아래 경로를 파일을 참조하게된다
+
+{설정한 localRepository}/org/slf4j/jcl-over-slf4j/1.7.25/jcl-over-slf4j-1.7.25.jar 
+-->
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>jcl-over-slf4j</artifactId>
+    <version>1.7.25</version>
+</dependency>
+
+```
+
+### STEP3. 이클립스 적용
+
+> ***setting.xml 파일이 없었던 경우)***  
+> 프로젝트 우클릭 > Run As > Maven install > (repository 폴더가 생성되고 하위에 라이브러리가 생긴다.)
+
+이후 컴파일을 진행해주고, Maven Dependencies를 확인해 주면 해당 라이브러리들의 경로가 변경된 것을 확인 할 수 있다.  
+경로 변경이 되지 않았거나, 있어야할 라이브러리가 없다면,  
+Maven update Projects를 통해 업데이트해준다.  
+네트워크를 통해 라이브러리들을 받는게 아니라 로컬에 있는 라이브러리들을 참조하는거라 시간은 오래 걸리지 않는다.  
+
+
+
+
+
+
+
 ## 그래들(Gradle)
 - gradle Download
 - groovy Download
