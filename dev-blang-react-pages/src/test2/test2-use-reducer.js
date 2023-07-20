@@ -41,6 +41,9 @@ const TestUseReducer = () => {
 	     
 	return (
 	    <div className='main-inner-list'>
+			<p>
+			리듀서는 현재 상태. 그리고 업데이트를 위해 필요한 정보를 담은 액션(action) 값을 전달받아 새로운 상태를 반환하는 함수입니다. 리듀서 함수에서 새로운 상태를 만들때는 반드시 불변성을 지켜 주어야 합니다.<br/><br/>
+			</p><hr/><br/>
 			
 			<h4> UseReducer 으로 카운터 구현하기</h4>
 			<p> 현재 카운터 값은 <b>{state1.value1}</b> 입니다. </p>

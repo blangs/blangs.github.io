@@ -5,8 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 
-import  TestClassComponent from './test-class-component';
-import  TestFunctionComponent from './test-function-component';
+import  TestClassComponent from './test1/test-class-component';
+import  TestFunctionComponent from './test1/test-function-component';
  
   
 const flag = false;

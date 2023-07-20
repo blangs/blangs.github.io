@@ -2,7 +2,7 @@
 - 함수형 프로퍼티스 컴포넌트
 *************************************************************/
 import PropTypes from 'prop-types';
-import icon from './test-react-icon.png';
+import icon from '../test-react-icon.png';
 
 
 const propsCompoBasic1 = props => {

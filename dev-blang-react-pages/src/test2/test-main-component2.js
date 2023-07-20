@@ -1,10 +1,11 @@
 import { useState, useReducer } from 'react';
+import Test2UseState from './test2-use-state.js'
 import Test2UseEffect from './test2-use-effect.js'
 import Test2UseReducer from './test2-use-reducer.js'
 import Test2UseMemo from './test2-use-memo.js'
 import Test2UseCallback from './test2-use-callback.js'
 import Test2UseRef from './test2-use-ref.js'
-
+import Test2UseCustomhook1 from './test2-use-customhook1.js'
 
 function reducer0(state0, action0) {
     switch (action0.type) {
@@ -53,11 +54,13 @@ const MainCompo2 = () => {
 	    <div>
 		    <b>Hook</b><button onClick={toggleHook}> {hook ? '숨기기' : '보이기'} </button>
 		    <hr />
+		    {hook && <><h4> UseState 테스트</h4> <Test2UseState /></>}
 		    {hook && <><h4> UseEffect 테스트</h4> <Test2UseEffect /></>}
 		    {hook && <><h4> UseReducer 테스트</h4> <Test2UseReducer /></>}
 		    {hook && <><h4> UseMemo 테스트</h4> <Test2UseMemo /></>}
 		    {hook && <><h4> Test2UseCallback 테스트</h4> <Test2UseCallback /></>}
 		    {hook && <><h4> Test2UseRef 테스트</h4> <Test2UseRef /></>}
+		    {hook && <><h4> Test2UseCustomhook1 테스트</h4> <Test2UseCustomhook1 /></>}
 			
 			<br/>
 		

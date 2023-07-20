@@ -7,12 +7,13 @@
 //import TestChildrenComponent from './test-children-component';
 //import TestClassStateComponent from './test-class-state-component';
 
-import TestHeaderComponent from './test-header-component.js';
-import TestTabListComponent from './test-tablist-component.js';
-import TestAsideComponent from './test-aside-component.js';
+import TestHeaderComponent from './test1/test-header-component.js';
+import TestTabListComponent from './test1/test-tablist-component.js';
+import TestAsideComponent from './test1/test-aside-component.js';
 
-import TestMainComponent from './test-main-component.js';
-import TestMainComponent2 from './test-main-component2.js';
+import TestMainComponent from './test1/test-main-component.js';
+import TestMainComponent2 from './test2/test-main-component2.js';
+import TestMainComponent3 from './test3/test-main-component3.js';
 
 import React, {useState, useEffect} from 'react';
 
@@ -33,18 +34,17 @@ function App() {
     응답 처리 방식에 맞게 코드를 수정해야 합니다.
     */
     useEffect(() => {
-		const fetchData = async() => {
-		  try {
-			const response = await fetch('/dbd/app/test');
-			const jsonData = await response.json();
-			setData(jsonData);
+        const fetchData = async() => {
+            try {
+                const response = await fetch('/dbd/app/test');
+                const jsonData = await response.json();
+                setData(jsonData);
 			
-		  } catch (error) {
-			console.error('Error:', error);
-		  }
-		};
-		
-		fetchData();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+        fetchData();
     }, []);
 	
 	/* CASE2. axios 로 api 호출하기
@@ -73,8 +73,9 @@ function App() {
             <div className="content">
                 <div className="aside"><TestAsideComponent /></div>
                 <div className="main">
-                    {/*<TestMainComponent />*/}
-                    <TestMainComponent2 />
+                    {/*<TestMainComponent /> */}
+                    {/* <TestMainComponent2 /> */}
+                    <TestMainComponent3 />
 			
 			    </div>
             </div>
