@@ -166,7 +166,8 @@ dl,dt,dd,ul,ol,li{margin:0;padding:0;font-style:normal;}
 ul,li{list-style:none}
 *,*:before,*:after {box-sizing:border-box;}
 
-/* button */
+/* button 1 */
+/*
 button {
   background-color: #4CAF50;
   color: white;
@@ -180,7 +181,27 @@ button {
 .button-gray {background-color: #A9A9A9;}
 button:hover {background-color: #3e8e41;}
 .button-gray:hover {background-color: #F09438;}
+*/
 
+
+  button {
+    /* 기본 스타일 초기화 */
+    background: none;
+    outline: none;
+    border: none;
+    background: #868e96;
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.1s background ease-in;
+    &:hover {
+      background: #adb5bd;
+    }
+   }
 
 
 

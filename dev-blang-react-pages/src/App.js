@@ -68,7 +68,7 @@ function App() {
   			  <p>현재 백앤드: Loading...</p>
 		    )}
 		  
-            <header className="header"> <TestHeaderComponent/> </header>
+            <header className="header"> <TestHeaderComponent/> </header>            
             <div className="tablist"><TestTabListComponent /> </div>
             <div className="content">
                 <div className="aside"><TestAsideComponent /></div>
