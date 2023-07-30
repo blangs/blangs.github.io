@@ -32,20 +32,27 @@ const MainCompo3 = () => {
                       	const todo = {
                       	    id: nextId.current,   //4 번째 인덱스
                               text, 
-                              checked: false, 
+                              checked: false 
                       	};
                       	setTodos(todos.concat(todo)); // 기존 값에 useState 갱신하기
                       	nextId.current += 1; //ref변수인 nextId 값에 1씩 더하기
       	
-                      }, [todos],
+                      }, [todos]
   )
-  
+/*  
+useCallback(
+function(text) {
+	const todo = {id: nextId.current, text, checked:false};
+	setTodos(todos.concat(todo));
+	nextId.current += 1;
+}, [todos] )
+*/
 
   const onRemove = useCallback(
     (id) => {
       setTodos(todos.filter((todo) => todo.id !== id));
     },
-    [todos],
+    [todos]
   );
   
   
@@ -62,7 +69,7 @@ const MainCompo3 = () => {
   
   
     return (
-        <TodoTemplate>Todo App을 만들자!
+        <TodoTemplate>Todo App을 만들자! {useCallback(() => todos[1].id),[todos]}
             <TodoInsert onInsert={onInsert} />
 			<TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
         </TodoTemplate>
