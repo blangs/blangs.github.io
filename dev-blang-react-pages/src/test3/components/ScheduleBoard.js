@@ -29,14 +29,13 @@ const ScheduleBoard = () => {
 
     const onRemove = id => {
         //setTodos(todos.filter(todo => todo.id !== id));
-
         setTodos(todos.filter((todo) => todo.id !== id));
     }
 
     const onToggle = id => {
         setTodos(todos.map(todo =>
-                todo.id === id ? { ...todo, checked: !todo.checked } : todo,
-            ),
+            todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+        ),
         );
     }
 
