@@ -12,7 +12,7 @@ const TodoInsert = ({ onInsert }) => {
   const onClick = () => {
     onInsert(text);
     setText('');
-  }
+  } 
 
   return (
     <div>
