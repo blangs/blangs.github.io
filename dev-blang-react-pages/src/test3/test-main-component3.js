@@ -1,9 +1,10 @@
 import React, { useState, useRef, useCallback } from 'react';
 import ScheduleBoard from './components/ScheduleBoard';
 
-    return (
-        <ScheduleBoard />
-    )
+const MainCompo3 = () => {
+  return (
+    <ScheduleBoard />
+  );
 
-
-export default ScheduleBoard;
+}
+export default MainCompo3
