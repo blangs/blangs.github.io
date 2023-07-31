@@ -19,9 +19,11 @@ const ScheduleBoard = () => {
     });
     */
 
+    
     /*
       [useCallBack]: 의존성 배열이 변경되지 않는 한 이전에 생성된 함수를 재사용
     */
+   // 무언가 추가하고 싶을때 (= concat)
     const onInsert = useCallback( (text) => {
         const temp = {
             id: nextId.current += 1
@@ -32,16 +34,17 @@ const ScheduleBoard = () => {
     }, [todos]);
 
 
+    // 무언가 제거하고 싶을때 (= filter)
     const onRemove = useCallback( (id) => {
         setTodos(todos.filter((todo) => todo.id !== id));
     }, [todos]);
 
 
+    // 무언가 수정하고 싶을때 (= map & 전개연산자 & 덮어쓰기)
     const onToggle = useCallback( (id) => {
-        setTodos(todos.map(todo =>
+        setTodos(todos.map((todo) => 
             todo.id === id ? { ...todo, checked: !todo.checked } : todo,
-        ),
-        );
+        ));
     }, [todos]);
 
 
