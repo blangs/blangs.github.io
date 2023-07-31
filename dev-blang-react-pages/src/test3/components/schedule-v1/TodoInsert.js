@@ -13,7 +13,7 @@ const TodoInsert = ({ onInsert }) => {
     setValue(e.target.value);
   }, []);
 
-  /* 삽입 방법1
+  /* 삽입 방법1ㄴ
   const onClick = useCallback( () => {
     onInsert(valued);
     setValue('');
