@@ -1,4 +1,5 @@
 import React, { useRef, useState, useCallback } from 'react';
+import TodoTemplate from './TodoTemplate';
 import TodoInsert from './TodoInsert';
 import TodoList from './TodoList';
 
@@ -52,14 +53,11 @@ const ScheduleBoard = () => {
         <div>
             <h1>ScheduleBoard Page</h1>
 
-            <div className="TodoTemplate">
-            <div className="app-title">일정 관리</div>
-
-            <TodoInsert onInsert={onInsert} />
-            <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
-
-            </div>
-            </div>
+            <TodoTemplate>
+                <TodoInsert onInsert={onInsert} />
+                <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
+            </TodoTemplate>
+        </div>
 
     );
 };
