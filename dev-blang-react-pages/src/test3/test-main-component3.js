@@ -8,7 +8,7 @@ const MainCompo3 = () => {
   return (
     <>
     <ScheduleBoard1 />
-    <ScheduleBoard2 />
+    
     </>
   );
 
