@@ -6,21 +6,21 @@ const TodoInsert = ({ onInsert }) => {
   const [value, setValue] = useState('');
 
   /* 
-    [useCallBack]: 매번 랜더링 되지 않고 함수 재사용 모드
+    [useCallback]: 매번 랜더링 되지 않고 함수 재사용 모드
   */
-  const onChange = useCallBack( (e) => {
+  const onChange = useCallback( (e) => {
     setValue(e.target.value);
   }, []);
 
   /* 삽입 방법1
-  const onClick = useCallBack( () => {
+  const onClick = useCallback( () => {
     onInsert(valued);
     setValue('');
   }, []);
   */
 
   // 삽입 방법2
-  const onSubmit = useCallBack( (e) => {
+  const onSubmit = useCallback( (e) => {
     onInsert(value);
     setValue('');
     
