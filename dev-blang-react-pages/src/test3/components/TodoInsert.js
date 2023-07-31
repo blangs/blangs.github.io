@@ -30,7 +30,6 @@ const TodoInsert = ({ onInsert }) => {
 
   return (
     <div>
-    <b>insert page </b>
     <form className="TodoInsert" onSubmit={onSubmit}>
       <input value={value} onChange={onChange} />
       {/* <button onClick={onClick}>버튼</button> */}
