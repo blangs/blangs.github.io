@@ -3,14 +3,21 @@ import TodoTemplate from './TodoTemplate';
 import TodoInsert from './TodoInsert';
 import TodoList from './TodoList';
 
+//반복문으로 배열생성
+function createBulkTodos() {
+    const array = [];
+    for(let i=1; i<2500; i++) {
+        array.push(
+            { id: i, text: `할 일 ${i}`, checked: false }
+        )
+    }
+
+    return array;
+}
 
 const ScheduleBoard = () => {
 
-    const [todos, setTodos] = useState([
-        { id: 1, text: '홍길동', checked: true }
-        , { id: 2, text: '김민수', checked: true }
-        , { id: 3, text: '김민정', checked: false }
-    ]);
+    const [todos, setTodos] = useState(createBulkTodos);
 
     const nextId = useRef(todos.length);
 
