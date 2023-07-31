@@ -5,6 +5,7 @@ import {
   MdRemoveCircleOutline,
 } from 'react-icons/md';  //조건부 스타일링을 위해
 import cn from 'classnames';
+import './TodoListItem.scss';
 
 const TodoListItem = ({ todo, onRemove, onToggle }) => {
   const { id, text, checked } = todo;
@@ -27,6 +28,7 @@ const TodoListItem = ({ todo, onRemove, onToggle }) => {
 };
 
 export default TodoListItem;
+
 /*
 설명)
 1. 한개의 object 마다  한개의 컴포넌트를 반복적으로 생성한다.
@@ -34,5 +36,5 @@ export default TodoListItem;
     - 우선 'checkbox' 이라는 클래스이름으로 CSS 파일에 정의되어있다.
     - 렌더링시 'checked' useState 값에 따라서 클래스명을 적용/미적용 한다.
 3. 체크박스 클릭시점 UI조작은 넘겨받은 onToggle() 함수로 조작한다.
-
+4. 삭제 UI 조작은 react-icons/md API 로 만든 버튼으로 onClick 이벤트를 발생시킨다.
 */
