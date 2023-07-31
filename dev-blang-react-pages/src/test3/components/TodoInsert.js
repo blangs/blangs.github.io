@@ -9,13 +9,13 @@ const TodoInsert = ({ onInsert }) => {
     [useCallBack]: 매번 랜더링 되지 않고 함수 재사용 모드
   */
   const onChange = useCallBack( (e) => {
-    setText(e.target.value);
+    setValue(e.target.value);
   }, []);
 
   /* 삽입 방법1
   const onClick = useCallBack( () => {
     onInsert(valued);
-    setText('');
+    setValue('');
   }, []);
   */
 
