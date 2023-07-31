@@ -15,6 +15,7 @@ const TodoListItem = ({ todo, onRemove, onToggle }) => {
       {/* 체크박스 1: check상태, 2: uncheck상태 */}
       <div className={cn('checkbox', { checked })} onClick={() => onToggle(id)}>
         {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        <b>{checked ? '체크상태입니다.' : '언체크상태입니다.' }</b>
         <div className="text">{text}</div>
       </div>
 
