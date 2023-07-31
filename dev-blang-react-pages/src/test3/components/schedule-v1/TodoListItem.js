@@ -5,7 +5,7 @@ import {
   MdRemoveCircleOutline,
 } from 'react-icons/md';  //조건부 스타일링을 위해
 import cn from 'classnames';
-import './TodoListItem.scss';
+import '../TodoListItem.scss';
 
 const TodoListItem = ({ todo, onRemove, onToggle }) => {
   const { id, text, checked } = todo;
