@@ -30,14 +30,14 @@ const TodoInsert = ({ onInsert }) => {
   return (
     <div>
     <b>insert page </b>
-    <from className="TodoInsert" onSubmit={onSubmit}>
+    <form className="TodoInsert" onSubmit={onSubmit}>
       <input value={value} onChange={onChange} />
       {/* <button onClick={onClick}>버튼</button> */}
 
       <button type="submit">
-      <MdAdd />
+        <MdAdd />
       </button>
-    </from>
+    </form>
     </div>
   );
 };
