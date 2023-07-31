@@ -28,17 +28,17 @@ const TodoInsert = ({ onInsert }) => {
   }, [onInsert, value]);
 
   return (
-    <from className="TodoInsert" onSubmit={onSubmit}>
     <div>
-      <b>insert page </b>
+    <b>insert page </b>
+    <from className="TodoInsert" onSubmit={onSubmit}>
       <input value={value} onChange={onChange} />
       {/* <button onClick={onClick}>버튼</button> */}
 
       <button type="submit">
       <MdAdd />
       </button>
-    </div>
     </from>
+    </div>
   );
 };
 
