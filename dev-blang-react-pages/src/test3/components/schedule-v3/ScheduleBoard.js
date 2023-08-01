@@ -23,7 +23,7 @@ function todoReducer(todos, action) {
         case 'TOGGEL':
             return todos.map(todo => todo.id === action.id ? {...todo, checked: !todo.checked} : todo );
         default: 
-            return todos.concat(action.todo);
+            return todos;
 
     }
 }
@@ -46,13 +46,13 @@ const ScheduleBoard = () => {
 
     // 객체: 무언가 제거하고 싶을때 (= filter)
     const onRemove = useCallback( (id) => {
-        dispatch({ type: 'INSERT', id });
+        dispatch({ type: 'REMOVE', id });
     }, []);
 
 
     // 객체: 무언가 수정하고 싶을때 (= map & 전개연산자 & 덮어쓰기)
     const onToggle = useCallback( (id) => {
-        dispatch({ type: 'INSERT', id });
+        dispatch({ type: 'TOGGEL', id });
     }, []);
     
     return (
