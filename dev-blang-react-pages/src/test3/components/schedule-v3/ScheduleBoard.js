@@ -19,7 +19,7 @@ function todoReducer(todos, action) {
         case 'INSERT':
             return todos.concat(action.todo);
         case 'REMOVE':
-            return todos.filter(todo => todo.id !== action.todo);
+            return todos.filter(todo => todo.id !== action.id);
         case 'TOGGEL':
             return todos.map(todo => todo.id === action.id ? {...todo, checked: !todo.checked} : todo );
         default: 
