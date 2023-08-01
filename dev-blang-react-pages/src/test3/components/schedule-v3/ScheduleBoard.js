@@ -58,6 +58,11 @@ const ScheduleBoard = () => {
     // 객체: 무언가 제거하고 싶을때 (= filter)
     //  - 추가) useState 에서 setter 사용시 인자로 todos 함수로 감싸주면 함수의 지속적인 랜더링을 방지할 수 있다.
     const onRemove = useCallback( (id) => {
+        const todo = {
+            id: nextId.current += 1
+            , text: text
+            , checked: false
+        };
         dispatch({ type: 'INSERT', todo });
         //dispatch(todos => (todos.filter((todo) => todo.id !== id)));
     }, []);
@@ -66,6 +71,11 @@ const ScheduleBoard = () => {
     // 객체: 무언가 수정하고 싶을때 (= map & 전개연산자 & 덮어쓰기)
     //  - 추가) useState 에서 setter 사용시 인자로 todos 함수로 감싸주면 함수의 지속적인 랜더링을 방지할 수 있다.
     const onToggle = useCallback( (id) => {
+        const todo = {
+            id: nextId.current += 1
+            , text: text
+            , checked: false
+        };
         dispatch({ type: 'INSERT', todo });
         /*
         dispatch(todos => ( 
