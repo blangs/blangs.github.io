@@ -17,10 +17,13 @@ function createBulkTodos() {
 function todoReducer(todos, action) {
     switch (action.type) {
         case 'INSERT':
+            //  { type: 'INSERT', todo: { id: i, text: '입력값', checked: false } }
             return todos.concat(action.todo);
         case 'REMOVE':
+            //  { type: 'REMOVE', id: 1 }
             return todos.filter(todo => todo.id !== action.id);
         case 'TOGGEL':
+            //  { type: 'REMOVE', id: 1 }
             return todos.map(todo => todo.id === action.id ? {...todo, checked: !todo.checked} : todo );
         default: 
             return todos;
@@ -34,7 +37,7 @@ const ScheduleBoard = () => {
 
     const nextId = useRef(todos.length);
 
-   // 객체: 무언가 추가하고 싶을때 (= concat)
+    //삽입
     const onInsert = useCallback( (text) => {
         const todo = {
             id: nextId.current += 1
@@ -44,13 +47,12 @@ const ScheduleBoard = () => {
         dispatch({ type: 'INSERT', todo });
     }, []);
 
-    // 객체: 무언가 제거하고 싶을때 (= filter)
+    //삭제
     const onRemove = useCallback( (id) => {
         dispatch({ type: 'REMOVE', id });
     }, []);
 
-
-    // 객체: 무언가 수정하고 싶을때 (= map & 전개연산자 & 덮어쓰기)
+    //토글
     const onToggle = useCallback( (id) => {
         dispatch({ type: 'TOGGEL', id });
     }, []);

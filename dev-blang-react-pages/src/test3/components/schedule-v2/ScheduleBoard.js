@@ -19,18 +19,12 @@ const ScheduleBoard = () => {
 
     const nextId = useRef(todos.length);
 
-    /* (컴포넌트에서 처리하도록 변경. -CTH)
-    const list = todos.map((result, index) => {
-        return <li id={index}>{result.text}</li>
-    });
-    */
-
-
-    /*
+    /* 공통내용 
       [useCallBack]: 의존성 배열이 변경되지 않는 한 이전에 생성된 함수를 재사용
       만약 useCallback을 사용하지 않았다면, onInsert 함수는 매 렌더링마다 새로 생성되기 때문에, 오버헤드가 발생한다.
     */
-   // 객체: 무언가 추가하고 싶을때 (= concat)
+
+    // 갱신 되지지않지만 접근 방법을 자식컴포넌트에서 미리 useMemo 해놨다. 그래서 오버헤드는 없다.
     const onInsert = useCallback( (text) => {
         const temp = {
             id: nextId.current += 1
@@ -38,30 +32,14 @@ const ScheduleBoard = () => {
             , checked: false
         };
         setTodos(todos.concat(temp));
-    }, [todos]);
+    }, []);
 
-    
-    /*
-    const onRemove = useCallback( (id) => {
-        setTodos(todos.filter((todo) => todo.id !== id));
-    }, [todos]);
-
-    const onToggle = useCallback( (id) => {
-        setTodos(todos.map((todo) => 
-            todo.id === id ? { ...todo, checked: !todo.checked } : todo,
-        ));
-    }, [todos]);
-    */
-
-    // 객체: 무언가 제거하고 싶을때 (= filter)
-    //  - 추가) useState 에서 setter 사용시 인자로 todos 함수로 감싸주면 함수의 지속적인 랜더링을 방지할 수 있다.
+    // 함수형업데이트 기법으로 함수의 지속적인 랜더링을 방지할 수 있다.
     const onRemove = useCallback( (id) => {
         setTodos(todos => (todos.filter((todo) => todo.id !== id)));
     }, []);
 
-
-    // 객체: 무언가 수정하고 싶을때 (= map & 전개연산자 & 덮어쓰기)
-    //  - 추가) useState 에서 setter 사용시 인자로 todos 함수로 감싸주면 함수의 지속적인 랜더링을 방지할 수 있다.
+    // 함수형업데이트 기법으로 함수의 지속적인 랜더링을 방지할 수 있다.
     const onToggle = useCallback( (id) => {
         setTodos(todos => ( 
                             todos.map((todo) => 
