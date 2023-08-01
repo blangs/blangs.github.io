@@ -69,7 +69,7 @@ const ScheduleBoard = () => {
                             )
         ));
             
-    }, [todos]);
+    }, []);
     
     return (
         <div>
