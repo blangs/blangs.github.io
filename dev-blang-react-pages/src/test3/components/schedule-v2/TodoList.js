@@ -35,4 +35,8 @@ export default TodoList;
 설명)
 1. Todos 배열의 안에 있는 object 를 한개씩 꺼낸다. 
 2. 한개의 object 마다  한개의 컴포넌트를 반복적으로 생성한다.
+
+용어 참고) 컴포넌트의 프로퍼티 이란?
+TodoListItem 이라는 컴포넌트에서 todo, onRemove, onToggle은 부모로부터 물려받은 프로퍼티라고 한다.
+
 */
