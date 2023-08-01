@@ -32,7 +32,9 @@ function todoReducer(todos, action) {
 }
 
 const ScheduleBoard = () => {
-
+    
+    // 3Parameter 사용법 
+    // (1: 리듀서정의, 2: 처음에만 초기값 렌더링설정, 2: 초기값)
     const [todos, dispatch] = useReducer(todoReducer, undefined , createBulkTodos);
 
     const nextId = useRef(todos.length);
