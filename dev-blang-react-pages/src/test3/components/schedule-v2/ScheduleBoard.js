@@ -57,7 +57,7 @@ const ScheduleBoard = () => {
     //  - 추가) useState 에서 setter 사용시 인자로 todos 함수로 감싸주면 함수의 지속적인 랜더링을 방지할 수 있다.
     const onRemove = useCallback( (id) => {
         setTodos(todos => (todos.filter((todo) => todo.id !== id)));
-    }, [todos]);
+    }, []);
 
 
     // 객체: 무언가 수정하고 싶을때 (= map & 전개연산자 & 덮어쓰기)
