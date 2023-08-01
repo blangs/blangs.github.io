@@ -23,7 +23,7 @@ function todoReducer(todos, action) {
         case 'TOGGEL':
             return todos.concat(action.todo);
         default: 
-
+            return todos.concat(action.todo);
 
     }
 }
