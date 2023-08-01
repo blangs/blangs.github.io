@@ -47,7 +47,7 @@ const ScheduleBoard = () => {
     */
    // 객체: 무언가 추가하고 싶을때 (= concat)
     const onInsert = useCallback( (text) => {
-        const temp = {
+        const todo = {
             id: nextId.current += 1
             , text: text
             , checked: false
