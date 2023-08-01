@@ -49,7 +49,7 @@ const ScheduleBoard = () => {
     const onInsert = useCallback( (text) => {
         const todo = {
             id: nextId.current += 1
-            , text: 'gg'
+            , text: text
             , checked: false
         };
         dispatch({ type: 'INSERT', todo });
@@ -73,7 +73,7 @@ const ScheduleBoard = () => {
     const onToggle = useCallback( (id) => {
         const todo = {
             id: nextId.current += 1
-            , text: text
+            , text: 'gg'
             , checked: false
         };
         dispatch({ type: 'INSERT', todo });
