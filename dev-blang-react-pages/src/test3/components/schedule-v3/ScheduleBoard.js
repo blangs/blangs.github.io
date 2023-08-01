@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useReducer } from 'react';
 import TodoTemplate from './TodoTemplate';
 import TodoInsert from './TodoInsert';
 import TodoList from './TodoList';
@@ -13,9 +13,24 @@ function createBulkTodos() {
     return array;
 }
 
+
+function todoReducer(todos, action) {
+    switch (action.type) {
+        case 'INSERT':
+            return todos.concat(action.todo);
+        case 'REMOVE':
+            return todos.concat(action.todo);
+        case 'TOGGEL':
+            return todos.concat(action.todo);
+        default: 
+
+
+    }
+}
+
 const ScheduleBoard = () => {
 
-    const [todos, setTodos] = useState(createBulkTodos);
+    const [todos, dispatch] = useReducer(todoReducer, undefined , createBulkTodos);
 
     const nextId = useRef(todos.length);
 
@@ -37,33 +52,20 @@ const ScheduleBoard = () => {
             , text: text
             , checked: false
         };
-        setTodos(todos.concat(temp));
-    }, [todos]);
-
-    
-    /*
-    const onRemove = useCallback( (id) => {
-        setTodos(todos.filter((todo) => todo.id !== id));
-    }, [todos]);
-
-    const onToggle = useCallback( (id) => {
-        setTodos(todos.map((todo) => 
-            todo.id === id ? { ...todo, checked: !todo.checked } : todo,
-        ));
-    }, [todos]);
-    */
+        dispatch(todos.concat(temp));
+    }, []);
 
     // 객체: 무언가 제거하고 싶을때 (= filter)
     //  - 추가) useState 에서 setter 사용시 인자로 todos 함수로 감싸주면 함수의 지속적인 랜더링을 방지할 수 있다.
     const onRemove = useCallback( (id) => {
-        setTodos(todos => (todos.filter((todo) => todo.id !== id)));
+        dispatch(todos => (todos.filter((todo) => todo.id !== id)));
     }, []);
 
 
     // 객체: 무언가 수정하고 싶을때 (= map & 전개연산자 & 덮어쓰기)
     //  - 추가) useState 에서 setter 사용시 인자로 todos 함수로 감싸주면 함수의 지속적인 랜더링을 방지할 수 있다.
     const onToggle = useCallback( (id) => {
-        setTodos(todos => ( 
+        dispatch(todos => ( 
                             todos.map((todo) => 
                                 todo.id === id ? { ...todo, checked: !todo.checked } : todo,
                             )
