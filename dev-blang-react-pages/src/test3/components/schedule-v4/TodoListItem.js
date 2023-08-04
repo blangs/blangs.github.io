@@ -5,7 +5,7 @@ import {
   MdRemoveCircleOutline,
 } from 'react-icons/md';
 import cn from 'classnames';
-import './TodoListItem.scss';
+import '../TodoListItem.scss';
 
 const TodoListItem = ({ todo, onRemove, onToggle, style }) => {
   const { id, text, checked } = todo;
