@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import {List} from 'react-virtualized';
 import TodoListItem from "./TodoListItem";
-import '../scss/TodoList.scss';
+import '../TodoList.scss';
 
 const TodoList = ({ todos, onRemove, onToggle }) => {
     const rowRenderer = useCallback (
