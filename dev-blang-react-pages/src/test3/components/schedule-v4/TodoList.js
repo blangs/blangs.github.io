@@ -1,5 +1,5 @@
-import React, {useCallback} from "react";
-import {List} from 'react-virtualized';
+import React, { useCallback } from "react";
+import { List } from 'react-virtualized';
 import TodoListItem from "./TodoListItem";
 import '../TodoList.scss';
 
