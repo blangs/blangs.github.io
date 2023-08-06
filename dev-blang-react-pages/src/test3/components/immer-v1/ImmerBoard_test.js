@@ -9,6 +9,16 @@ const ImmerBoard = () => {
         uselessValue: null
     });
 
+const onChange = (e) => {
+
+}
+const onSubmit = (e) => {
+  
+}
+const onRemove = (id) => {
+  
+}
+
     
     return (
         <div>
