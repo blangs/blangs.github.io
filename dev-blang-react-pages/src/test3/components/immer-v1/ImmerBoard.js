@@ -9,7 +9,10 @@ const ImmerBoard = () => {
         uselessValue: null
     });
 
+
+
     // input 수정을 위한 함수
+    /*
     const onChange = useCallback(
         e => {
             const { name, value } = e.target;
@@ -20,8 +23,7 @@ const ImmerBoard = () => {
         },
         [form]
     );
-
-    /*
+    */
     const onChange = useCallback(e => {
       const { name, value } = e.target;
       setForm(
@@ -30,9 +32,13 @@ const ImmerBoard = () => {
         })
       );
     }, []);
-    */
+    
+
+
+
 
     // form 등록을 위한 함수
+    /*
     const onSubmit = useCallback(
         e => {
             e.preventDefault();
@@ -44,15 +50,22 @@ const ImmerBoard = () => {
             setData({
                 ...data,
                 array: data.array.concat(info)
+                
+                // 이렇게도 가능 !
+                // array: data.array.concat({
+                //     id: nextId.current += 1,
+                //     name: form.name,
+                //     username: form.username
+                // })
+                
             });
             setForm({
-                name: '', 
+                name: '',
                 username: ''
             });
         }, [data, form.name, form.username]
     )
-
-    /*
+    */
     const onSubmit = useCallback(
       e => {
         e.preventDefault();
@@ -78,9 +91,12 @@ const ImmerBoard = () => {
       },
       [form.name, form.username]
     );
-    */
+
+
+
 
     // 항목을 삭제하는 함수
+    /*
     const onRemove = useCallback(
         id => {
             setData({
@@ -89,7 +105,7 @@ const ImmerBoard = () => {
             });
         }, [data]
     );
-    /*
+    */
     const onRemove = useCallback(
       id => {
         setData(
@@ -100,7 +116,6 @@ const ImmerBoard = () => {
       },
       []
     );
-    */
 
     return (
         <div>
