@@ -15,7 +15,15 @@ const onChange = useCallback( (e) => {
 },[form]);
 
 const onSubmit = (e) => {
+  e.preventDefault();
+  
+  setData({
+    ...data,
+    array: data.array.concat({ name: form.name, username: form.username })
+  });
 
+  setForm({name: '', username: ''});
+  
 }
 const onRemove = (id) => {
   
