@@ -47,7 +47,7 @@ const ImmerBoard = () => {
             });
             setForm({
                 name: '', 
-                value: ''
+                username: ''
             });
         }, [data, form.name, form.username]
     )
