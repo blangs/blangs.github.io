@@ -9,6 +9,8 @@ const ImmerBoard = () => {
         uselessValue: null
     });
 
+
+
 // 체인지
 const onChange = useCallback( (e) => {
   const { name, value } = e.target;
@@ -16,8 +18,9 @@ const onChange = useCallback( (e) => {
 },[form]);
 
 
+
 // 삽입
-const onSubmit = (e) => {
+const onSubmit = useCallback( (e) => {
   e.preventDefault();
   
   setData({
@@ -27,15 +30,17 @@ const onSubmit = (e) => {
 
   setForm({name: '', username: ''});
 
-}
+}, [data, form.name, form.username]);
+
+
 
 // 삭제
-const onRemove = (id) => {
+const onRemove = useCallback( (id) => {
   setData({
     ...data, 
     array: data.array.filter((obj) => (obj.id != id))
   });
-}
+}, [data])
 
     
     return (
