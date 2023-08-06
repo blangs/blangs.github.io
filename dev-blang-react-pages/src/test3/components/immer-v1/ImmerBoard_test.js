@@ -33,7 +33,7 @@ const onSubmit = (e) => {
 const onRemove = (id) => {
   setData({
     ...data, 
-    array: data.array.filter((obj) => (obj.id !== id))
+    array: data.array.filter((obj) => (obj.id != id))
   });
 }
 
