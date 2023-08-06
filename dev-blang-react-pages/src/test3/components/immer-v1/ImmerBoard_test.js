@@ -9,12 +9,11 @@ const ImmerBoard = () => {
         uselessValue: null
     });
 
-const onChange = (e) => {
+const onChange = useCallback( (e) => {
   const { name, value } = e.target;
-  
   setForm({...form, [name]: [value]});
-  
-}
+},[form]);
+
 const onSubmit = (e) => {
 
 }
