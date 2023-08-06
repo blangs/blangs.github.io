@@ -31,7 +31,10 @@ const onSubmit = (e) => {
 
 // 삭제
 const onRemove = (id) => {
-  data.array.filter( (obj) => ( obj.id != id ))
+  setData({
+    ...data, 
+    array: data.array.filter((obj) => (obj.id !== id))
+  });
 }
 
     
