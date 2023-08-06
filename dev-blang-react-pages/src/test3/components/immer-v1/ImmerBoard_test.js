@@ -10,10 +10,13 @@ const ImmerBoard = () => {
     });
 
 const onChange = (e) => {
+  const [name, vlaue] = e.target;
+
+  alert(name + ", " + value);
 
 }
 const onSubmit = (e) => {
-  
+
 }
 const onRemove = (id) => {
   
