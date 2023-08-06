@@ -37,7 +37,7 @@ const ImmerBoard = () => {
         e => {
             e.preventDefault();
             const info = {
-                id: nextId.current + 1,
+                id: nextId.current += 1,
                 name: form.name,
                 username: form.username
             };
