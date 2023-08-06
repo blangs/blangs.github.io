@@ -58,11 +58,11 @@ const onRemove = (id) => {
                     ))}
                 </ul>
             </div>
-
+            <hr />
             <div>
                 <ul>
                 {data.array.map( (dddd) => ( 
-                       <b>dddd.id</b> 
+                       <li>{dddd.id}</li> 
                 )) }
                 </ul>
             </div>
