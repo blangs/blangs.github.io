@@ -1,0 +1,232 @@
+---
+title:  "JS 연산프로퍼티(Computed Property Name)"
+excerpt: "JS 연산프로퍼티(Computed Property Name) 입니다."
+
+categories:
+  - html-css-js-jquery
+tags:
+  - [HTML,CSS,JS,jquery]
+
+toc: true
+toc_sticky: true
+
+last_modified_at: 2023-08-03T20:00:00-05:00
+---
+
+## 연산 프로퍼티(Computed property)
+### 1. 변수를 연산하기
+```js
+let test = 'age';
+
+const user = {
+  name : 'Cookie',
+  test : 31,
+}
+
+```
+```js
+// console.log(user);
+결과: {name: 'Cookie', test: 31}
+```
+> 💡위와 같은 JS 의 객체가 있다.  
+> 💡연산 프로퍼티를 적용해보자.
+  
+```js
+let test = 'age';
+
+const user = {
+  name : 'Cookie',
+  [test] : 31,
+}
+
+```
+```js
+// console.log(user);
+결과: {name: 'Cookie', age: 31}
+```
+
+### 2. 숫자, 문자열 연산하기
+
+```js
+const user = {
+  [10 + 20] : 1,
+  ["안녕" + "하세요"] : "Hello"
+}
+
+```
+```js
+// console.log(user);
+{ '30': 1, '안녕하세요': 'Hello' }
+
+```
+
+### 예제
+```js
+import React, { useState } from 'react';
+
+function YourComponent() {
+
+  // 이러한 상태값이 있다고 가정한다.
+  const [info, setInfo] = useState({username: '홍길동', text: '값입니다용'})
+
+  const onChange = (event) => {
+    const {name, value} = event.target;
+    setInfo({...info, [name]: [value]});  // 연산 프로퍼티
+  }
+
+  return (
+  <input
+    name="username"
+    placeholder="아이디"
+    value={info.text}
+    onChange={onChange}
+  />)
+}
+```
+
+> ❗***이벤트 객체***  
+> 💡[]로 감싸주면 변수가 아니라 변수에 할당된 값이 들어가는 것이다.
+> - ```
+>   
+>   ```
+> 💡e.target.value 은 그 객체의 속성을 가리킨다.  
+> 💡e.target.name 은 그 객체의 속성을 가리킨다.  
+  
+### 방법1 (간단한 방법)
+```js
+import React, { useState } from 'react';
+
+function YourComponent() {
+  const [form, setForm] = useState({ name: '', username: '' });
+
+  // name을 업데이트하는 함수
+  const handleNameChange = (event) => {
+    setForm({ ...form, name: event.target.value });
+  };
+
+  // username을 업데이트하는 함수
+  const handleUsernameChange = (event) => {
+    setForm({ ...form, username: event.target.value });
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Name"
+        value={form.name}
+        onChange={handleNameChange}
+      />
+      <input
+        type="text"
+        placeholder="Username"
+        value={form.username}
+        onChange={handleUsernameChange}
+      />
+
+      <div>
+        <p>Name: {form.name}</p>
+        <p>Username: {form.username}</p>
+      </div>
+    </div>
+  );
+}
+
+export default YourComponent;
+
+```
+
+### 방법2 (간단한 방법에서 합치기)
+```js
+import React, { useState } from 'react';
+
+function YourComponent() {
+  const [form, setForm] = useState({ name: '', username: '' });
+
+  // name 또는 username을 업데이트하는 함수
+  const handleInputChange = (event, field) => {
+    setForm({ ...form, [field]: event.target.value });
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Name"
+        value={form.name}
+        onChange={(event) => handleInputChange(event, 'name')}
+      />
+      <input
+        type="text"
+        placeholder="Username"
+        value={form.username}
+        onChange={(event) => handleInputChange(event, 'username')}
+      />
+
+      <div>
+        <p>Name: {form.name}</p>
+        <p>Username: {form.username}</p>
+      </div>
+    </div>
+  );
+}
+
+export default YourComponent;
+
+```
+
+
+### 방법3 (이벤트 객체에서 객체비구조화 할당 받기)
+
+>❗***비구조화 할당 예시***
+>  
+> ```js
+> const obj = { a: 1, b: 2 };
+> const { a, b } = obj;
+> console.log(a); // 1
+> console.log(b); // 2
+> ```
+> 
+  
+```js
+
+function YourComponent() {
+  const [form, setForm] = useState({ name: '', username: '' });
+
+  const onChange = (event) => {
+    const { name, value } = event.target; //비구조화 할당
+    setForm({
+        ...form,
+        [name]: [value]
+    });
+  };
+
+  return (
+      <div>
+          <form onSubmit={onSubmit}>
+              <input
+                  name="username"
+                  placeholder="아이디"
+                  value={form.username}
+                  onChange={onChange}
+              />
+              <input
+                  name="name"
+                  placeholder="이름"
+                  value={form.name}
+                  onChange={onChange}
+              />
+              <button type="submit">등록</button>
+          </form>
+      </div>
+  );
+}
+export default YourComponent;
+
+```
+
+> ❗***이벤트 객체 비구조화 할당***  
+> 💡event.target 객체의 name과 value 속성을 추출하여 새로운 변수로 할당  
+> 💡event.target.name과 event.target.value를 사용할 필요 없이 name과 value라는 변수를 직접 사용할 수 있게 된다.  
+
+
