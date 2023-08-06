@@ -122,26 +122,35 @@ const test = user;
 // 1. 기본적인 얕은 복사
 const cloneUser = Object.assign({}, user);  
 
-```
-```js
+
+/* 결과 */
 { name: 'Cookie', age: 31 }
 ```
+
+<hr/>
+
 ```js
 // 2. 초기화값을 병합하여 얕은 복사
 const cloneUser = Object.assign({ gender: 'male'}, user);
 
-```
-```js
+
+/* 결과 */
 { gender: 'male', name: 'Cookie', age: 31 }
 ```
+
+<hr/>
+
 ```js
 // 3. 기존에 존재하는 key 값으로 초기화해서 얕은 복사
 const cloneUser = Object.assign({ age: 777 }, user);
 
-```
-```js
+
+/* 결과 */
 { name: 'Cookie', age: 31 }  // 이건 안먹힌다.
 ```
+
+<hr/>
+
 ```js
 // 4. 두 개이상 병합해서 얕은 복사
 const user1 = {
@@ -158,10 +167,12 @@ const user3 = {
 
 const cloneUser = Object.assign(user1, user2, user3);
 
-```
-```js
+
+/* 결과 */
 {name: 'Cookie', age: 31, genger: 'male'}
 ```
+
+<hr/>
 
 
 > ❗***Object.assign()***  
