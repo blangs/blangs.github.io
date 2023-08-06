@@ -14,16 +14,18 @@ const onChange = useCallback( (e) => {
   setForm({...form, [name]: [value]});
 },[form]);
 
+
+// 삽입
 const onSubmit = (e) => {
   e.preventDefault();
   
   setData({
     ...data,
-    array: data.array.concat({ name: form.name, username: form.username })
+    array: data.array.concat({ id: nextId.current += 1, name: form.name, username: form.username })
   });
 
   setForm({name: '', username: ''});
-  
+
 }
 const onRemove = (id) => {
   
@@ -56,6 +58,15 @@ const onRemove = (id) => {
                     ))}
                 </ul>
             </div>
+
+            <div>
+                <ul>
+                {data.array.map( (dddd) => ( 
+                       <b>dddd.id</b> 
+                )) }
+                </ul>
+            </div>
+
         </div>
     );
 };
