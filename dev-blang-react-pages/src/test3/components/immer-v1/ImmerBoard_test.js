@@ -2,13 +2,14 @@ import React, { useRef, useCallback, useState } from 'react';
 import produce from 'immer';
 
 const ImmerBoard = () => {
-    const nextId = useRef(1);
+    const nextId = useRef(0);
     const [form, setForm] = useState({ name: '', username: '' });
     const [data, setData] = useState({
         array: [],
         uselessValue: null
     });
 
+// 체인지
 const onChange = useCallback( (e) => {
   const { name, value } = e.target;
   setForm({...form, [name]: [value]});
@@ -27,8 +28,10 @@ const onSubmit = (e) => {
   setForm({name: '', username: ''});
 
 }
+
+// 삭제
 const onRemove = (id) => {
-  
+  data.array.filter( (obj) => ( obj.id != id ))
 }
 
     
