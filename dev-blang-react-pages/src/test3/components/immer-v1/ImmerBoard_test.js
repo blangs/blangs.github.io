@@ -10,7 +10,7 @@ const ImmerBoard = () => {
     });
 
 const onChange = (e) => {
-  const [name, vlaue] = e.target;
+  const [name, value] = e.target;
 
   alert(name + ", " + value);
 
