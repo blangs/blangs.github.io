@@ -11,7 +11,9 @@ const ImmerBoard = () => {
 
 const onChange = (e) => {
   const { name, value } = e.target;
-  alert(name + value);
+  
+  setForm({...form, [name]: [value]});
+  
 }
 const onSubmit = (e) => {
 
