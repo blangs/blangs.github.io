@@ -10,10 +10,8 @@ const ImmerBoard = () => {
     });
 
 const onChange = (e) => {
-  const [name, value] = e.target;
-
-  alert(name + ", " + value);
-
+  const { name, value } = e.target;
+  alert(name + value);
 }
 const onSubmit = (e) => {
 
