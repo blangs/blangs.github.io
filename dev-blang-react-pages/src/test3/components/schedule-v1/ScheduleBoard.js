@@ -3,14 +3,25 @@ import TodoTemplate from './TodoTemplate';
 import TodoInsert from './TodoInsert';
 import TodoList from './TodoList';
 
+function arrTest() {
+    const arr = [];
+    for (var i=1; i<2500; i++){
+        arr.push( { id: i, text: `할 일 ${i}`, checked: false } );
+    }
+
+    return arr;
+}
 
 const ScheduleBoard = () => {
 
+    /*
     const [todos, setTodos] = useState([
         { id: 1, text: '홍길동', checked: true }
         , { id: 2, text: '김민수', checked: true }
         , { id: 3, text: '김민정', checked: false }
     ]);
+    */
+    const [todos, setTodos] = useState(arrTest);
 
     const nextId = useRef(todos.length);
 
