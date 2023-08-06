@@ -35,6 +35,7 @@ const ImmerBoard = () => {
     // form 등록을 위한 함수
     const onSubmit = useCallback(
         e => {
+            e.preventDefault();
             const info = {
                 id: nextId.current + 1,
                 name: form.name,
