@@ -11,7 +11,7 @@ const MainCompo3 = () => {
   return (
     <>
 
-      A
+      
       {/* <ScheduleBoard2 /> */}
       {/* <ScheduleBoard3 /> */}
       {/* <ScheduleBoard4 /> */}
