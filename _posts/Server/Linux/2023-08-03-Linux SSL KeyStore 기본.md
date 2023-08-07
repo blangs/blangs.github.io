@@ -1,6 +1,6 @@
 ---
-title:  "SSL KeyStore 기본"
-excerpt: "SSL KeyStore 기본 입니다."
+title:  "Linux SSL KeyStore 기본"
+excerpt: "Lunux SSL KeyStore 기본 입니다."
 
 categories:
   - linux
