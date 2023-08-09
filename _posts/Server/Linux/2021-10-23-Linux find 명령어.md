@@ -1,16 +1,16 @@
 ---
-title:  "Git 브랜치"
-excerpt: "Git 브랜치 입니다."
+title:  "Linux find 명령어"
+excerpt: "Linux find 명령어 입니다."
 
 categories:
-  - git
+  - linux
 tags:
-  - [git, gitgub]
+  - [Linux, Ubuntu, Raspbian]
 
 toc: true
 toc_sticky: true
 
-last_modified_at: 2022-10-22T20:00:00-05:00
+last_modified_at: 2021-10-23T20:00:00-05:00
 ---
 
 
