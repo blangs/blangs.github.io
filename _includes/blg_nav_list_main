@@ -112,6 +112,13 @@
             </ul>
             <ul>
                 {% for category in site.categories %}
+                    {% if category[0] == "java" %}
+                        <li><a href="/categories/java" class="">자바 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for category in site.categories %}
                     {% if category[0] == "spring" %}
                         <li><a href="/categories/spring" class="">스프링 ({{category[1].size}})</a></li>
                     {% endif %}
