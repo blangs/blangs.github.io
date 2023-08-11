@@ -27,7 +27,9 @@ last_modified_at: 2023-08-08T09:00:00-18:00:00
 
 ### STEP1. 필요 라이브러리
 ```bash
-json-20180130.jar;
+# 아래 코드를 구현하기위한 최소조건이다.
+json-20180130.jar
+jackson-2.8.6.jar
 jackson.databind-2.9.9.1.jar
 
 ```
