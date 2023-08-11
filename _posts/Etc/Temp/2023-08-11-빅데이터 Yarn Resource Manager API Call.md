@@ -12,6 +12,19 @@ last_modified_at: 2023-08-11T13:00:00-05:00
 ---
 
 ## 개요
+### YARN Resource Manager
+> ❗ Yet Another Resource Negotiator  
+> 💡 Apache Hadoop 프로젝트의 일부로, 클러스터 리소스 관리와 스케줄링을 위한 컴포넌트.  
+> 💡 YARN Resource Manager는 클러스터의 
+전체 자원을 모니터링하고 관리하는 주요 컴포넌트로, 클러스터 내에서 실행되는 다양한 애플리케이션에 대한 리소스 할당 및 스케줄링을 조정.  
+>  
+> ❗ 클라우데라와 차이점
+> > 💡 Cloudera  
+> > Cloudera는 기업용 빅데이터 솔루션을 제공하는 회사로, Apache Hadoop 및 관련 프로젝트의 상업적인 지원 및 제품을 개발합니다. 
+> > Cloudera의 주요 제품 중 하나는 "Cloudera Distribution for Hadoop (CDH)"로, 이 제품은 Apache Hadoop을 기반으로 한 종합적인 빅데이터 플랫폼을 제공합니다. 
+> > CDH는 Hadoop 클러스터 운영, 관리, 모니터링, 데이터 분석 및 처리 등을 위한 다양한 도구와 기능을 포함하고 있습니다.
+
+
 > ❗***hive query 또는 spark 작업 확인용도***   
 > 💡 리소스가 가득차면 여유까지 기다리게 된다.  
 > 💡 사용자가 현 상황을 파악하기 위해 Yarn Resource Manager 를 참조한다.  
