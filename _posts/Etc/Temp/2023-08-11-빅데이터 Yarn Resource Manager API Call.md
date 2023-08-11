@@ -22,14 +22,14 @@ last_modified_at: 2023-08-11T13:00:00-05:00
 > 💡 Active / Stanby 확인  
 > 💡 내렸다가 올라갈때마다 바뀌므로 선행체크 한다.  
 >   
-> ```bsah
+> ```bash
 > http://<address:port>/ws/v1/cluster/info 
 > ```
 >   
 > ❗***2. 요청***   
 > 💡 Active 를 찾으면 Active 해당하는 Host측의 RestAPI 요청을 수행시킨다.  
 >  
-> ```bsah
+> ```bash
 > http://<address:port>/ws/v1/cluster/apps?states=RUNNING&states=ACCEPTED 
 > ```
 >   
