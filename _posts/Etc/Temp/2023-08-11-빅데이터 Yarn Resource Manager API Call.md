@@ -13,12 +13,12 @@ last_modified_at: 2023-08-11T13:00:00-05:00
 
 ## 개요
 ### YARN Resource Manager
-> ❗ Yet Another Resource Negotiator  
+> ❗***Yet Another Resource Negotiator***  
 > 💡 Apache Hadoop 프로젝트의 일부로, 클러스터 리소스 관리와 스케줄링을 위한 컴포넌트.  
 > 💡 YARN Resource Manager는 클러스터의 
 전체 자원을 모니터링하고 관리하는 주요 컴포넌트로, 클러스터 내에서 실행되는 다양한 애플리케이션에 대한 리소스 할당 및 스케줄링을 조정.  
 >  
-> ❗ 클라우데라와 차이점
+> ❗***클라우데라와 차이점***  
 > > 💡 Cloudera  
 > > Cloudera는 기업용 빅데이터 솔루션을 제공하는 회사로, Apache Hadoop 및 관련 프로젝트의 상업적인 지원 및 제품을 개발합니다. 
 > > Cloudera의 주요 제품 중 하나는 "Cloudera Distribution for Hadoop (CDH)"로, 이 제품은 Apache Hadoop을 기반으로 한 종합적인 빅데이터 플랫폼을 제공합니다. 
@@ -66,12 +66,8 @@ http://<address:port>/ws/v1/cluster/metrics
 > 💡 GET 방식으로 호출하면 된다.  
 > 💡 URI를 헤더에 { 'Content-Type': 'application/json' }로 정보를 설정하면 json 형식으로 값을 반환한다.
 
-```
 
 ### 리소스 확인하기
-
-
-
 
 http://<rm http address:port>/ws/v1/cluster/metrics
 
