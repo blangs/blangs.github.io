@@ -196,6 +196,102 @@ Accept: application/xml
 ```
 
 
+## Cluster Information API  
+> ❗클러스터 정보 리소스는 클러스터에 대한 전반적인 정보를 제공.  
+
+### API 호출
+> ❗***URI 경로***   
+> 💡 아래 두 개의 URI 모두 클러스터 정보를 제공한다.
+> 💡 http://rm-http-address:port/ws/v1/cluster
+>    - http://rm-http-address:port/ws/v1/cluster/info
+>  
+> ❗***요청 타입***   
+> 💡 GET  
+>  
+> ❗***파라미터***   
+> 💡 없음  
+   
+
+### API 오브젝트 엘리먼트  
+  
+|:***항목***:|:***데이터 유형***:|:***설명***:|  
+|:---|:---|:---|
+|id|long|클러스터 ID|  
+|startedOn|long|클러스터 시작 시간 (시간 경과(ms) 시점)|  
+|state|string|ResourceManager 상태 - 가능한 값: NOTINITED, INITED, STARTED, STOPPED|  
+|haState|string|ResourceManager HA 상태 - 가능한 값: INITIALIZING, ACTIVE, STANDBY, STOPPED|  
+|rmStateStoreName|string|ResourceManager 상태 저장을 구현한 클래스의 완전한 이름|  
+|resourceManagerVersion|string|ResourceManager 버전|  
+|resourceManagerBuildVersion|string|ResourceManager 빌드 문자열 (버전, 사용자, 체크섬 포함)|  
+|resourceManagerVersionBuiltOn|string|ResourceManager 빌드 시간 (시간 경과(ms) 시점)|  
+|hadoopVersion|string|Hadoop Common 버전|  
+|hadoopBuildVersion|string|Hadoop Common 빌드 문자열 (버전, 사용자, 체크섬 포함)|  
+|hadoopVersionBuiltOn|string|Hadoop Common 빌드 시간 (시간 경과(ms) 시점)|  
+|haZooKeeperConnectionState|string|고가용성 서비스의 ZooKeeper 연결 상태|  
+  
+  
+### JSON response
+```bash
+GET GET http://rm-http-address:port/ws/v1/cluster/info
+
+#HTTP/1.1 200 OK
+#Content-Type: application/json
+#Transfer-Encoding: chunked
+#Server: Jetty(6.1.26)
+
+```
+
+```json
+{
+  "clusterInfo":
+  {
+    "id":1324053971963,
+    "startedOn":1324053971963,
+    "state":"STARTED",
+    "haState":"ACTIVE",
+    "rmStateStoreName":"org.apache.hadoop.yarn.server.resourcemanager.recovery.NullRMStateStore",
+    "resourceManagerVersion":"3.0.0-SNAPSHOT",
+    "resourceManagerBuildVersion":"3.0.0-SNAPSHOT from unknown by user1 source checksum 11111111111111111111111111111111",
+    "resourceManagerVersionBuiltOn":"2016-01-01T01:00Z",
+    "hadoopVersion":"3.0.0-SNAPSHOT",
+    "hadoopBuildVersion":"3.0.0-SNAPSHOT from unknown by user1 source checksum 11111111111111111111111111111111",
+    "hadoopVersionBuiltOn":"2016-01-01T01:00Z",
+    "haZooKeeperConnectionState": "ResourceManager HA is not enabled."  }
+}
+
+```
+
+### XML response
+```bash
+Accept: application/xml
+GET http://rm-http-address:port/ws/v1/cluster/info
+
+#HTTP/1.1 200 OK
+#Content-Type: application/xml
+#Content-Length: 712
+#Server: Jetty(6.1.26)
+
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<clusterInfo>
+  <id>1476912658570</id>
+  <startedOn>1476912658570</startedOn>
+  <state>STARTED</state>
+  <haState>ACTIVE</haState>
+  <rmStateStoreName>org.apache.hadoop.yarn.server.resourcemanager.recovery.NullRMStateStore</rmStateStoreName>
+  <resourceManagerVersion>3.0.0-SNAPSHOT</resourceManagerVersion>
+  <resourceManagerBuildVersion>3.0.0-SNAPSHOT from unknown by user1 source checksum 11111111111111111111111111111111</resourceManagerBuildVersion>
+  <resourceManagerVersionBuiltOn>2016-01-01T01:00Z</resourceManagerVersionBuiltOn>
+  <hadoopVersion>3.0.0-SNAPSHOT</hadoopVersion>
+  <hadoopBuildVersion>3.0.0-SNAPSHOT from unknown by user1 source checksum 11111111111111111111111111111111</hadoopBuildVersion>
+  <hadoopVersionBuiltOn>2016-01-01T01:00Z</hadoopVersionBuiltOn>
+  <haZooKeeperConnectionState>ResourceManager HA is not enabled.</haZooKeeperConnectionState>
+</clusterInfo>
+
+```
+
 ## 얀 리소스 매니저 
 ### 클러스터 메모리사용량 확인하기 
 ```bash
