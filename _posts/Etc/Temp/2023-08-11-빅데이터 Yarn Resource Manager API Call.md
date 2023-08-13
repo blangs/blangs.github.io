@@ -77,7 +77,7 @@ URL 은 고정적이며 Active 인 곳에 요청을 날리는 방식이다.
 
 ### API 오브젝트 엘리먼트  
   
-|***Item***|***DataType***|***Description***|  
+|:***Item***:|:***DataType***:|:***Description***:|  
 |:---|:---|:---|    
 |appsSubmitted|int|제출된 애플리케이션 수|  
 |appsCompleted|int|완료된 애플리케이션 수|  
