@@ -37,31 +37,6 @@ last_modified_at: 2023-08-11T13:00:00-05:00
 >     - [http://rm-http-address:port/ws/v1/cluster/apps](http://rm-http-address:port/ws/v1/cluster/apps)
 
 
-### 현재 필요한 과정
-> ❗***1. 상태확인***   
-> 💡 Active / Stanby 확인  
-> 💡 내렸다가 올라갈때마다 바뀌므로 선행체크 한다.  
->   
-> ```bash
-> http://<address:port>/ws/v1/cluster/info 
-> ```
->   
-> ❗***2. 요청***   
-> 💡 Active 를 찾으면 Active 해당하는 Host측의 RestAPI 요청을 수행시킨다.  
->  
-> ```bash
-> http://<address:port>/ws/v1/cluster/apps?states=RUNNING&states=ACCEPTED 
-> ```
->   
-> ❗***3. 실행중인 리소스 내용 확인***   
-> 💡 accepted 애들을 확인   
-> 💡 원하는 리소스 정보 개발자가 핸들링  
-   
-URL 은 고정적이며 Active 인 곳에 요청을 날리는 방식이다.  
-{: .notice--info}
-
-
-
 ## Cluster Metrics API (클러스터 분석)
 
 ### API 호출
@@ -292,6 +267,33 @@ GET http://rm-http-address:port/ws/v1/cluster/info
 
 ```
 
+
+
+## STEP1. 현재 필요한 과정 
+
+> ❗***1. 상태확인***   
+> 💡 Active / Stanby 확인  
+> 💡 내렸다가 올라갈때마다 바뀌므로 선행체크 한다.  
+>   
+> ```bash
+> http://<address:port>/ws/v1/cluster/info 
+> ```
+>   
+> ❗***2. 요청***   
+> 💡 Active 를 찾으면 Active 해당하는 Host측의 RestAPI 요청을 수행시킨다.  
+>  
+> ```bash
+> http://<address:port>/ws/v1/cluster/apps?states=RUNNING&states=ACCEPTED 
+> ```
+>   
+> ❗***3. 실행중인 리소스 내용 확인***   
+> 💡 accepted 애들을 확인   
+> 💡 원하는 리소스 정보 개발자가 핸들링  
+   
+URL 은 고정적이며 Active 인 곳에 요청을 날리는 방식이다.  
+{: .notice--info}
+
+
 ## 얀 리소스 매니저 
 ### 클러스터 메모리사용량 확인하기 
 ```bash
@@ -311,3 +313,5 @@ http://<rm http address:port>/ws/v1/cluster/metrics
 ## 참고
 > ❗***참고 블로그***  
 > 💡 https://data-wiki.tistory.com/15
+
+
