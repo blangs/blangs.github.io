@@ -12,7 +12,7 @@ last_modified_at: 2023-08-11T13:00:00-05:00
 ---
 
 ## YARN Resource Manager 이란?   
-> ❗<span style='color:green'><b><I>Yet Ano                                            r Resource Negotiator</I></b></span>  
+> ❗<span style='color:green'><b><I>Yet Anor Resource Negotiator</I></b></span>  
 > 💡 Apache Hadoop 프로젝트의 일부로, 클러스터 리소스 관리와 스케줄링을 위한 컴포넌트.  
 > 💡 YARN Resource Manager는 클러스터의 
 전체 자원을 모니터링하고 관리하는 주요 컴포넌트로, 클러스터 내에서 실행되는 다양한 애플리케이션에 대한 리소스 할당 및 스케줄링을 조정.  
@@ -30,6 +30,8 @@ last_modified_at: 2023-08-11T13:00:00-05:00
 
 ### 공식 API 문서
 > ❗<span style='color:green'><b><I>ResourceManager REST API’s</I></b></span>  
+> 💡 ***[링크 바로 가기](https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/ResourceManagerRest.html#Cluster_Information_API)***  
+>    
 > 💡 ***현재 포스팅에서 참고할 내용***  
 > 1. **Cluster Metrics API**
 >     - http://rm-http-address:port/ws/v1/cluster/metrics
@@ -263,6 +265,8 @@ GET GET http://rm-http-address:port/ws/v1/cluster/info
     "hadoopBuildVersion":"3.0.0-SNAPSHOT from unknown by user1 source checksum 11111111111111111111111111111111",
     "hadoopVersionBuiltOn":"2016-01-01T01:00Z",
     "haZooKeeperConnectionState": "ResourceManager HA is not enabled."  }
+  }
+  // ....
 }
 
 ```
