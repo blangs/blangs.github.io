@@ -11,7 +11,7 @@ toc-stiky: true
 last_modified_at: 2023-08-11T13:00:00-05:00
 ---
 
-### YARN Resource Manager 이란?   
+## YARN Resource Manager 이란?   
 > ❗<span style='color:green'><b><I>Yet Ano                                            r Resource Negotiator</I></b></span>  
 > 💡 Apache Hadoop 프로젝트의 일부로, 클러스터 리소스 관리와 스케줄링을 위한 컴포넌트.  
 > 💡 YARN Resource Manager는 클러스터의 
@@ -171,7 +171,7 @@ Accept: application/xml
 ```
 
 
-## Cluster Information API  
+## Cluster Information API   
 > ❗클러스터 정보 리소스는 클러스터에 대한 전반적인 정보를 제공.  
 
 ### API 호출
