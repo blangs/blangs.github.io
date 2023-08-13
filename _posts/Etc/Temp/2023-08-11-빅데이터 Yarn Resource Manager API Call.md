@@ -176,9 +176,9 @@ Accept: application/xml
 
 ### API 호출
 > ❗***URI 경로***   
-> 💡 아래 두 개의 URI 모두 클러스터 정보를 제공한다.
-> 💡 http://rm-http-address:port/ws/v1/cluster
->    - http://rm-http-address:port/ws/v1/cluster/info
+> 💡 아래 두 개의 URI 모두 클러스터 정보를 제공한다.  
+> 💡 http://rm-http-address:port/ws/v1/cluster  
+>    - http://rm-http-address:port/ws/v1/cluster/info  
 >  
 > ❗***요청 타입***   
 > 💡 GET  
@@ -189,7 +189,7 @@ Accept: application/xml
 
 ### API 오브젝트 엘리먼트  
   
-|:***항목***:|:***데이터 유형***:|:***설명***:|  
+|:***항목***:|:***데이터 유형***:|: ***설명*** :|  
 |:---|:---|:---|
 |id|long|클러스터 ID|  
 |startedOn|long|클러스터 시작 시간 (시간 경과(ms) 시점)|  
