@@ -12,7 +12,7 @@ last_modified_at: 2023-08-11T13:00:00-05:00
 ---
 
 ### YARN Resource Manager 이란?   
-> ❗<span style='color:green'><b><I>Yet Another Resource Negotiator</I></b></span>  
+> ❗<span style='color:green'><b><I>Yet Ano                                            r Resource Negotiator</I></b></span>  
 > 💡 Apache Hadoop 프로젝트의 일부로, 클러스터 리소스 관리와 스케줄링을 위한 컴포넌트.  
 > 💡 YARN Resource Manager는 클러스터의 
 전체 자원을 모니터링하고 관리하는 주요 컴포넌트로, 클러스터 내에서 실행되는 다양한 애플리케이션에 대한 리소스 할당 및 스케줄링을 조정.  
@@ -63,19 +63,138 @@ URL 은 고정적이며 Active 인 곳에 요청을 날리는 방식이다.
 
 
 ## Cluster Metrics API (클러스터 분석)
-### 
 
+### API 호출
+> ❗***URI 경로***   
+> 💡 http://<address:port>/ws/v1/cluster/metrics  
+>  
+> ❗***요청 타입***   
+> 💡 GET  
+>  
+> ❗***파라미터***   
+> 💡 없음  
+   
 
-
-
-
+### API 오브젝트 엘리먼트  
+  
+|***Item***|***DataType***|***Description***|  
+|:---|:---|:---|    
+|appsSubmitted|int|제출된 애플리케이션 수|  
+|appsCompleted|int|완료된 애플리케이션 수|  
+|appsPending|int|대기 중인 애플리케이션 수|  
+|appsRunning|int|실행 중인 애플리케이션 수|  
+|appsFailed|int|실패한 애플리케이션 수|  
+|appsKilled|int|종료된(킬된) 애플리케이션 수|  
+|reservedMB|long|예약된 메모리 (메가바이트)|  
+|availableMB|long|사용 가능한 메모리 (메가바이트)|  
+|allocatedMB|long|할당된 메모리 (메가바이트)|  
+|totalMB|long|전체 메모리 용량 (메가바이트)|  
+|reservedVirtualCores|long|예약된 가상 코어 수|  
+|availableVirtualCore|long|사용 가능한 가상 코어 수|  
+|allocatedVirtualCore|long|할당된 가상 코어 수|  
+|totalVirtualCores|long|전체 가상 코어 수|  
+|containersAllocated|int|할당된 컨테이너 수|  
+|containersReserved|int|예약된 컨테이너 수|  
+|containersPending|int|대기 중인 컨테이너 수|  
+|totalNodes|int|전체 노드 수|  
+|activeNodes|int|활성 노드 수|  
+|lostNodes|int|손실된 노드 수|  
+|unhealthyNodes|int|비정상적인 상태의 노드 수|  
+|decommissioningNodes|int|해체 중인 노드 수|  
+|decommissionedNodes|int|해체된 노드 수|  
+|rebootedNodes|int|재부팅된 노드 수|  
+|shutdownNodes|int|종료된 노드 수|  
 
   
+### JSON response
+```bash
+GET http://rm-http-address:port/ws/v1/cluster/metrics
 
+# HTTP/1.1 200 OK
+# Content-Type: application/json
+# Transfer-Encoding: chunked
+# Server: Jetty(6.1.26)
 
+```
 
-  
- 
+```json
+{
+  "clusterMetrics":
+  {
+    "appsSubmitted":0,
+    "appsCompleted":0,
+    "appsPending":0,
+    "appsRunning":0,
+    "appsFailed":0,
+    "appsKilled":0,
+    "reservedMB":0,
+    "availableMB":17408,
+    "allocatedMB":0,
+    "reservedVirtualCores":0,
+    "availableVirtualCores":7,
+    "allocatedVirtualCores":1,
+    "containersAllocated":0,
+    "containersReserved":0,
+    "containersPending":0,
+    "totalMB":17408,
+    "totalVirtualCores":8,
+    "totalNodes":1,
+    "lostNodes":0,
+    "unhealthyNodes":0,
+    "decommissioningNodes":0,
+    "decommissionedNodes":0,
+    "rebootedNodes":0,
+    "activeNodes":1,
+    "shutdownNodes":0
+  }
+}
+
+```
+
+### XML response
+```bash
+GET http://rm-http-address:port/ws/v1/cluster/metrics
+Accept: application/xml
+
+# HTTP/1.1 200 OK
+# Content-Type: application/xml
+# Content-Length: 432
+# Server: Jetty(6.1.26)
+
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<clusterMetrics>
+  <appsSubmitted>0</appsSubmitted>
+  <appsCompleted>0</appsCompleted>
+  <appsPending>0</appsPending>
+  <appsRunning>0</appsRunning>
+  <appsFailed>0</appsFailed>
+  <appsKilled>0</appsKilled>
+  <reservedMB>0</reservedMB>
+  <availableMB>17408</availableMB>
+  <allocatedMB>0</allocatedMB>
+  <reservedVirtualCores>0</reservedVirtualCores>
+  <availableVirtualCores>7</availableVirtualCores>
+  <allocatedVirtualCores>1</allocatedVirtualCores>
+  <containersAllocated>0</containersAllocated>
+  <containersReserved>0</containersReserved>
+  <containersPending>0</containersPending>
+  <totalMB>17408</totalMB>
+  <totalVirtualCores>8</totalVirtualCores>
+  <totalNodes>1</totalNodes>
+  <lostNodes>0</lostNodes>
+  <unhealthyNodes>0</unhealthyNodes>
+  <decommissioningNodes>0</decommissioningNodes>
+  <decommissionedNodes>0</decommissionedNodes>
+  <rebootedNodes>0</rebootedNodes>
+  <activeNodes>1</activeNodes>
+  <shutdownNodes>0</shutdownNodes>
+</clusterMetrics>
+
+```
+
 
 ## 얀 리소스 매니저 
 ### 클러스터 메모리사용량 확인하기 
