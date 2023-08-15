@@ -90,7 +90,7 @@ last_modified_at: 2023-08-11T13:00:00-05:00
 |totalMB|long|전체 메모리 용량 (메가바이트)|  
 |reservedVirtualCores|long|예약된 가상 코어 수|  
 |availableVirtualCores|long|사용 가능한 가상 코어 수|  
-|allocatedVirtualCore|long|할당된 가상 코어 수|  
+|allocatedVirtualCores|long|할당된 가상 코어 수|  
 |totalVirtualCores|long|전체 가상 코어 수|  
 |containersAllocated|int|할당된 컨테이너 수|  
 |containersReserved|int|예약된 컨테이너 수|  
