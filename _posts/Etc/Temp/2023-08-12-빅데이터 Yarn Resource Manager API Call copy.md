@@ -8,7 +8,7 @@ tags:
   - [oracle, schema]
 toc: true
 toc-stiky: true
-last_modified_at: 2023-08-11T13:00:00-05:00
+last_modified_at: 2023-08-12T13:00:00-05:00
 ---
 
 ## YARN Resource Manager 이란?   
