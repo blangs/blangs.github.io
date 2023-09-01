@@ -114,7 +114,7 @@ public List<Map<String, Object>> getYarnResourceData() throws Exception{
   
 > ❗<span style='color:green'><b><I>과정</I></b></span>  
 > 💡 JSON 문자열을 받아서 가공 후 리턴한다.  
-> 💡 - 로드밸런싱 검증
+> 💡 - 로드밸런싱 검증  
 > 💡 - 액티브 서버측을 판단 후 서비스 로직 호출
 
 
@@ -127,6 +127,15 @@ public List<Map<String, Object>> getYarnResourceData() throws Exception{
 
 
 ## YarnResourceService.java
+```java
+import java.lang.reflext.Type;
+import com.google.gson.Gson;
+import 패키지.vo.YarnResourceAcceptedDTO;
+import 패키지.vo.YarnResourceMetricsDTO;
+import 패키지.vo.YarnResourceRunningDTO;
+
+```
+
 ### getMetricsMap()
 ```java
 public Map<String, Object> getMetricsMap(String params) {
