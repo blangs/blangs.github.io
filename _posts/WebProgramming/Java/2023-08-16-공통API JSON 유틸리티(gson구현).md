@@ -15,18 +15,13 @@ last_modified_at: 2023-08-16T09:19:00-23:00:00
 
 ## API 요약
 ### JAVA 에서 핸들링
-> ❗<span style='color:green'><b><I>파싱되면 깊은레벨로 접근못함</I></b></span>  
-> 💡 jsonToMap() 또는 jsonToListMap() 으로 파싱된 데이터는 각각 가장 첫번째 키만 접근 가능함.  
-> 💡 나머지는 문자열 형태로 저장되어있기 때문임.  
->  
->  
-
+> ❗<span style='color:green'><b><I>매우 유연한 컬렉션 처리가 가능</I></b></span>  
+> 💡 DTO 활용시 엄청 간단해짐
 
 
 ## HomeController.java
 ```java
 import 패키지.util.HttpUtil;
-import 패키지.util.StringUtil;
 
 ```
 
@@ -131,7 +126,7 @@ public List<Map<String, Object>> getYarnResourceData() throws Exception{
 
 
 
-## YarnResourceService
+## YarnResourceService.java
 ### getMetricsMap()
 ```java
 public Map<String, Object> getMetricsMap(String params) {
@@ -183,6 +178,13 @@ public Map<String, Object> getRunningMap(String params) {
         inputList.add(new Gson().fromJson(gson.toJson(app), gsonType)); // 리스트맵 간단하게 완성!
 
         // 완성된 리스트맵에서 특정 키를 수정하고 싶은 부분 진행
+        // user 이라는 키값을 수정
+        String strUser = inputList.get(idx).get("user").toString();
+        if (strUser.equals("hive")) {
+          strUser = app.getApplicationTags().subString(app.getApplicationTags().indexOf("=") + 1); 
+          inputList.get(idx).put("user", strUser);
+        }
+
         // startedTime 이라는 키값을 수정
         String strResult = "";
         long lTime = 0, lMTime = 0, lSTime = 0;
@@ -191,6 +193,20 @@ public Map<String, Object> getRunningMap(String params) {
         date = new Date(lTime);
         strResult = formatter.format(date);
         inputList.get(idx).put("startedTime", strResult);
+
+        // launchTime 이라는 키값을 수정
+        lTime = appList.get(idx).getLaunchTime();
+        date = new Date(lTime);
+        strResult = formatter.format(date);
+        inputList.get(idx).put("launchTime", strResult);
+
+        // elapsedTime 이라는 키값을 수정 (경과시관 관련한 유닉스 시간을 분초로 변환)
+        lTime = appList.get(idx).getElapsedTime();
+        lSTime = lTime / 1000;
+        lMTime = lSTime / 60;
+        lSTime %= 60;
+        strResult = lMTime + "분 " + lSTime + "초" + "경과";
+        inputList.get(idx).put("launchTime", strResult);
 
         idx++;
       }
@@ -251,3 +267,111 @@ public Map<String, Object> getAceeptedMap(String params) {
 
 ```
 
+
+
+## DTO
+### YarnResourceMetricsDTO.java
+```java
+public class YarnResourceMetricsDTO {
+  private ClusterMetricsData clusterMetrics;
+
+  public ClusterMetricsData getClusterMetrics() {
+    return clusterMetrics;
+  }
+
+  public static class ClusterMetricsData {
+    private int appsRunning;
+    private int appsPending;
+    private long allocatedVirtualCores;
+    private long availableVirtualCores;
+    private long totalVirtualCores;
+    private long allocatedMB;
+    private long availableMB;
+    private long totalMB;
+    public int getAppsRunning { return appsRunning; }
+    public int getAppsPending { return appsPending; }
+    public long getAllocatedVirtualCores { return allocatedVirtualCores; }
+    public long getAvailableVirtualCores { return availableVirtualCores; }
+    public long getTotalVirtualCores { return totalVirtualCores; }
+    public long getAllocatedMB { return allocatedMB; }
+    public long getAvailableMB { return availableMB; }
+    public long getTotalMB { return totalMB; }    
+  }
+}
+
+```
+
+
+### YarnResourceRunningDTO.java
+```java
+public class YarnResourceRunningDTO {
+  private Apps apps;
+
+  public Apps getApps() {
+    return apps;
+  }
+
+  public static class Apps {
+    private List<App> app;
+
+    public List<App> getApp() {
+      return app;
+    }
+  }
+  
+  public static class App {
+    private String user;
+    private String applicationTags;
+    private int allocatedVcores;
+    private int allocatedMB;
+    private long startedTime;
+    private long launchTime;
+    private long elapsedTime;
+    private String queue;
+    private double queueUsagePercentage;
+    private double clusterUsagePercentage;
+
+    public String getUser { return user; }
+    public String getApplicationTags; { return applicationTags; }
+    public int getAllocatedVcores; { return allocatedVcores; }
+    public int getAllocatedMB; { return allocatedMB; }
+    public long getStartedTime; { return startedTime; }
+    public long getLaunchTime; { return launchTime; }
+    public long getElapsedTime; { return elapsedTime; }
+    public String getQueue; { return queue; }
+    public double getQueueUsagePercentage; { return queueUsagePercentage; }
+    public double getClusterUsagePercentage; { return clusterUsagePercentage; }
+  }
+}
+
+```
+
+### YarnResourceAcceptedDTO.java
+```java
+public class YarnResourceAcceptedDTO {
+  private Apps apps;
+
+  public Apps getApps() {
+    return apps;
+  }
+
+  public static class Apps {
+    private List<App> app;
+
+    public List<App> getApp() {
+      return app;
+    }
+  }
+  
+  public static class App {
+    private String user;
+    private String applicationTags;
+    private long startedTime;
+    
+    public String getUser { return user; }
+    public String getApplicationTags; { return applicationTags; }
+    public long getStartedTime; { return startedTime; }
+  }
+}
+
+```
