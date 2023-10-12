@@ -304,6 +304,71 @@ GET http://rm-http-address:port/ws/v1/cluster/info
 
 
 
+## Cluster Running API (현재실행중인)
+현재 실행중인 클러스터
+
+
+### JSON response
+```bash
+GET http://rm-http-address:port/ws/v1/cluster/metrics
+
+# HTTP/1.1 200 OK
+# Content-Type: application/json
+# Transfer-Encoding: chunked
+# Server: Jetty(6.1.26)
+
+```
+
+```json
+{
+  "apps": {
+      "app": [
+          "app":[
+              {
+                "id": "application_1690277915085_69521",
+                "user": "mfx000",
+                "queue": "default",
+                "clusterId": "1690277915085",
+                "applicationTags": "",
+                "startedTime": 1692854898086,
+                "launchTime": 1692854898086,
+                "elpsedTime": 1986715,
+                "allocatedMB": 38912,
+                "allocatedVCores": 6,
+                "queueUsagePercentage": 1.5151521, 
+                "clusterUsagePercentage": 1.439394, 
+              }
+              ,
+              {
+                "id": "application_1688944172301_1596",
+                "user": "hive",
+                "queue": "default",
+                "clusterId": 1690277915085,
+                "applicationTags": "hive_20230810153523_7a60c503-5e70-4ef7-ae0d-f0bfd8998c0a,userid=ime00820",
+                "startedTime": 1691649324205,
+                "launchTime": 1691649324238,
+                "elpsedTime": 25581,
+                "allocatedMB": 38912,
+                "allocatedVCores": 8,
+                "queueUsagePercentage": 1.5151521, 
+                "clusterUsagePercentage": 1.439394, 
+              }
+            ]
+      ]
+  }
+  
+}
+
+```
+
+
+## Cluster Running API (수행예정인)
+수행 대기하면서 실행 예정인 작업
+
+### JSON response
+위와 비슷
+
+
 ## STEP1. 현재 필요한 과정 
 - Cluster Metrics API
     - 전체리소스 상태
