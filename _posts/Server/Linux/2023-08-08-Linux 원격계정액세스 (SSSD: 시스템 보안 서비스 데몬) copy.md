@@ -1,6 +1,6 @@
 ---
-title:  "Linux 완전 삭제하기"
-excerpt: "Linux 완전 삭제하기 입니다."
+title:  "원격계정액세스 (SSSD: 시스템 보안 서비스 데몬)"
+excerpt: "원격계정액세스 (SSSD: 시스템 보안 서비스 데몬) 입니다."
 
 categories:
   - linux
@@ -12,6 +12,12 @@ toc_sticky: true
 
 last_modified_at: 2021-10-20T20:00:00-05:00
 ---
+
+## 요약
+> ❗원격 서비스(NSS, SSSD) 중에서 하나의 방법이다.  
+> 💡 참고)  
+> [https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/7/html/system-level_authentication_guide/index](https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/7/html/system-level_authentication_guide/index)
+
 
 ## SSSD(시스템 보안 서비스 데몬)
 특정디렉토리에 걸린 소유자가 passwd 안에 없는 경우 SSSD 라는 개념이 있다는것을 알게되었다.  
