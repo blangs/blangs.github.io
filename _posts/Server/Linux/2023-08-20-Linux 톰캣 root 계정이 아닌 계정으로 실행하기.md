@@ -74,7 +74,7 @@ startup.sh # 퍼미션에러 발생
 
 
 
-## STEP3. 🎆아파치톰캣 logs 디렉토리 쓰기권한 부여
+## STEP3. 🎆아파치톰캣 logs 디렉토리 (쓰기) 권한 부여
 ### 1. sudo chmod -R g+w [아파치경로/logs]
 ```bash
 # 그룹(g)에 쓰기(w)권한 부여
@@ -107,8 +107,8 @@ w3m http://localhost:8080
 
 
 
-## STEP3. 🎆아파치톰캣 conf 디렉토리 쓰기권한 부여
-### 1. sudo chmod -R g+w [아파치경로/logs]
+## STEP3. 🎆아파치톰캣 conf 디렉토리 (읽기), (실행) 권한 부여
+### 1. sudo chmod -R g+rx [아파치경로/conf]
 ```bash
 # 그룹(g)에 읽기(r)와 실행(x)권한 부여
 sudo chmod -R g+rx conf/ 
