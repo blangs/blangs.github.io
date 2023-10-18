@@ -10,18 +10,18 @@ tags:
 toc: true
 toc_sticky: true
 
-last_modified_at: 2023-08-08T20:00:00-05:00
+last_modified_at: 2023-08-09T20:00:00-05:00
 ---
 
 ## 요약
+특정디렉토리에 걸린 소유자가 etc 디렉토리 내부의 passwd, group 안에 없는 경우 SSSD 라는 개념이 있다는것을 알게되었다.  
+
 > ❗원격 서비스(NSS, SSSD) 중에서 하나의 방법이다.  
 > 💡 참고)  
 > [https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/7/html/system-level_authentication_guide/index](https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/7/html/system-level_authentication_guide/index)
 
 
-## SSSD(시스템 보안 서비스 데몬)
-특정디렉토리에 걸린 소유자가 passwd 안에 없는 경우 SSSD 라는 개념이 있다는것을 알게되었다.  
-  
+## SSSD(시스템 보안 서비스 데몬)  
 - ***SSD(시스템 보안 서비스 데몬)***는 원격 디렉터리 및 인증 메커니즘에 액세스하기 위한 시스템 서비스. 
 - 로컬 시스템(SSSD 클라이언트)을 외부 백엔드 시스템(프로바이더)에 연결한다. 
 - 이렇게 하면 SSSD 클라이언트가 SSSD 공급자를 사용하여 ID 및 인증 원격 서비스에 액세스할 수 있다. (원격 서비스 예시 아래참고.)
@@ -131,6 +131,7 @@ vi /etc/sssd/sssd.conf
 [sssd] 
 [... file truncated ...] 
 services = nss, pam     # 이 줄의 내용처럼  'nss' 부분이 나열되어 있어야 한다.
+
 ```
 
 
@@ -152,6 +153,7 @@ entry_cache_nowait_percentage = 75
 
 ```bash
 systemctl restart sssd.service
+
 ````
 
 
