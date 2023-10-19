@@ -1,6 +1,6 @@
 ---
-title:  "톰캣 root 계정이 아닌 계정으로 실행하기"
-excerpt: "톰캣 root 계정이 아닌 계정으로 실행하기 입니다."
+title:  "Linux 톰캣 root 계정이 아닌 계정으로 실행하기"
+excerpt: "Linux 톰캣 root 계정이 아닌 계정으로 실행하기 입니다."
 
 categories:
   - linux

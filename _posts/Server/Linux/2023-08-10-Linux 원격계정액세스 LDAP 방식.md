@@ -1,6 +1,6 @@
 ---
-title:  "원격계정액세스 LDAP 방식"
-excerpt: "원격계정액세스 LDAP 방식 입니다."
+title:  "Linux 원격계정액세스 LDAP 방식"
+excerpt: "Linux 원격계정액세스 LDAP 방식 입니다."
 
 categories:
   - linux
