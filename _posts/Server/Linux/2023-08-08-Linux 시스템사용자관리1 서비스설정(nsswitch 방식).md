@@ -1,6 +1,6 @@
 ---
-title:  "원격계정액세스 (NSS: 네임 서비스 스위치)"
-excerpt: "원격계정액세스 (NSS: 네임 서비스 스위치) 입니다."
+title:  "Linux 시스템사용자관리1 서비스설정(nsswitch 방식)"
+excerpt: "Linux 시스템사용자관리1 서비스설정(nsswitch 방식) 입니다."
 
 categories:
   - linux
