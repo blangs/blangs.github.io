@@ -182,7 +182,8 @@ touch: cannot touch '/fswas/tomcat/apache-tomcat-8.5.82/logs/catalina.out': 허�
 
 
 # 반영
-chmod -R 775 /fswas/tomcat/apache-tomcat-8.5.82/logs
+sudo chown -R wasadm:grmfx /fswas/tomcat/apache-tomcat-8.5.82/logs/
+sudo chmod -R 775 /fswas/tomcat/apache-tomcat-8.5.82/logs
 
 
 # 테스트 (쓰기권한주고 하니까 성공)
@@ -255,6 +256,22 @@ Caused by: java.lang.ClassNotFoundException: org.apache.juli.logging.LogFactory
 sudo chmod 755 ./apache-tomcat-8.5.82/bin/tomcat-juli.jar
 
 
+# 테스트(또 새로운 오류다!)
+20-Oct-2023 14:36:35.291 심각 [Catalina-startStop-1] org.apache.catalina.core.ContainerBase.startInternal 자식 컨테이너를 시작 중 실패했습니다.
+        java.util.concurrent.ExecutionException: org.apache.catalina.LifecycleException: 구성요소 [org.apache.catalina.webresources.StandardRoot@cf29b1]을(를) 시작하지 못했습니다.
+                at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+                at java.util.concurrent.FutureTask.get(FutureTask.java:192)
 
+
+# 반영
+chmod -R 755 /fswas/tomcat/apache-tomcat-8.5.82/webapps
+
+
+# 테스트(웹어플리케이션 쪽을 모두 읽기 실행권한을 주었더니 된다.)
+## 웹어플리케이션 쪽을 모두 읽기 실행권한을 주었더니 된다.!!
+sh $TOMCAT_HOME/bin/startup.sh
+ps -ef | grep java
+mfx000    8956     1  5 14:51 pts/1    00:00:05 /usr/lib/jvm/java-8-openjdk-armhf/bin/java -Djava.util.logging.config.file=/fswas/tomcat/latest/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /fswas/tomcat/latest/bin/bootstrap.jar:/fswas/tomcat/latest/bin/tomcat-juli.jar -Dcatalina.base=/fswas/tomcat/latest -Dcatalina.home=/fswas/tomcat/latest -Djava.io.tmpdir=/fswas/tomcat/latest/temp org.apache.catalina.startup.Bootstrap start
+mfx000    8998  8996  0 14:53 pts/1    00:00:00 grep java
 
 ```
