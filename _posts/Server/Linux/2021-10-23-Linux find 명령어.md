@@ -23,5 +23,12 @@ find /path/to/directory -type f -name "파일명"
 find /home/user/documents -type f -name "*.txt"
 
 ```
+
+### 특정문자열 포함된 모든 파일 찾기(모든 하위 디렉토리를 탐색)
+```
+find /경로/ -type f -exec grep -l '홍길동' {} +
+
+```
+
 > 💡 자꾸 잊어버려서 포스팅  
 

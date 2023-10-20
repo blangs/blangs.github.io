@@ -129,3 +129,132 @@ startup.sh
 w3m http://localhost:8080 
 
 ```
+
+
+
+## 실제 테스트해보기
+
+```bsah
+# 그룹생성
+sudo groupadd grmfx  #생성 후 id설정은 직접 /etc/group 에서 했음.
+
+# 계정생성
+# (m:사용자명으로 자동생성, d: 디렉토리지정 skel 내용도 이기준으로 생성됨을 확인, g:그룹)
+sudo useradd -m -d /fshome/mfx000 -g grmfx -u 1005 mfx000  
+
+
+# 반영
+chmod 755 apache-tomcat-8.5.82/
+chmod 755 /fswas/tomcat/apache-tomcat-8.5.82/bin/
+chmod 755 startup.bat
+chmod 755 startup.sh
+
+
+# 테스트
+su mfx000
+sh startup.sh
+/bin/sh: 0: Can't open ./catalina.sh  # 실패
+
+
+# 반영
+chmod 755 /fswas/tomcat/apache-tomcat-8.5.82/bin/catalina.sh
+
+
+# 테스트
+su mfx000
+sh startup.sh
+Cannot find /fswas/tomcat/apache-tomcat-8.5.82/bin/setclasspath.sh
+This file is needed to run this program
+
+chmod 755 /fswas/tomcat/apache-tomcat-8.5.82/bin/setclasspath.sh
+
+# 테스트
+su mfx000
+sh startup.sh
+Using CATALINA_BASE:   /fswas/tomcat/apache-tomcat-8.5.82
+Using CATALINA_HOME:   /fswas/tomcat/apache-tomcat-8.5.82
+Using CATALINA_TMPDIR: /fswas/tomcat/apache-tomcat-8.5.82/temp
+Using JRE_HOME:        /usr/lib/jvm/java-8-openjdk-armhf
+Using CLASSPATH:       /fswas/tomcat/apache-tomcat-8.5.82/bin/bootstrap.jar:/fswas/tomcat/apache-tomcat-8.5.82/bin/tomcat-juli.jar
+Using CATALINA_OPTS:
+touch: cannot touch '/fswas/tomcat/apache-tomcat-8.5.82/logs/catalina.out': 허가 거부
+./catalina.sh: 504: ./catalina.sh: cannot create /fswas/tomcat/apache-tomcat-8.5.82/logs/catalina.out: Permission denied
+
+
+# 반영
+chmod -R 775 /fswas/tomcat/apache-tomcat-8.5.82/logs
+
+
+# 테스트 (쓰기권한주고 하니까 성공)
+sh ./bin/startup.sh
+Using CATALINA_BASE:   /fswas/tomcat/apache-tomcat-8.5.82
+Using CATALINA_HOME:   /fswas/tomcat/apache-tomcat-8.5.82
+Using CATALINA_TMPDIR: /fswas/tomcat/apache-tomcat-8.5.82/temp
+Using JRE_HOME:        /usr/lib/jvm/java-8-openjdk-armhf
+Using CLASSPATH:       /fswas/tomcat/apache-tomcat-8.5.82/bin/bootstrap.jar:/fswas/tomcat/apache-tomcat-8.5.82/bin/tomcat-juli.jar
+Using CATALINA_OPTS:
+Tomcat started.
+
+
+# 실행은 되었는데 뭔가 이상함.. 실제 프로세스는 안띄워짐!!!!
+ps -ef | grep java 
+wasadm    5676  5674  0 11:47 pts/0    00:00:00 grep java
+
+# 에러 로그 확인 해보기...
+20-Oct-2023 11:58:01.164 경고 [localhost-startStop-2] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads 웹 애플리>케이션 [bck]이(가) [mysql-cj-abandoned-connection-cleanup](이)라는 이름의 쓰레드를 시작시킨 것으로 보이지만, 해당 쓰레드를 중지시키지 못했습니다. 이는 메모리 누수를 유발할 가능성이 큽니다. 해당 쓰레드의 스택 트레이스:                                                        java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)                                                                            com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:91)
+ java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)                                                         java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ java.lang.Thread.run(Thread.java:748)                                                                                                  20-Oct-2023 11:58:01.180 정보 [main] org.apache.catalina.ha.deploy.FarmWarDeployer.stop 클러스터 FarmWarDeployer가 중지되었습니다.
+20-Oct-2023 11:58:01.283 정보 [main] org.apache.coyote.AbstractProtocol.stop 프로토콜 핸들러 ["ajp-nio-0.0.0.0-18009"]을(를) 중지시킵니>다.                                                                                                                                     20-Oct-2023 11:58:01.287 정보 [main] org.apache.coyote.AbstractProtocol.destroy 프로토콜 핸들러 ["ajp-nio-0.0.0.0-18009"]을(를) 소멸시킵니다.                                                                                                                                   오류: 기본 클래스 org.apache.catalina.startup.Bootstrap을(를) 찾거나 로드할 수 없습니다.
+
+# 리서치 해본 결과
+# ==> MySql 기준으로 MySql JDBC Driver는 응용프록램간 공유되는 드라이버가 있어야 한다.
+# ==> 그렇지 않고 위와 같이 되어 있으면 Tomcat에서 Driver를 구동할 수 없기 때문에 나오는 에러. 
+
+
+# 반영
+sudo chmod -R 755 /fswas/tomcat/apache-tomcat-8.5.82/lib
+
+
+# 테스트 (오류가 많이 사라졌다.!)
+sh ./bin/startup.sh
+오류: 기본 클래스 org.apache.catalina.startup.Bootstrap을(를) 찾거나 로드할 수 없습니다.
+
+# 리서치해본결과 위 내용은 boostrab.jar 를 못찾아서 그허다. 
+# 톰캣/bin 안에 들어있는데.. PATH 환경변수가 안잡혀있는것같다. 어디서든 실행되도록 잡도록하자.
+
+
+# 반영
+sudo vi /etc/profile
+# TOMCAT
+export TOMCAT_HOME=/fswas/tomcat/latest
+export PATH=$PATH:$TOMCAT_HOME/binexport PATH=$PATH:$TOMCAT_HOME/bin
+
+
+# 테스트(똑같다.. 이 문제가아니라 못읽나보다.)
+sh ./bin/startup.sh
+오류: 기본 클래스 org.apache.catalina.startup.Bootstrap을(를) 찾거나 로드할 수 없습니다.
+
+
+# 반영
+sudo chmod -R 755 /fswas/tomcat/apache-tomcat-8.5.82/bin/bootstrap.jar
+
+
+# 테스트(새로운오류다!)
+Exception in thread "main" java.lang.NoClassDefFoundError: org/apache/juli/logging/LogFactory
+        at org.apache.catalina.startup.Bootstrap.<clinit>(Bootstrap.java:50)
+Caused by: java.lang.ClassNotFoundException: org.apache.juli.logging.LogFactory
+        at java.net.URLClassLoader.findClass(URLClassLoader.java:387)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+        at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:352)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+        ... 1 more
+
+
+# 반영 
+sudo chmod 755 ./apache-tomcat-8.5.82/bin/tomcat-juli.jar
+
+
+
+
+```
