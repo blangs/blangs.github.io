@@ -134,7 +134,7 @@ w3m http://localhost:8080
 
 ## 실제 테스트해보기
 
-```bsah
+```bash
 # 그룹생성
 sudo groupadd grmfx  #생성 후 id설정은 직접 /etc/group 에서 했음.
 
@@ -142,22 +142,24 @@ sudo groupadd grmfx  #생성 후 id설정은 직접 /etc/group 에서 했음.
 # (m:사용자명으로 자동생성, d: 디렉토리지정 skel 내용도 이기준으로 생성됨을 확인, g:그룹)
 sudo useradd -m -d /fshome/mfx000 -g grmfx -u 1005 mfx000  
 
-
-# 반영
+#################  반영 ##################################
+# (mfx000 계정이 접근,실행하기 위해 필요 부분만 권한부여)
 chmod 755 apache-tomcat-8.5.82/
 chmod 755 /fswas/tomcat/apache-tomcat-8.5.82/bin/
 chmod 755 startup.bat
 chmod 755 startup.sh
+#########################################################
 
 
 # 테스트
 su mfx000
 sh startup.sh
-/bin/sh: 0: Can't open ./catalina.sh  # 실패
+/bin/sh: 0: Cant open ./catalina.sh  # 실패
 
 
-# 반영
+#################  반영 ##################################
 chmod 755 /fswas/tomcat/apache-tomcat-8.5.82/bin/catalina.sh
+#########################################################
 
 
 # 테스트
@@ -166,7 +168,11 @@ sh startup.sh
 Cannot find /fswas/tomcat/apache-tomcat-8.5.82/bin/setclasspath.sh
 This file is needed to run this program
 
+
+#################  반영 ##################################
 chmod 755 /fswas/tomcat/apache-tomcat-8.5.82/bin/setclasspath.sh
+#########################################################
+
 
 # 테스트
 su mfx000
@@ -181,9 +187,10 @@ touch: cannot touch '/fswas/tomcat/apache-tomcat-8.5.82/logs/catalina.out': 허�
 ./catalina.sh: 504: ./catalina.sh: cannot create /fswas/tomcat/apache-tomcat-8.5.82/logs/catalina.out: Permission denied
 
 
-# 반영
+#################  반영 ##################################
 sudo chown -R wasadm:grmfx /fswas/tomcat/apache-tomcat-8.5.82/logs/
 sudo chmod -R 775 /fswas/tomcat/apache-tomcat-8.5.82/logs
+#########################################################
 
 
 # 테스트 (쓰기권한주고 하니까 성공)
@@ -213,8 +220,9 @@ wasadm    5676  5674  0 11:47 pts/0    00:00:00 grep java
 # ==> 그렇지 않고 위와 같이 되어 있으면 Tomcat에서 Driver를 구동할 수 없기 때문에 나오는 에러. 
 
 
-# 반영
+#################  반영 ##################################
 sudo chmod -R 755 /fswas/tomcat/apache-tomcat-8.5.82/lib
+#########################################################
 
 
 # 테스트 (오류가 많이 사라졌다.!)
@@ -225,11 +233,12 @@ sh ./bin/startup.sh
 # 톰캣/bin 안에 들어있는데.. PATH 환경변수가 안잡혀있는것같다. 어디서든 실행되도록 잡도록하자.
 
 
-# 반영
+#################  반영 ##################################
 sudo vi /etc/profile
 # TOMCAT
 export TOMCAT_HOME=/fswas/tomcat/latest
 export PATH=$PATH:$TOMCAT_HOME/binexport PATH=$PATH:$TOMCAT_HOME/bin
+#########################################################
 
 
 # 테스트(똑같다.. 이 문제가아니라 못읽나보다.)
@@ -237,8 +246,9 @@ sh ./bin/startup.sh
 오류: 기본 클래스 org.apache.catalina.startup.Bootstrap을(를) 찾거나 로드할 수 없습니다.
 
 
-# 반영
+#################  반영 ##################################
 sudo chmod -R 755 /fswas/tomcat/apache-tomcat-8.5.82/bin/bootstrap.jar
+#########################################################
 
 
 # 테스트(새로운오류다!)
@@ -252,7 +262,7 @@ Caused by: java.lang.ClassNotFoundException: org.apache.juli.logging.LogFactory
         ... 1 more
 
 
-# 반영 
+#################  반영 ##################################
 sudo chmod 755 ./apache-tomcat-8.5.82/bin/tomcat-juli.jar
 
 
@@ -263,7 +273,7 @@ sudo chmod 755 ./apache-tomcat-8.5.82/bin/tomcat-juli.jar
                 at java.util.concurrent.FutureTask.get(FutureTask.java:192)
 
 
-# 반영
+#################  반영 ##################################
 chmod -R 755 /fswas/tomcat/apache-tomcat-8.5.82/webapps
 
 
