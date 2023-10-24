@@ -1,6 +1,6 @@
 ---
-title:  "Linux sodo 명령어"
-excerpt: "Linux sodo 명령어 입니다."
+title:  "Linux sudo 명령어"
+excerpt: "Linux sudo 명령어 입니다."
 
 categories:
   - linux
@@ -13,8 +13,7 @@ toc_sticky: true
 last_modified_at: 2022-10-26T20:00:00-05:00
 ---
 
-## tree 사용법
-### 특정 확장자 필터링  
+## sudo 명령어 구분하기
 > ❗사용자  
 > 💡 sudo(Super User DO) su(Switch User)  
 > 💡 sudo su -root: 루트계정으로 전환  
