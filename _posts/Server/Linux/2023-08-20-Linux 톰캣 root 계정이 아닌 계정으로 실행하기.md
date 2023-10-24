@@ -17,6 +17,8 @@ last_modified_at: 2023-08-20T20:00:00-05:00
 root 계정으로 운영중인 WAS(톰캣)를 다른 계정으로 실행해야하는 상황이 발생했다.
 
 
+> ./startup.sh && tail -f ../logs/catalina.out
+
 ## STEP1. 톰캣 전용 계정의 그룹정보 생성
 ### 1. 계정 확인
 ```bash
