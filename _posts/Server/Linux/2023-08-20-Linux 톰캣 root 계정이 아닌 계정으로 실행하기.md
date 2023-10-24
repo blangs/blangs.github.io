@@ -188,8 +188,9 @@ touch: cannot touch '/fswas/tomcat/apache-tomcat-8.5.82/logs/catalina.out': 허�
 
 
 #################  반영 ##################################
+# (로그 디렉토리에 쓰기권한 부여)
 sudo chown -R wasadm:grmfx /fswas/tomcat/apache-tomcat-8.5.82/logs/
-sudo chmod -R 775 /fswas/tomcat/apache-tomcat-8.5.82/logs
+sudo chmod -R 775 /fswas/tomcat/apache-tomcat-8.5.82/logs 
 #########################################################
 
 
