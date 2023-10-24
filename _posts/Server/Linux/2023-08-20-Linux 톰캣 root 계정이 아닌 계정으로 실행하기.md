@@ -286,3 +286,10 @@ mfx000    8956     1  5 14:51 pts/1    00:00:05 /usr/lib/jvm/java-8-openjdk-armh
 mfx000    8998  8996  0 14:53 pts/1    00:00:00 grep java
 
 ```
+
+
+
+
+
+## 정리
+tomcat을 실행할때 root계정이냐, tomcat user계정이냐가 중요하며, Ap파일의 권한은 tomcat jvm이 읽을 수만 있으면 된다 즉. Ap파일을 root계정으로 작업 해도 실제 tomcat을 구동한 계정만 획득되기 때문 왜냐면 comtainer가 해당 파일일 읽고 컴파일 하는데 tomcat을 실행한 user로 수행중이기 때문..
