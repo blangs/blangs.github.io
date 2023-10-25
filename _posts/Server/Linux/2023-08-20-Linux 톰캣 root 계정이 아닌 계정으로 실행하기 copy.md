@@ -16,11 +16,36 @@ last_modified_at: 2023-08-20T20:00:00-05:00
 ## 개요
 root 계정으로 운영중인 WAS(톰캣)를 다른 계정으로 실행해야하는 상황이 발생했다.
 
+### 요약
+1. catalina.out /  AdminServer.log 등 WAS nohup 및 error 로그  
+: WAS 기동시 사용되는 로그의 경우, root 계정으로 기동시 소유자가 root로 변경된다. 반드시 원복하여야 한다.
+
+(미 원복시 로그 권한이 없어 기동이 불가하다는 메시지 확인됨.)
+
+- WAS 기동시 사용되는 로그 디렉토리를 미리 확인해 두고, root로 중지->소유자 변경-> 일반계정 기동 순으로 진행한다.
+
+ 
+
+2. ldap 파일 등 WAS 기동시 사용되는 모듈
+
+: 일반적으로 기동 로그에서 Permission denied 를 검색하면 나오는 내용들이기는 하나, 기동시 사용되는 모듈 중 ldap 등 모듈에 대한 소유권한이 root 로 변경되는 경우가 있다. 이도 소유자를 기동 계정으로 변경한다.
+
+- Weblogic의 경우, DOMAIN_HOME/servers/서버명/ldap 디렉토리를 반드시 확인하자.
+
+ 
+
+3. 기타 
+
+: 기동로그에서 Permission denied 검색하여, 해당 파일을 찾아 하나씩 변경하도록 한다.
+
+로그에서 확인되는 경우에는 해당 파일의 경로도 확인가능하다.
+
 
 > ./startup.sh && tail -f ../logs/catalina.out
 
-## STEP1. 톰캣 전용 계정의 그룹정보 생성
-### 1. 계정 확인
+## [공통] 서비기동 그룹 생성하기
+<span style="color:red"><b>1.현재 계정 정보확인</b></span>  
+
 ```bash
 #현재 기본적인 상태
 id mfx000
@@ -28,15 +53,19 @@ uid=1001(mfx000) gid=1001(mfx000) groups=1001(mfx000)
 
 ```
 
-### 2. 그룹 생성
+<span style="color:red"><b>2.그룹 생성</b></span>  
+
 ```bash
+# grmfx 그룹을 생성
 sudo groupadd grmfx
 sudo groupadd wheel
 
 ```
 
-### 3. 기타그룹 추가
+<span style="color:red"><b>3.기타그룹 추가</b></span>  
+
 ```bash
+# 현재 사용자인 mfx000 접속상태에서 생성한 그룹을 추가
 sudo usermod -a -G grmfx, wheel
 
 # 확인 (자신 이외의 새로운 그룹 2개 안에도 포함시켰다.)
@@ -49,88 +78,148 @@ uid=1001(mfx000) gid=1001(mfx000) groups=1001(mfx000), 1002(grmfx), 1003(wheel)
 > 💡 mfx000 계정으로 톰캣을 실행하기 위해  
 > 💡 mfx000 계정을 grmfx 그룹안에 포함시켰다.  
 
+## 방법1. 가장 간단한 방법(ROOT권한 존재시)  
+### STEP1. 톰캣디렉토리 [ALL 소유권] 부여
+<span style="color:red"><b>아파치경로/*</b></span>  
 
-
-## STEP2. 아파치톰캣 디렉토리 전체 소유권변경
-### 1. chwon 수행
 ```bash
-sudo chown -R root:grmfx apache-tomcat
+sudo chown -R root:grmfx /fswas/apache-tomcat
+
+# 그룹의 소유권 권한이 내부 디렉토리 레벨까지 변경되었는지 확인해본다.
+#   - mfx000 계정이 권력을 행사할 수 있다. (즉, sudo를 붙이지 않아도 된다)
+#   - 톰캣의 모든 파일에 대해 소유그룹을 grmfx 으로 지정해뒀기 때문이다.  
 
 ```
 
-### 2. 확인
-그룹의 소유권 권한이 내부 디렉토리 레벨까지 변경되었는지 재차 확인한다. 
-- mfx000 계정이 권력을 행사할 수 있다. (즉, sudo를 붙이지 않아도 된다)
-- 톰캣의 모든 파일에 대해 소유그룹을 grmfx 으로 지정해뒀기 때문이다.  
+> ❗현재 상태에서 mfx000 계정으로 서버를 시작하면?  
+> 💡 전체 오너십 소유권을 부여했음에도 실패한다. (Permision 에러)  
+> 💡 tomcat 디렉토리의 전부가 mfx000 소유권 이외에 [쓰기] 권한이 필요하다.  
 
 
-### 3. mfx000 으로 톰캣실행 (==> 실패한다.)
+### STEP2. 로그파일 [쓰기] 부여
+<span style="color:red"><b>아파치경로/logs/*</b></span>  
+
 ```bash
-startup.sh # 퍼미션에러 발생
+# 그룹(g)에 쓰기(w) 권한 부여
+sudo chmod -R g+w /fswas/apache-tomcat/logs
 
-```
-
-> ❗정리  
-> 💡 파일들의 권한들을 보면 각각 권한들이 제한적이다.  
-> 💡 권한들을 하나씩 해결해보자  
-
-
-
-## STEP3. 🎆아파치톰캣 logs 디렉토리 (쓰기) 권한 부여
-### 1. sudo chmod -R g+w [아파치경로/logs]
-```bash
-# 그룹(g)에 쓰기(w)권한 부여
-sudo chmod -R g+w logs/
+# 정상반영
+ls -al 
+drwxrwx--- 2 cmadmin grmfx 57344 10월 18 09:31 logs  
 
 ```
   
-### 2. 확인
+> ❗현재 상태에서 mfx000 계정으로 서버를 시작하면?  
+> 💡 실행은 되지만 프로세스가 띄워지지 않는다.  
+> 💡 설정파일에 대한 [읽기], [실행] 권한이 필요하다.  
+
+
+### STEP3. 설정파일 [읽기], [실행] 부여
+<span style="color:red"><b>아파치경로/conf/*</b></span>  
+
 ```bash
-drwxrwx--- 2 cmadmin grmfx 57344 10월 18 09:31 logs  #정상반영
+# 그룹(g)에 읽기(r), 실행(x) 권한 부여
+sudo chmod -R g+rx /fswas/apache-tomcat/conf 
+
+# 정상반영
+ls -al
+drwxr-x--- 2 cmadmin grmfx 57344 10월 18 09:31 conf  
 
 ```
 
-### 3. mfx000 으로 톰캣실행 (==> 성공한다. 하지만 이상하다.)
+> ❗mfx000 계정으로 서버기동   
+> 💡 정상작동
+
+
+
+## 방법2. 상세한 방법(ROOT권한 미존재시)  
+### STEP1. 톰캣디렉토리 [읽기], [실행] 부여
+<span style="color:red"><b>아파치경로/</b></span>  
+
 ```bash
-# started 는 된다.
-startup.sh 
+sudo chmod 755 /fswas/apache-tomcat/
 
-# 안나온다.. 왜지?
-ps -ef | grep tomcat 
+```
+  
+### STEP2. 실행관련파일 [읽기], [실행] 부여
+<span style="color:red"><b>아파치경로/bin/*</b></span>  
 
-# 이 명령어로 정말 실행되었는지 확인할 수 있다고 한다.  
-# 하지만 안나온다.
-w3m http://localhost:8080 
+```bash
+sudo chmod -R 755  /fswas/apache-tomcat/bin/
+
+
+# 실제 권한부여가 필요한 파일
+# chmod 755 /fswas/apache-tomcat/bin/
+# chmod 755 /fswas/apache-tomcat/bin/catalina.sh
+# chmod 755 /fswas/apache-tomcat/bin/startup.bat
+# chmod 755 /fswas/apache-tomcat/bin/startup.sh
+# chmod 755 /fswas/apache-tomcat/bin/startdown.sh
+# chmod 755 /fswas/apache-tomcat/bin/bootstrap.jar (전역 PATH환경변수필요)
+# chmod 755 /fswas/apache-tomcat/bin/tomcat-juli.jar (전역 PATH환경변수설정필요)
 
 ```
 
-> ❗정리   
-> 💡 logs 디렉토리말고 권한부여가 필요한 곳이 존재한다는 뜻이다.  
+### STEP3. 로그파일 [쓰기] 부여
+<span style="color:red"><b>아파치경로/logs/*</b></span>  
 
-
-
-## STEP3. 🎆아파치톰캣 conf 디렉토리 (읽기), (실행) 권한 부여
-### 1. sudo chmod -R g+rx [아파치경로/conf]
 ```bash
-# 그룹(g)에 읽기(r)와 실행(x)권한 부여
-sudo chmod -R g+rx conf/ 
+# 그룹(g)에 쓰기(w)권한 부여
+sudo chmod -R 775 /fswas/apache-tomcat/logs/
+
+# 정상반영
+ls -al 
+drwxrwx--- 2 cmadmin grmfx 57344 10월 18 09:31 logs  
+
+
+# 실제 권한부여가 필요한 파일
+# chmod 755 /fswas/apache-tomcat/logs/catalina.out
+# chmod 755 /fswas/apache-tomcat/logs/manager.log
+# chmod 755 /fswas/apache-tomcat/logs/localhost_access.log
+
+```
+  
+<span style="color:red"><b>루트/별도로그경로/*</b></span>  
+
+```bash
+# 그룹(g)에 쓰기(w)권한 부여
+sudo chmod -R 775 /fslog/portal/
+
+# 정상반영
+ls -al 
+drwxrwx--- 2 cmadmin grmfx 57344 10월 18 09:31 work  
 
 ```
 
 
-### 2. 확인
+
+### STEP4. 설정파일 [읽기], [실행] 부여
+<span style="color:red"><b>아파치경로/conf/*</b></span>  
+
 ```bash
-drwxr-x--- 2 cmadmin grmfx 57344 10월 18 09:31 conf  #정상반영
+# 그룹(g)에 읽기(r), 실행(x) 권한 부여
+sudo chmod -R 755 /fswas/apache-tomcat/conf 
+
+# 정상반영
+ls -al
+drwxr-x--- 2 cmadmin grmfx 57344 10월 18 09:31 conf  
 
 ```
 
-### 3. mfx000 으로 톰캣실행 (==> 성공한다.)
+
+### STEP5. 임시디렉토리 [읽기], [쓰기], [실행] 부여
+<span style="color:red"><b>아파치경로/work/*</b></span>  
+
 ```bash
-# 성공
-startup.sh 
-w3m http://localhost:8080 
+# 그룹(g)에 읽기(r), 실행(x) 권한 부여
+sudo chmod -R 775 /fswas/apache-tomcat/work
+
+# 정상반영
+ls -al
+drwxrwx--- 2 cmadmin grmfx 57344 10월 18 09:31 work  
 
 ```
+
+
 
 
 
