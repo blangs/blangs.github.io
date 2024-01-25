@@ -278,31 +278,40 @@ import org.slf4j.LoggerFactory;
 public class SysException extends RuntimeException 
 {
 	private static final Logger logger = LoggerFactory.getLogger(SysException.class);
-	private final SysErrorCode errorCode;
-    private String msgCode;
-
+	
+	//private static final long serialVerisonUID = -750907108710432318L;
+	//Enum열거형상수 에러코드 클래스
+	private final SysErrorCode errorCode;  
+    
+    
+    //Constructor1: (커스텀에러세메지만)
     public SysException(SysErrorCode errorCode) {
     	super(errorCode.getMessage());
         this.errorCode = errorCode;
     }
+
+    //Constructor2: (커스텀에러세메지 + 오리지널에러메세지)
     public SysException(SysErrorCode errorCode, Throwable e) {
-        super(errorCode.getMessage(), e);
+        super(errorCode.getMessage(), e); //부모(런타임익셉션)으로 [커스텀메세지]와 [에러객체]전달.
         this.errorCode = errorCode;
         
         logOriginalException(e);
     }
 
-    //Getter
-    public SysErrorCode getErrorCode() {
-        return errorCode;
-    }
-
     //[커스텀메세지]와 [오리지날익셉션]내용을 모두 출력.
     private void logOriginalException(Throwable e) {
     	logger.info("SysException logOriginalException start  >>");
-	    logger.error("[custom Exception msgCode]: {}", msgCode); //커스텀 내용
+    
+    	/** Logger기능 메소드(로그레벨지정해서 출력으로 권장함. 하지만 콘솔창에 색깔로 표현이 안되네....) **/
+	    logger.error("[custom Exception SysErrorCode.getMessage()]: {}", errorCode.getMessage()); //커스텀 내용
 	    logger.error("[org Exception name]: {}", e.getClass().getName()); //(동일)e.printStackTrace();
 	    logger.error("[org Exception message]: {}", e.getMessage()); //오리지날 익셉션 내용
+    }
+    
+    
+    
+    public SysErrorCode getErrorCode() {
+        return errorCode;
     }
     
 }
