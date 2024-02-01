@@ -1,6 +1,6 @@
 ---
-title:  "2023-09-01-JS 스크립트로 Map<List<Map>> 만들기"
-excerpt: "2023-09-01-JS 스크립트로 Map<List<Map>> 만들기 입니다."
+title:  "2023-09-01-JS 스크립트로 Map(List(Map)) 만들기"
+excerpt: "2023-09-01-JS 스크립트로 Map(List(Map)) 만들기 입니다."
 
 categories:
   - html-css-js-jquery
@@ -12,6 +12,7 @@ toc_sticky: true
 
 last_modified_at: 2023-09-01T20:00:00-05:00
 ---
+
 
 ## 개요 및 전제조건
 > ❗<span style='color:green'><b><I>응답은 JSON타입 전제한다.</I></b></span>  
