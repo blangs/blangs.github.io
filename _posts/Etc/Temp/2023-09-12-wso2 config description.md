@@ -3,12 +3,14 @@ title: "JAVA 예외처리"
 excerpt: "JAVA 예외처리 입니다."
 
 categories:
-  - temp
+  - java
 tags:
-  - [oracle, schema]
+  - [java]
+
 toc: true
-toc-stiky: true
-last_modified_at: 2023-08-12T13:00:00-05:00
+toc_sticky: true
+
+last_modified_at: 2023-08-12T13:00:00-05:00:00
 ---
 
 ## AS-IS
