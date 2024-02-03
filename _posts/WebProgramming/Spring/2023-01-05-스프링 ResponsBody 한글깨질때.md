@@ -10,7 +10,7 @@ tags:
 toc: true
 toc_sticky: true
 
-last_modified_at: 2023-01-04T20:17:00-17:00
+last_modified_at: 2023-01-06T20:17:00-17:00
 ---
 
 ## 개요
@@ -81,7 +81,7 @@ public @ResponseBody String getContent(@PathVariable("id") long id) {
 > 💡 <span style="color:green"><b><I>한글이 깨진다.</I></b></span>    
 
 
-## 해결
+## 해결1: 스프링3.1버전 이전 방법(잭슨을 직접서블릿에 등록해야함)
 ### servlet-context.xml
 ```xml
 <!-- -->
@@ -114,3 +114,8 @@ public @ResponseBody String getContent(@PathVariable("id") long id) {
 > 💡 이 설정이 적용되면, 해당 미디어 타입(text/html)으로 요청이나 응답이 발생할 때 StringHttpMessageConverter가 사용됩니다. 이때, 지정한 문자 인코딩(UTF-8)이 적용되어 데이터가 처리됩니다.  
 > 💡 즉, 이 설정은 HTML 형식의 데이터를 처리할 때, 그 데이터가 UTF-8로 인코딩된 것으로 가정하고 처리하도록 StringHttpMessageConverter를 구성하는 것입니다. 이는 주로 @ResponseBody 어노테이션을 사용하여 HTTP 응답을 생성할 때 적용됩니다   
 > 💡 따라서, 클라이언트에게 HTML 형식의 응답을 제공하고자 할 때, 이 설정을 통해 UTF-8로 인코딩된 HTML을 전송할 수 있습니다.  
+
+
+
+## 해결2: 3.1버전 이후(잭슨이 자동으로 설정되어있음)
+### 작성중..
