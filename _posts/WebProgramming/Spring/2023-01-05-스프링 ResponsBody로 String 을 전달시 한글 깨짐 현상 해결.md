@@ -59,57 +59,50 @@ last_modified_at: 2023-01-04T20:17:00-17:00
 
 
 
-## 핵심 어노테이션
-* @RequestParam  
-  - RequestMapping 을 통한 요청 정보를 매핑시 쿼리파라미터를 매핑
-  - 해당 기능을 사용하면 반드시 해당 RequestMapping 을 호출할때 쿼리파라미터를 강제함 (없으면 400 Error)
-
-
-간단한 파라미터면 해당 기능으로 코드가 간소화 된다. 
-{: .notice--info}
-
-
-## 구현 
-### SpringMemberControllerV3
-
+## 문제 요약
 ```java
-@Controller	
-@RequestMapping("/springmvc/v3/members")
-public class SpringMemberControllerV3 {
-    private MemberRepository memberRepository = MemberRepository.getInstance();
-
-    
-    @RequestMapping("/save")
-    private String save(@RequestParam("username") String username, @RequestParam("age") int age, Model model) {
-        Member member = new Member(username, age);
-        memberRepository.save(member);
-		
-        model.addAttribute("member",member);
-        return "save-result";
-    }
+@RequestMapping(value="/preview/{id}", method=RequestMethod.GET)
+public @ResponseBody String getContent(@PathVariable("id") long id) {
+    return service.getContent(id);
 }
 
 ```
 
-## 테스트
-### 테스트1  
+> ❗<span style="color:red">***컨트롤러 내용***</span>  
+> 💡 <span style="color:green"><b><I>String 전문(@ResponseBody 적용)을 응답</I></b></span>   
+>    
+> ❗<span style="color:red">***위 결과의 응답헤더***</span>  
+> ```xml
+> Content-Type:application/json;charset=ISO-8859-1
+> 
+> ```  
 
-```bash
-# 브라우저에서 url 호출 (+ 쿼리파라미터 입력)
-http://호스트주소/springmvc/v3/save?username=홍길동&age=19
+> 💡 <span style="color:green"><b><I>UTF-8 을 응답하지 않는다..</I></b></span>   
+> 💡 <span style="color:green"><b><I>한글이 깨진다.</I></b></span>    
 
-==> 정상호출
-```
-  
-### 테스트2  
 
-```bash
-# 브라우저에서 url 호출 (+ 쿼리파라미터 미입력)
-http://호스트주소/springmvc/v3/save
+## 해결
+### servlet-context.xml
+```xml
+<!-- -->
+<mvc:annotation-driven>
+    <mvc:message-converters>
+        <!-- @ResponseBody Content-Type:application/json;charset=UTF-8  -->
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            <property name="supportedMediaTypes">
+                <list>
+                    <value>text/html;charset=UTF-8</value>
+                </list>
+            </property>
+        </bean>
+    </mvc:message-converters>
+</mvc:annotation-driven>
 
-==> 400 Error
+```  
 
-```
-  
-## 결론
-: 간략한 파라미터라면 HttpReqeust 객체 없이 짧은 코드로 받을 수 있을듯하다.
+> ❗<span style="color:red">***위 설정으로 RequestBody 의 String 리턴 조치***</span>  
+> 💡 <span style="color:green"><b><I>UTF-8 을 응답한다.</I></b></span>   
+> 💡 <span style="color:green"><b><I>한글이 정상적으로 출려된다.</I></b></span>    
+
+
+
