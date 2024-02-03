@@ -30,6 +30,7 @@ last_modified_at: 2023-01-06T20:17:00-17:00
 >   
 > ❗<span style="color:red">***서버***</span>  
 > 💡 <span style="color:green"><b><I>톰캣서버의 기본인코딩을 UTF-8 으로 완료함.</I></b></span>   
+> 💡 <span style="color:green"><b><I>post용임(body 데이터).</I></b></span>   
 > ```xml
 > <Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443" URIEncoding="utf-8"/>
 > 
@@ -37,23 +38,24 @@ last_modified_at: 2023-01-06T20:17:00-17:00
 >    
 > 💡 <span style="color:green"><b><I>web.xml 사전 요청응답 필터링을 UTF-8 으로 완료함.</I></b></span>  
 > ```xml
-> <filter>
-> <filter-name>encodingFilter</filter-name>
-> <filter-class>org.springframework.web.filter.CharacterEncodingFilter
-> </filter-class>
-> <init-param>
->     <param-name>encoding</param-name>
->     <param-value>UTF-8</param-value>
->     </init-param>
-> <init-param>
->     <param-name>forceEncoding</param-name>
->     <param-value>true</param-value>
-> </init-param>
->	</filter>
-> <filter-mapping>
-> <filter-name>encodingFilter</filter-name>
-> <url-pattern>/*</url-pattern>
-> </filter-mapping>
+><filter>
+><filter-name>encodingFilter</filter-name>
+><filter-class>org.springframework.web.filter.CharacterEncodingFilter
+></filter-class>
+><init-param>
+><param-name>encoding</param-name>
+><param-value>UTF-8</param-value>
+></init-param>
+><init-param>
+><param-name>forceEncoding</param-name>
+><param-value>true</param-value>
+></init-param>
+></filter>
+><filter-mapping>
+><filter-name>encodingFilter</filter-name>
+><url-pattern>/*</url-pattern>
+></filter-mapping>
+><!-- 한글설정END 이제부터 ibatis 한글로 쿼리를 날리면 정상해석된다. -->
 > 
 > ```  
 
