@@ -1,6 +1,6 @@
 ---
-title:  "스프링 ResponsBody로 String 을 전달시 한글 깨짐 현상 해결"
-excerpt: "스프링 ResponsBody로 String 을 전달시 한글 깨짐 현상 해결 입니다."
+title:  "스프링 ResponsBody 한글깨질때"
+excerpt: "스프링 ResponsBody 한글깨질때 입니다."
 
 categories:
   - spring
@@ -10,7 +10,7 @@ tags:
 toc: true
 toc_sticky: true
 
-last_modified_at: 2023-01-06T20:17:00-17:00
+last_modified_at: 2023-01-05T20:17:00-17:00
 ---
 
 ## 지속적인 디폴트 iso-8859-1 를 한글로 처리
