@@ -1,6 +1,6 @@
 ---
-title:  "스프링 ResponsBody 한글깨질때"
-excerpt: "스프링 ResponsBody 한글깨질때 입니다."
+title:  "스프링 ResponsBody로 String 을 전달시 한글 깨짐 현상 해결"
+excerpt: "스프링 ResponsBody로 String 을 전달시 한글 깨짐 현상 해결 입니다."
 
 categories:
   - spring
