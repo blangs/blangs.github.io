@@ -15,7 +15,7 @@ last_modified_at: 2024-02-24T20:00:00-05:00:00
 
 
 ## 요약
-### <%@include file="/jsp/common/session.jsp"%>
+### `<%@include file="/jsp/common/session.jsp"%>`
 > ❗<span style='color:green'><b><I>***컴파일 이미 되어있다. (스트레이트로 쭉 진행된다.)***</I></b></span>  
 > 💡 <span style='color:red'><b> 모든 내용이 부모JSP 으로 include 되어지고 아래와 같이 컴파일된다.</b></span>  
 > 💡 <span style='color:red'><b> jsp > java > 이때 동시 삽입되어 컴파일 > class </b></span>  
@@ -26,7 +26,7 @@ last_modified_at: 2024-02-24T20:00:00-05:00:00
 {: .notice--info}
 
 
-### <jsp:include page>
+### `<jsp:include page>`
 > ❗<span style='color:green'><b><I>***매번 다시 컴파일 된다. (로딩과 동시에 들렸다가 진행된다.)***</I></b></span>  
 > 💡 <span style='color:red'><b>모든 내용이 부모JSP 으로 include 되지 않는다. 그리고 부모JSP 는 다음동작을 진행해버린다.</b></span>  
 > 💡 <span style='color:red'><b>jsp > java > class > html</b></span>    
