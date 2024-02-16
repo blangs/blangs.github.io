@@ -133,4 +133,4 @@ server {
 ```
   
   
-> ❗<span style='color:green'>***톰캣은 mod.jk 설정으로 했는데 이건 이렇게 하는거구나~~~***</span>  
+> ❗<span style='color:green'>***아파치/톰캣은 mod.jk 설정으로 했는데 Nginx는 이렇게 하는거구나~~~***</span>  
