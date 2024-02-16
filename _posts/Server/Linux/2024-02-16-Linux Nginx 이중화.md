@@ -56,7 +56,7 @@ server {
 > 💡 1.<span style='color:red'>upstream 블록은 Nginx에서 로드 밸런싱을 수행하도록 실제 서버의 목록을 정의한다.</span>  
 > 💡 2.<span style='color:red'>첫 번째 서버가 정상적으로 동작하지 않을 경우 두 번째 서버로 트래픽이 백업된다.</span>  
 >   
-> ❗<span style='color:green'>***최종 라우팅(어디선가 날라오는 30000번 포트를 리스너)***</span>  
+> ❗<span style='color:green'>***STEP3. 최종 라우팅(어디선가 날라오는 30000번 포트를 리스너)***</span>  
 > 💡 1.<span style='color:red'>proxy_pass 옵션에 만들었던 $backend_server_map 변수를 할당.</span>  
 > 💡 2.<span style='color:red'> 외 타임아웃, 로그 설정</span>  
   
