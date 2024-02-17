@@ -1,11 +1,11 @@
 ---
-title: "비주얼코드 설정"
-excerpt: "비주얼코드 설정 입니다."
+title: "환경 VisualCode 코드정렬 설정"
+excerpt: "환경 VisualCode 코드정렬 설정 입니다."
 
 categories:
-  - temp
+  - environment
 tags:
-  - [oracle, schema]
+  - [init, environment]
 toc: true
 toc-stiky: true
 last_modified_at: 2022-12-03T13:00:00-05:00
