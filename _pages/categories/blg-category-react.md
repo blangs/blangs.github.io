@@ -1,5 +1,5 @@
 ---
-title: "react"
+title: "리액트"
 layout: archive
 permalink: /categories/react/
 sidebar_main: true

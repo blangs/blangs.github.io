@@ -1,5 +1,5 @@
 ---
-title: "Linux"
+title: "리눅스"
 layout: archive
 permalink: /categories/linux/
 sidebar_main: true

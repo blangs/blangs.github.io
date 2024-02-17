@@ -1,5 +1,5 @@
 ---
-title: "web-service dev"
+title: "HTML, CSS, JS, JQuery"
 layout: archive
 permalink: /categories/html-css-js-jquery/
 sidebar_main: true

@@ -1,5 +1,5 @@
 ---
-title: "spring"
+title: "스프링"
 layout: archive
 permalink: /categories/spring/
 sidebar_main: true

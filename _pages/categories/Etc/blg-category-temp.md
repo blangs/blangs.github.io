@@ -1,5 +1,5 @@
 ---
-title: "temp"
+title: "임시"
 layout: archive
 permalink: /categories/temp/
 sidebar_main: true

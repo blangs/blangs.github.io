@@ -1,5 +1,5 @@
 ---
-title: "gitpages dev"
+title: "깃페이지 개발"
 layout: archive
 permalink: /categories/gitpages-dev/
 sidebar_main: true

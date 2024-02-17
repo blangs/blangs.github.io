@@ -1,5 +1,5 @@
 ---
-title: "spring"
+title: "자바"
 layout: archive
 permalink: /categories/java/
 sidebar_main: true

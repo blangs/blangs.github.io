@@ -1,5 +1,5 @@
 ---
-title: "nodejs"
+title: "노드JS"
 layout: archive
 permalink: /categories/nodejs/
 sidebar_main: true

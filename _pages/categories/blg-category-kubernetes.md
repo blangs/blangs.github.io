@@ -1,5 +1,5 @@
 ---
-title: " Kubernetes"
+title: " 쿠버네티스"
 layout: archive
 permalink: /categories/kubernetes/
 sidebar_main: true
