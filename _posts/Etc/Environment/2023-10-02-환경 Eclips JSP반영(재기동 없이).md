@@ -1,6 +1,6 @@
 ---
-title: "환경 Eclips 주석설정(무너지지 않게)"
-excerpt: "환경 Eclips 주석설정(무너지지 않게) 입니다."
+title: "환경 Eclips JSP반영(재기동없이)"
+excerpt: "환경 Eclips JSP반영(재기동없이) 입니다."
 
 categories:
   - environment
