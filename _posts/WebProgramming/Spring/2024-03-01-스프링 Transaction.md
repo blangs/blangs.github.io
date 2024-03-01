@@ -106,15 +106,15 @@ public void executeTransactionalOperation() throws Exception {
 ```
 
 ## 실제 테스트 환경
-![사진1](/assets/images/WebProgramming/Spring/spring-transaction-test01.png)
+![사진3](/assets/images/WebProgramming/Spring/spring-transaction-test03.png)
 
 
 ### TABLE1 (기업테이블)
-![사진2](/assets/images/WebProgramming/Spring/spring-transaction-test02.png)
+![사진1](/assets/images/WebProgramming/Spring/spring-transaction-test01.png)
 
 
 ### TABLE2 (사용자테이블)
-![사진3](/assets/images/WebProgramming/Spring/spring-transaction-test03.png)
+![사진3](/assets/images/WebProgramming/Spring/spring-transaction-test02.png)
 
 > ❗<span style='color:green'>***@Transactional 테스트 준비***</span>  
 > 💡 <span style='color:blue'>**테스트 테이블은 총 2개**</span>  
