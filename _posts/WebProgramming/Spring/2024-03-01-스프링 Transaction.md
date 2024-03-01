@@ -373,7 +373,7 @@ public void executeTransactionalOperation() throws Exception {
 
 ```
 
-> ❗<span style='color:green'>***<tx:annotation-driven />***</span>  
+> ❗<span style='color:green'>***\<tx:annotation-driven /\>***</span>  
 > 💡 <span style='color:blue'>**은 트랜잭션과 관련된 어노테이션(@Transactional)을 활성화시키는 역할을 합니다.**</span>  
 > 💡 <span style='color:blue'>**transaction-manager 속성을 사용하여 어떤 트랜잭션 매니저를 사용할 것인지 지정할 수 있습니다.**</span>  
 > 💡 <span style='color:blue'>**이 설정은 주로 서비스 계층에서 @Transactional 어노테이션을 사용할 때 필요하며, 트랜잭션 관리를 활성화시킵니다.**</span>  
