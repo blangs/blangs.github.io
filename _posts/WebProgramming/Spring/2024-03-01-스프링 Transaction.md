@@ -31,7 +31,7 @@ last_modified_at: 2024-03-01T13:17:00-17:00
 > 💡 <span style='color:blue'>**작게 쪼개보면.. select 문에 트랜잭션을 거는것은 낭비다.**</span>  
 
 
-## @Trasaction 개념
+## 스프링의 @Trasaction 개념
 ### Service1
 ```java
 @Service
@@ -104,6 +104,22 @@ public void executeTransactionalOperation() throws Exception {
 }
 
 ```
+
+## 설명
+> ❗<span style='color:green'>***컨트롤러의 @Transaction 제거하면?***</span>  
+> 💡 <span style='color:blue'>**만약 executeTransactionalOperation 메소드에서 @Transactional 어노테이션을 제거한다면, 해당 메소드 내에서의 트랜잭션은 발생하지 않습니다.**</span>  
+>   
+> 💡 <span style='color:blue'>**@Transactional 어노테이션이 메소드에 존재해야 스프링이 해당 메소드를 트랜잭션 경계로 감싸서 트랜잭션을 시작하고 관리합니다.**</span>  
+>   
+> 💡 <span style='color:blue'>**현재 코드에서 executeTransactionalOperation 메소드에 @Transactional 어노테이션이 있기 때문에, 이 메소드 내에서 실행되는 모든 작업은 하나의 트랜잭션으로 묶입니다. 따라서 tBBCKW001Service와 tBBCKW002Service의 메소드 호출은 하나의 트랜잭션 내에서 수행되고, 메소드 실행 도중에 예외가 발생하면 롤백됩니다.**</span>  
+>   
+> 💡 <span style='color:blue'>**만약 @Transactional 어노테이션을 executeTransactionalOperation 메소드에서 제거한다면, 각각의 tBBCKW001Service.setInsert와 tBBCKW002Service.setInsert 메소드는 자체적으로 트랜잭션을 시작하게 됩니다. 이 경우, 메소드 별로 트랜잭션이 독립적으로 동작하며, 하나의 메소드에서 예외가 발생해도 다른 메소드의 트랜잭션에는 영향을 주지 않습니다.**</span>  
+>   
+> 💡 <span style='color:blue'>**따라서, @Transactional 어노테이션을 executeTransactionalOperation 메소드에서 제거하면 각 서비스 메소드의 트랜잭션이 독립적으로 동작하게 되므로 주의가 필요합니다. 이는 서비스 메소드 간의 일관성을 유지하기 위해 트랜잭션을 한 덩어리로 묶는 것이 필요한 경우에 고려되어야 합니다.**</span>  
+
+
+
+
 
 ## 실제 테스트 환경
 ![사진3](/assets/images/WebProgramming/Spring/spring-transaction-test03.png)
