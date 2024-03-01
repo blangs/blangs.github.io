@@ -107,8 +107,12 @@ public void executeTransactionalOperation() throws Exception {
 
 ## 실제 테스트 환경
 ![사진1](/assets/images/WebProgramming/Spring/spring-transaction-test01.png)
+
+
 ### TABLE1 (기업테이블)
 ![사진2](/assets/images/WebProgramming/Spring/spring-transaction-test02.png)
+
+
 ### TABLE2 (사용자테이블)
 ![사진3](/assets/images/WebProgramming/Spring/spring-transaction-test03.png)
 
@@ -123,6 +127,7 @@ public void executeTransactionalOperation() throws Exception {
 > 💡 <span style='color:blue'>**STEP1. 기업테이블을 먼저 UPDATE**</span>  
 > 💡 <span style='color:blue'>**STEP2. 사용자테이블을 UPDATE (익셉션발생)**</span>  
 > 💡 <span style='color:blue'>**STEP3. 기업테이블 트랜잭션이 되었는지 결과확인**</span>  
+
 
 ### STEP1. 프론트엔드 요청
 ```js
@@ -155,6 +160,7 @@ public void executeTransactionalOperation() throws Exception {
 }
 
 ```
+
 
 ### STEP2. 백엔드 요청
 ```java
@@ -198,6 +204,7 @@ public void executeTransactionalOperation() throws Exception {
 
 ```
 
+
 ### STEP3. 결과
 ![사진4](/assets/images/WebProgramming/Spring/spring-transaction-test04.png)
 ![사진5](/assets/images/WebProgramming/Spring/spring-transaction-test05.png)
@@ -235,6 +242,7 @@ public class BlangInsertService {
 
 
 ```
+
 
 ### 컨트롤러
 ```java
@@ -282,6 +290,7 @@ public void executeTransactionalOperation() throws Exception {
 
 ```
 
+
 ### STEP1. 프론트엔드 요청
 ```js
 {
@@ -323,6 +332,7 @@ public void executeTransactionalOperation() throws Exception {
 
 > ❗<span style='color:green'>***트랜잭션 처리 실패***</span>  
 > 💡 <span style='color:blue'>**이번에도... 기업테이블만 수정이 되어있다...**</span>  
+
 
 
 ## 중간점검
@@ -369,11 +379,6 @@ public void executeTransactionalOperation() throws Exception {
 > 💡 <span style='color:blue'>**이 설정은 주로 서비스 계층에서 @Transactional 어노테이션을 사용할 때 필요하며, 트랜잭션 관리를 활성화시킵니다.**</span>  
 >   
 > ❗<span style='color:green'>***따라서, 웹 애플리케이션에서 트랜잭션을 사용하는 경우에는 두 설정을 함께 사용하는 것이 일반적입니다. 아래는 두 설정을 함께 사용하는 예시입니다:***</span>  
-
-
-
-
-
 
 
 ### STEP1. 프론트엔드 요청
