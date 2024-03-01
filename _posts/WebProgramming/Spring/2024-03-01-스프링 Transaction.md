@@ -358,10 +358,23 @@ public void executeTransactionalOperation() throws Exception {
 ### 설정
 ```xml
   <!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
-	<tx:annotation-driven transaction-manager="transactionManager"/> <!-- tx 설정을 추가 -->
+  <annotation-driven />
+  <tx:annotation-driven transaction-manager="transactionManager"/> <!-- tx 설정을 추가 -->
 
 ```
+
+> ❗<span style='color:green'>***<tx:annotation-driven />***</span>  
+> 💡 <span style='color:blue'>**은 트랜잭션과 관련된 어노테이션(@Transactional)을 활성화시키는 역할을 합니다.**</span>  
+> 💡 <span style='color:blue'>**transaction-manager 속성을 사용하여 어떤 트랜잭션 매니저를 사용할 것인지 지정할 수 있습니다.**</span>  
+> 💡 <span style='color:blue'>**이 설정은 주로 서비스 계층에서 @Transactional 어노테이션을 사용할 때 필요하며, 트랜잭션 관리를 활성화시킵니다.**</span>  
+>   
+> ❗<span style='color:green'>***따라서, 웹 애플리케이션에서 트랜잭션을 사용하는 경우에는 두 설정을 함께 사용하는 것이 일반적입니다. 아래는 두 설정을 함께 사용하는 예시입니다:***</span>  
+
+
+
+
+
+
 
 ### STEP1. 프론트엔드 요청
 ```js
