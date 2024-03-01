@@ -1,6 +1,6 @@
 ---
-title:  "스프링 Transaction"
-excerpt: "스프링 Transaction 입니다."
+title:  "스프링 Transaction(1)"
+excerpt: "스프링 Transaction(1) 입니다."
 
 categories:
   - spring
