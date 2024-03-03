@@ -262,3 +262,11 @@ public @ResponseBody Map<String, Object> admMemberUserProcess2(@RequestBody Map<
 > 💡 CASE2.<span style='color:blue'>**@Transactional(propagation = Propagation.REQUIRED)**</span>  
 
 
+## 최종 정리
+> ❗<span style='color:green'>***Propagation.SUPPORTS 를 적용하였다. ***</span>   
+> 💡 CASE1.<span style='color:blue'>**특정 메소드가 부모 트랜잭션 내에서 실행되거나 독립적으로 실행되는 경우 Propagation.SUPPORTS를 사용하는 것은 합리적이다.**</span>  
+> 💡 CASE2.<span style='color:blue'>**기업, 유저의 CRUD 메소드는 트랜잭션에 참여하거나 독립적으로 실행될 수 있기 때문이다.**</span>  
+
+
+
+
