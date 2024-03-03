@@ -13,14 +13,32 @@ toc_sticky: true
 last_modified_at: 2024-03-01T13:17:00-17:00
 ---
 
-## 스프링 트랜잭션 전파
-> ❗<span style='color:green'>***스프링 트랜잭션 개념***</span>  
-> 💡 <span style='color:blue'>**스프링 같은 프레임워크 설정에서 특정 이름이나 특정 패키지 클래스에 무조건 걸리게 설정.**</span>  
-> 💡 <span style='color:blue'>**특정위치에 어노테이션 형태로 사용할수도 있게 간편화 시킨 것 일뿐이다.**</span>  
+## 스프링 propagation
+> ❗<span style='color:green'>***propagation***</span>  
+> 💡 <span style='color:blue'>**현재 진행중인 트랜잭션 (부모 트랜잭션) 이 존재할 때 새로운 트랜잭션 메소드를 호출하는 경우 어떤 정책을 사용할 지에 대한 정의.**</span>  
+>   
+> 💡 <span style='color:blue'>**스프링 같은 프레임워크 설정에서 특정 이름이나 특정 패키지 클래스에 무조건 걸리게 설정한다.**</span>  
+>   
+> 💡 <span style='color:blue'>**예를 들어, 기존 트랜잭션에 참여해서 그대로 이어갈 수도 있고, 새로운 트랜잭션을 생성할 수도 있으며 non-transactional 상태로 실행할 수도 있다.**</span>  
+>   
+> 💡 <span style='color:blue'>**설명**</span>  
+> ```
+> REQUIRED: 기본값이며 부모 트랜잭션이 존재할 경우 참여하고 없는 경우 새 트랜잭션을 시작
+> SUPPORTS: 부모 트랜잭션이 존재할 경우 참여하고 없는 경우 non-transactional 상태로 실행
+> MANDATORY: 부모 트랜잭션이 있으면 참여하고 없으면 예외 발생
+> REQUIRES_NEW: 부모 트랜잭션을 무시하고 무조건 새로운 트랜잭션이 생성
+> NOT_SUPPORTED: non-transactional 상태로 실행하며 부모 트랜잭션이 존재하는 경우 일시 정지시킴
+> NEVER: non-transactional 상태로 실행하며 부모 트랜잭션이 존재하는 경우  예외 발생
+> NESTED: 부모 트랜잭션과는 별개의 중첩된 트랜잭션을 만듬
+>      - 부모 트랜잭션의 커밋과 롤백에는 영향을 받지만 자신의 커밋과 롤백은 부모 트랜잭션에게 영향을 주지 않음
+>      - 부모 트랜잭션이 없는 경우 새로운 트랜잭션을 만듬 (REQUIRED 와 동일)
+>      - DB 가 SAVEPOINT 를 지원해야 사용 가능 (Oracle)
+>      - JpaTransactionManager 에서는 지원하지 않음
+>  
+> ```
 
-
-## 스프링의 @Trasaction 개념
-### 컨트롤러
+## 스프링의 @Trasaction 예제
+### 예제 코드
 ```java
 @Controller
 public class MyController {
@@ -52,13 +70,12 @@ public class MyController {
 
 ```
 
-## 설명
 > ❗<span style='color:green'>***@Transactional(propagation = Propagation.REQUIRED)***</span>  
 > 💡 <span style='color:blue'>**@Transactional 어노테이션을 단독으로 사용할 경우, 기본적으로 Propagation.REQUIRED로 설정되어 있다.**</span>  
 > 💡 <span style='color:blue'>**@Transactional(propagation = Propagation.REQUIRED)은 메소드가 이미 트랜잭션 내에서 실행 중이라면 그 트랜잭션을 계속 사용하고 트랜잭션이 없다면 새로운 트랜잭션을 시작하도록 한다.**</span>  
 > 💡 <span style='color:blue'>**이렇게 함으로써 myControllerMethod_1과 myControllerMethod_2는 동일한 트랜잭션을 공유하게 된다.**</span>
   
-따라서 `myControllerMethod_1` 과 `myControllerMethod_2` 가 `myControllerMethod`에서 호출될 때, 이미 `myControllerMethod`에서 시작된 트랜잭션이 있다면 두 메소드는 해당 트랜잭션에 참여하게 됩니다. 만약` myControllerMethod` 호출 중에 예외가 발생한다면, `myControllerMethod_1`과 `myControllerMethod_2`에서 수행한 모든 작업이 롤백된다.  
+따라서 `myControllerMethod_1` 과 `myControllerMethod_2` 가 `myControllerMethod`에서 호출될 때, 이미 `myControllerMethod`에서 시작된 트랜잭션이 있다면 두 메소드는 해당 트랜잭션에 참여하게 된다. 만약` myControllerMethod` 호출 중에 예외가 발생한다면, `myControllerMethod_1`과 `myControllerMethod_2`에서 수행한 모든 작업이 롤백된다.  
 {: .notice--info}
 
 
