@@ -13,22 +13,10 @@ toc_sticky: true
 last_modified_at: 2024-03-01T13:17:00-17:00
 ---
 
-
-## 트랜잭션 기본
-> ❗<span style='color:green'>***트랜잭션의 기본 형태***</span>  
-> 💡 1.<span style='color:blue'>**connection 의 auto commit 를 false 로 주고**</span>  
-> 💡 2.<span style='color:blue'>**try catch 를 이용해서 commit 또는 rollback 하는 것이 기본이다.**</span>  
-
-## 스프링 트랜잭션
+## 스프링 트랜잭션 전파
 > ❗<span style='color:green'>***스프링 트랜잭션 개념***</span>  
 > 💡 <span style='color:blue'>**스프링 같은 프레임워크 설정에서 특정 이름이나 특정 패키지 클래스에 무조건 걸리게 설정.**</span>  
 > 💡 <span style='color:blue'>**특정위치에 어노테이션 형태로 사용할수도 있게 간편화 시킨 것 일뿐이다.**</span>  
-
-## 트랜잭션 비권장 상황
-> ❗<span style='color:green'>***비권장 상황***</span>  
-> 💡 <span style='color:blue'>**많은 경우중 트랜잭션을 사용하지 않는것이 유리한 경우는 대량의 데이터를 처리하는 batch 처리하는게 좋다.**</span>  
-> 💡 <span style='color:blue'>**예를들어 99만건까지 들어가고 에러가나면 롤백에도 한참이 걸리고 심지어 어느 로우에서 발생한 문제인지 찾기도 매우 어렵다.**</span>  
-> 💡 <span style='color:blue'>**작게 쪼개보면.. select 문에 트랜잭션을 거는것은 낭비다.**</span>  
 
 
 ## 스프링의 @Trasaction 개념
@@ -74,7 +62,7 @@ public class MyController {
 {: .notice--info}
 
 
-## STEP1. 프론트엔드 요청
+## 프론트엔드 요청값
 ### JS
 ```js
 {
@@ -108,7 +96,7 @@ public class MyController {
 ```
 
 
-## STEP2. 컨트롤러
+## 컨트롤러(Controller)
 ### 메소드 admMemberAllProcess()
 ```java
 // 통합 메소드
@@ -210,7 +198,7 @@ public @ResponseBody Map<String, Object> admMemberUserProcess2(@RequestBody Map<
     
 ```
 
-### 서비스
+## 서비스(Service)
 > ❗<span style='color:green'>***admMemberCorpProcess2 서비스 구현체 정상적으로 수행***</span>   
 > ❗<span style='color:green'>***admMemberUserProcess2 서비스 구현체 중간에 RuntimeException 던지기***</span>   
 
