@@ -115,7 +115,7 @@ $(document).ready(function(){
 
 
 ## 백엔드
-### 환경설정 : context.xml
+### 환경설정 : context.xml (allowCasualMultipartParsing 설정)
 ```xml
 
 <!--AS-IS -->
@@ -130,8 +130,11 @@ $(document).ready(function(){
 ```
 
 > ❗<span style='color:green'>***설명***</span>  
+> 💡 ***<span style='color:red'>특정 컨텍스트에 대해 멀티파트 파싱을 허용하는지 여부를 지정한다.</span>***  
 > 💡 ***<span style='color:red'>설정없이 multipart/form-data 전송하면 반드시 실패한다. </span>***  
 > 💡 ***<span style='color:red'>위 설정하나만 하니까 정상적으로 컨트롤러에서 받아진다.</span>***  
+
+
 
 
 ### 값을 받는 방법 : 잘못된 예시
@@ -144,6 +147,10 @@ public @ResponseBody Map<String, Object> admDataProductProcess(@RequestBody Map<
      
 ```
 
+> ❗<span style='color:green'>***설명***</span>  
+> 💡 ***<span style='color:red'>multipart/form-data로 전송된 데이터는 일반적으로 멀티파트로 처리되며, Spring 컨트롤러에서는 @RequestParam 또는 MultipartFile을 사용하여 처리해야 합니다.</span>***
+> 💡 ***<span style='color:red'>따라서 컨트롤러 메서드의 파라미터에 @RequestBody를 사용하는 대신 MultipartFile을 사용하거나 @RequestParam을 사용하여 파일을 수신해야 합니다.</span>***
+
 
 ### 값을 받는 방법 : 올바른 예시
 
@@ -153,6 +160,14 @@ public @ResponseBody Map<String, Object> admDataProductProcess(@RequestBody Map<
 @RequestMapping(value = "/app/admDataProductProcess", method = RequestMethod.POST)
 public @ResponseBody Map<String, Object> admDataProductProcess(Model model, HttpServletRequest request) {
      ...
+     MultipartRequest multi = new MultipartRequest(
+		request
+		, path//저장경로
+		, 1024*1024*1024*1//허용파일크기:1GB
+		, "UTF-8"//인코딩타입
+		, new DefaultFileRenamePolicy()//파일중복정책: 동일한파일이 있으면 뒤에 숫자를 추가
+	);
+     ...
 }
      
 ```
@@ -160,7 +175,19 @@ public @ResponseBody Map<String, Object> admDataProductProcess(Model model, Http
 - 방법2
 ```java
 @RequestMapping(value = "/app/admDataProductProcess", method = RequestMethod.POST)
-public @ResponseBody Map<String, Object> admDataProductProcess(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+public @ResponseBody Map<String, Object> admDataProductProcess(@RequestParam("uploadfile") MultipartFile file, HttpServletRequest request) {
+     ...
+     String PATH_DATA_PRODUCT = "업로드경로";
+     
+     Path copyOfLocation = Paths.get(PATH_DATA_PRODUCT + File.separator + StringUtils.cleanPath(multipartFile.getOriginalFilename()));
+        try {
+            // inputStream을 가져와서
+            // copyOfLocation (저장위치)로 파일을 쓴다.
+            // copy의 옵션은 기존에 존재하면 REPLACE(대체한다), 오버라이딩 한다
+            Files.copy(multipartFile.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new SysException(SysErrorCode.INTERNAL_SERVER_ERROR);
+        }
      ...
 }
 
@@ -170,9 +197,7 @@ public @ResponseBody Map<String, Object> admDataProductProcess(@RequestParam("fi
 
 
 
-> ❗<span style='color:green'>***설명***</span>  
-> 💡 ***<span style='color:red'>multipart/form-data로 전송된 데이터는 일반적으로 멀티파트로 처리되며, Spring 컨트롤러에서는 @RequestParam 또는 MultipartFile을 사용하여 처리해야 합니다.</span>***
-> 💡 ***<span style='color:red'>따라서 컨트롤러 메서드의 파라미터에 @RequestBody를 사용하는 대신 MultipartFile을 사용하거나 @RequestParam을 사용하여 파일을 수신해야 합니다.</span>***
+
 
 
 MultipartFile 를 사용하려면 아래 파일이 필요하다.  
