@@ -176,7 +176,7 @@ public @ResponseBody Map<String, Object> admDataProductProcess(Model model, Http
 
 ```java
 @RequestMapping(value = "/app/admDataProductProcess", method = RequestMethod.POST)
-public @ResponseBody Map<String, Object> admDataProductProcess(@RequestParam("uploadfile") MultipartFile file, HttpServletRequest request) {
+public @ResponseBody Map<String, Object> admDataProductProcess(@RequestParam("uploadfile") MultipartFile multipartFile, HttpServletRequest request) {
      ...
      String PATH_DATA_PRODUCT = "업로드경로";
 
