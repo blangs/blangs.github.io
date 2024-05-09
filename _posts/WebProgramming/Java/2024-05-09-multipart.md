@@ -14,6 +14,10 @@ last_modified_at: 2024-05-09T13:00:00-05:00:00
 ---
 
 
+## 개요 
+스프링에서 제공하는 MultipartFile 이라는 인터페이스를 이용해서, HTTP multipart 요청을 처리한다. MultipartFile 요청은 큰 파일을 청크 단위로 쪼개서 효율적으로 파일 업로드 할 수 있게 해준다.
+
+
 
 ## 프론트
 ### 방법1 : FORM Action
@@ -109,7 +113,27 @@ $(document).ready(function(){
 ```
 
 
+
 ## 백엔드
+### 환경설정 : context.xml
+```xml
+
+<!--AS-IS -->
+<!-- <Context> -->
+
+<!--TO-BE -->
+<Context  allowCasualMultipartParsing="true" path="/">
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+</Context>
+
+```
+
+> ❗<span style='color:green'>***설명***</span>  
+> 💡 ***<span style='color:red'>설정없이 multipart/form-data 전송하면 반드시 실패한다. </span>***  
+> 💡 ***<span style='color:red'>위 설정하나만 하니까 정상적으로 컨트롤러에서 받아진다.</span>***  
+
+
 ### 값을 받는 방법 : 잘못된 예시
 
 ```java
@@ -119,6 +143,7 @@ public @ResponseBody Map<String, Object> admDataProductProcess(@RequestBody Map<
 }
      
 ```
+
 
 ### 값을 받는 방법 : 올바른 예시
 
