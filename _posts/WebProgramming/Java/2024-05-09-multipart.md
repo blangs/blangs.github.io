@@ -154,7 +154,7 @@ public @ResponseBody Map<String, Object> admDataProductProcess(@RequestBody Map<
 
 ### 값을 받는 방법 : 올바른 예시
 
-- 방법1
+<span style='color:blue'>***방법1***</span>
  
 ```java
 @RequestMapping(value = "/app/admDataProductProcess", method = RequestMethod.POST)
@@ -172,13 +172,14 @@ public @ResponseBody Map<String, Object> admDataProductProcess(Model model, Http
      
 ```
 
-- 방법2
+<span style='color:blue'>***방법2***</span>
+
 ```java
 @RequestMapping(value = "/app/admDataProductProcess", method = RequestMethod.POST)
 public @ResponseBody Map<String, Object> admDataProductProcess(@RequestParam("uploadfile") MultipartFile file, HttpServletRequest request) {
      ...
      String PATH_DATA_PRODUCT = "업로드경로";
-     
+
      Path copyOfLocation = Paths.get(PATH_DATA_PRODUCT + File.separator + StringUtils.cleanPath(multipartFile.getOriginalFilename()));
         try {
             // inputStream을 가져와서
