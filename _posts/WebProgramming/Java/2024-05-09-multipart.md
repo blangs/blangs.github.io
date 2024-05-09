@@ -148,8 +148,8 @@ public @ResponseBody Map<String, Object> admDataProductProcess(@RequestBody Map<
 ```
 
 > ❗<span style='color:green'>***설명***</span>  
-> 💡 ***<span style='color:red'>multipart/form-data로 전송된 데이터는 일반적으로 멀티파트로 처리되며, Spring 컨트롤러에서는 @RequestParam 또는 MultipartFile을 사용하여 처리해야 합니다.</span>***
-> 💡 ***<span style='color:red'>따라서 컨트롤러 메서드의 파라미터에 @RequestBody를 사용하는 대신 MultipartFile을 사용하거나 @RequestParam을 사용하여 파일을 수신해야 합니다.</span>***
+> 💡 ***<span style='color:red'>multipart/form-data로 전송된 데이터는 일반적으로 멀티파트로 처리되며, Spring 컨트롤러에서는 @RequestParam 또는 MultipartFile을 사용하여 처리해야 합니다.</span>***  
+> 💡 ***<span style='color:red'>따라서 컨트롤러 메서드의 파라미터에 @RequestBody를 사용하는 대신 MultipartFile을 사용하거나 @RequestParam을 사용하여 파일을 수신해야 합니다.</span>***  
 
 
 ### 값을 받는 방법 : 올바른 예시
@@ -202,7 +202,7 @@ public @ResponseBody Map<String, Object> admDataProductProcess(@RequestParam("up
 
 
 MultipartFile 를 사용하려면 아래 파일이 필요하다.  
-- [cos.jar 다운로드경로](http://www.servlets.com/cos)
+- [http://www.servlets.com/cos](http://www.servlets.com/cos)
 - 그리고 임포트 하면된다. `import com.oreilly.servlet.MultipartRequest;`
 {: .notice--info}
 
