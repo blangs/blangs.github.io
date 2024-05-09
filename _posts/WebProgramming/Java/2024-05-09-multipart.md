@@ -121,6 +121,9 @@ public @ResponseBody Map<String, Object> admDataProductProcess(@RequestBody Map<
 ```
 
 ### 값을 받는 방법 : 올바른 예시
+
+- 방법1
+ 
 ```java
 @RequestMapping(value = "/app/admDataProductProcess", method = RequestMethod.POST)
 public @ResponseBody Map<String, Object> admDataProductProcess(Model model, HttpServletRequest request) {
@@ -129,6 +132,18 @@ public @ResponseBody Map<String, Object> admDataProductProcess(Model model, Http
      
 ```
 
+- 방법2
+```java
+@RequestMapping(value = "/app/admDataProductProcess", method = RequestMethod.POST)
+public @ResponseBody Map<String, Object> admDataProductProcess(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+     ...
+}
+
+//input의 name를 file 로 한 부분이 FileController 의 @ReuqestParam("file") 이 부분과 일치해야 한다
+
+```
+
+
 
 > ❗<span style='color:green'>***설명***</span>  
 > 💡 ***<span style='color:red'>multipart/form-data로 전송된 데이터는 일반적으로 멀티파트로 처리되며, Spring 컨트롤러에서는 @RequestParam 또는 MultipartFile을 사용하여 처리해야 합니다.</span>***
@@ -136,6 +151,7 @@ public @ResponseBody Map<String, Object> admDataProductProcess(Model model, Http
 
 
 MultipartFile 를 사용하려면 아래 파일이 필요하다.  
-- [cos.jar 다운로드경로](http://www.servlets.com/)
+- [cos.jar 다운로드경로](http://www.servlets.com/cos)
+- 그리고 임포트 하면된다. `import com.oreilly.servlet.MultipartRequest;`
 {: .notice--info}
 
