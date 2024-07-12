@@ -16,7 +16,7 @@ last_modified_at: 2024-07-12T13:17:00-17:00:00
 
 ## 개요
 > ❗<span style='color:green'>***WAS내의 마이바티스로 운영되는 DB1 DB2 트랜잭션이 작동하지 않는다.***</span>  
-> 💡 1.<span style='color:blue'>**서로의 세션이 다르기 때문이다.**</span>  
+> 💡 1.<span style='color:blue'>**서로의 세션이 다르기 때문임을 확인 함.**</span>  
 
 ## 해결방안
 > ❗<span style='color:green'>***ChainedTransactionManager XML 처리***</span>  
