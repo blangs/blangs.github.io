@@ -21,7 +21,7 @@ last_modified_at: 2024-07-12T13:00:00-05:00:00
 > 💡 <span style='color:blue'>**1. 순수 WEB 로그인 수행**</span>  
 > 💡 <span style='color:blue'>**2. 즉시 솔루션 서버측 로그인 수행(1번의 정보를 활용)**</span>  
 
-## 로그인정보
+## 사용되는 정보
 ### 순수웹이 SSO처리에 사용하는 정보
 > ❗<span style='color:green'>***now 로그인ID***</span>  
 > 💡 <span style='color:blue'>**순수웹에서 로그인 처리된 ID 값**</span>  
@@ -38,6 +38,8 @@ last_modified_at: 2024-07-12T13:00:00-05:00:00
 > 💡 <span style='color:blue'>**순수웹에서 솔루션 로그인 요청에(request scope) 담긴 세션ID가 솔루션로그인 처리정보에 SET**</span>  
 
 
+## 구현
+![사진1](/assets/images/WebProgramming/Java/java-sso1.jpg) 
 
-## 요약
-![사진1](assets/images/WebProgramming/Java/java-sso1.jpg) 
+> ❗<span style='color:green'>***세션을 가지고 DB에서 로그인을 처리하는 환경에서 구현***</span>  
+> 💡 <span style='color:blue'>**레거시한 환경에서 구현해보았다.**</span>  
