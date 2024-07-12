@@ -10,16 +10,16 @@ tags:
 toc: true
 toc_sticky: true
 
-last_modified_at: 2024-07-12T13:00:00-05:00:00
+last_modified_at: 2024-07-11T13:00:00-05:00:00
 ---
 
 
 ## 개요 
 ```java
 String uid = SOULTION_SERIVCE.getUserId(); //C000002
-String uid = request.getSession.getId();
+
 //GET 요청
-URL url = new Url("http://localhost:9510/bck/app/getSolutionSession?uid={0}");
+URL url = new Url("http://localhost:9510/bck/app/getSolutionSession?uid="+uid+"&sid="+request.getSession.getId());
 con = (httpConnection) url.openConnection();
 con.setRequestMethod("GET");
 con.setRequestProperty("User-Agent", "Mozila/5.0");
@@ -29,7 +29,7 @@ int status = con.getResponseCode();
 
 ```
   
-> ❗<span style='color:green'>***서버간 Http 통신(GET요청)이 작동하지 않았다.***</span>  
+> ❗<span style='color:green'>***같은서버 내부의 서로다른 웹어플리케이션간 통신(GET요청)이 작동하지 않았다.***</span>  
 > 💡 <span style='color:blue'>**일반적으로 사용하는 방법임에도 미동작...**</span>  
 
 
