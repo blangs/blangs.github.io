@@ -42,3 +42,15 @@ last_modified_at: 2024-07-12T13:00:00-05:00:00
 
 > ❗<span style='color:green'>***세션을 가지고 DB에서 로그인을 처리하는 환경에서 구현***</span>  
 > 💡 <span style='color:blue'>**레거시한 환경에서 구현해보았다.**</span>  
+
+
+### 어려웠던점
+> ❗<span style='color:green'>***서로다른 Web Application 환경에서는 세션값이 다르다.(서로의 기동되는 프로세스가 다르기때문에 session 스코프가 다르기 때문.)***</span>  
+> 💡 <span style='color:blue'>**세션을 DB에 저장해서 로그인인하는 방식이기에 가능했던 방법이다.**</span>  
+
+솔루션이 로그인하는 시점에 세션정보도 같이 맞춰주어야 하는데 세션스코프가 다르니까 어려웠지만 유용한 지식을 얻음..
+{: .notice--info}
+
+
+### 또 다른 방법은 있을까???
+> ❗<span style='color:blue'>**지금은 DB를 조회하는 방식으로 구현했지만 다른 방법으로는.... WAS의 전역메모리 자체체에다가 JSESSION 을 올려서 Application 스코프에서 꺼내는 방법이 있을 것이다.**</span>  
