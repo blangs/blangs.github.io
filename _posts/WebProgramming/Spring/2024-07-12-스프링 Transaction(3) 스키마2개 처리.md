@@ -219,6 +219,8 @@ public class CommonDao
 	}
 
 ```
+> ❗<span style='color:green'>***명시 후 트랜잭션 정상 작동 확인***</span>  
+> 💡 <span style='color:blue'>**2번 데이터베이스에 대한 트랜잭션이 정상적으로 작동한다.**</span>  
 
 
 
