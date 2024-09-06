@@ -1,0 +1,50 @@
+---
+title: "영업일3일이후휴일"
+excerpt: "영업일3일이후휴일 입니다."
+
+categories:
+  - temp
+tags:
+  - [oracle, schema]
+toc: true
+toc-stiky: true
+last_modified_at: 2023-09-30T09:00:00-18:00:00
+---
+
+## 개요
+> ❗***순서***  
+> 💡 <span style='color:green'><b>STEP1. SELECT 조회</b></span>  
+> 💡 <span style='color:green'><b>STEP2. 현재기준년월일, -1일, -2일, -3일, 영업일여부 를 준비.</b></span>  
+> 💡 <span style='color:green'><b>STEP3. 기준년월일을 조회, 그리고 CASE문으로 현재 기준년월일의 영업일여부는1이면서, -1, -2, -3 영업일여부가 off 인것을 조건으로 true false 결과획득</b></span>  
+
+## 내용
+```sql
+WITH DateCheck AS (
+    SELECT 
+        기준년월일,
+        영업일구분코드,
+        LAG(영업일구분코드, 1) OVER (ORDER BY 기준년월일) AS prev_day_1,
+        LAG(영업일구분코드, 2) OVER (ORDER BY 기준년월일) AS prev_day_2
+    FROM power
+)
+SELECT 기준년월일,
+       CASE 
+           WHEN 영업일구분코드 = '0' 
+                AND prev_day_1 = '0' 
+                AND prev_day_2 = '0' THEN 'TRUE'
+           ELSE 'FALSE'
+       END AS is_business_day_3days_zero
+FROM DateCheck;
+```
+
+> ❗***순서***  
+> 💡 <span style='color:green'><b>WITH 절 (DateCheck):</b></span>  
+> ==> LAG 윈도우 함수를 사용하여 기준년월일에 대해 이전 1일(prev_day_1)과 2일(prev_day_2)의 영업일구분코드 값을 가져옵니다.  
+>   
+> 💡 <span style='color:green'><b>메인 쿼리: </b></span>  
+> ==> 각 기준년월일에서 영업일구분코드가 0이고, 그 이전 1일과 2일도 모두 0인 경우 TRUE를 반환합니다.  그렇지 않으면 FALSE를 반환합니다.   
+>   
+> 💡 <span style='color:green'><b>필터링:</b></span>  
+> ==> 특정 날짜에 대해서만 조회하고 싶다면, WHERE 기준년월일 = 'YYYYMMDD'와 같은 조건을 추가할 수 있습니다.
+이 쿼리는 기준년월 컬럼에 대해 3일 연속으로 영업일구분코드가 0인지를 확인하는 방법입니다.  
+>   
