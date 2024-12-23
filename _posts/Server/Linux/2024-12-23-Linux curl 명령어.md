@@ -21,8 +21,8 @@ curl -v blang.co.kr
 ```
   
 > ❗<span style='color:green'>***설명***</span>  
-> 💡 * <span style='color:blue'>-v 옵션은 디버그 모드로, 요청과 응답의 상세 정보를 출력합니다.</span>  
-> 💡 * <span style='color:blue'>리디렉션이 발생하면, 응답 헤더에 Location 필드가 표시됩니다.</span>  
+> 💡 <span style='color:blue'>-v 옵션은 디버그 모드로, 요청과 응답의 상세 정보를 출력.</span>  
+> 💡 <span style='color:blue'>리디렉션이 발생하면, 응답 헤더에 Location 필드가 표시.</span>  
 
 
 
@@ -34,7 +34,7 @@ curl -v -L blang.co.kr
 ```
 
 > ❗<span style='color:green'>***설명***</span>  
-> 💡 * <span style='color:blue'>-L 옵션을 추가하면, 리디렉션을 따라가서 최종 결과를 출력합니다.</span>  
+> 💡 <span style='color:blue'>-L 옵션을 추가하면, 리디렉션을 따라가서 최종 결과를 출력.</span>  
   
   
   
@@ -46,7 +46,7 @@ curl -I blang.co.kr
 ```
 
 > ❗<span style='color:green'>***설명***</span>  
-> 💡 * <span style='color:blue'>-I 옵션은 헤더 정보만 출력합니다.</span>  
+> 💡 <span style='color:blue'>-I 옵션은 헤더 정보만 출력.</span>  
 
 
 ### 응답 내용을 파일로 저장
@@ -55,3 +55,5 @@ curl -L blang.co.kr -o output.html
 
 ```
 
+> ❗<span style='color:green'>***설명***</span>  
+> 💡 <span style='color:blue'>-o output.html: 응답 결과를 output.html 파일로 저장.</span>  
