@@ -28,7 +28,6 @@ curl -v blang.co.kr
 
 ## 리디렉션을 따라가며 요청 수행하기
 ```bash
-#LINUX
 curl -v -L blang.co.kr
 
 ```
