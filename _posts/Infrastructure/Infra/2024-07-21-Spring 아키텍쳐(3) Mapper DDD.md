@@ -55,6 +55,8 @@ src/
     │               │    └── AdController.java            // 웹 계층
     │               ├── service/
     │               │    └── AdService.java               // 비즈니스 로직 계층
+    │               ├── dto/
+    │               │    └── AdDto.java                   // 데이터 전달 객체
     │               └── domain/
     │                    ├── entity/
     │                    │     └── Ad.java                // 도메인 엔티티
