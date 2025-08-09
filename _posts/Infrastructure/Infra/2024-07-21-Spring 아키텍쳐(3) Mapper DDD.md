@@ -123,14 +123,10 @@ src/main/resources
 
 
 ## 결론  
-유형	Repository 역할	Mapper 역할	장점	단점
-1. Controller→Service→Repository→mapper.xml
-- Repository 역할	
-- Repository가 직접 SQL 실행 또는 Mapper 호출	XML만 존재	간단하고 명확한 책임 분리	Repository에 DB 호출 로직 포함
-
-2. Controller→Service→Repository→Mapper→mapper.xml
-- Repository 역할: 
-- Repository는 Mapper 호출자 역할	Mapper가 SQL 실행	역할 분리, 테스트 용이성 ↑	코드가 다소 복잡해짐
-
-3. Controller→Service→Mapper→mapper.xml	없음 (Mapper가 DAO+Repository 역할 겸함)	
-- Repository 역할: Mapper가 SQL 실행	단순, 빠른 개발	역할 혼재, 유지보수 어려움
+    
+| 유형                                                        | Repository 역할                           | Mapper 역할         | 장점                       | 단점                         |  
+|:-----------------------------------------------------------|:------------------------------------------|:-------------------|:--------------------------|------------------------------|  
+| 1. Controller → Service → Repository → mapper.xml          | Repository가 직접 SQL 실행 또는 Mapper 호출  | XML만 존재          | 간단하고 명확한 책임 분리     | Repository에 DB 호출 로직 포함 |  
+| 2. Controller → Service → Repository → Mapper → mapper.xml | Repository는 Mapper 호출자 역할             | Mapper가 SQL 실행   | 역할 분리, 테스트 용이성 ↑    | 코드가 다소 복잡해짐           |  
+| 3. Controller → Service → Mapper → mapper.xml              | 없음 (Mapper가 DAO+Repository 역할 겸함)    | Mapper가 SQL 실행   | 단순, 빠른 개발              | 역할 혼재, 유지보수 어려움      |  
+  
