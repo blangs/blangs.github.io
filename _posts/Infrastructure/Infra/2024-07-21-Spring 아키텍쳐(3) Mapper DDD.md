@@ -45,20 +45,26 @@ src/main/resources
 ## DDD를 적용한 Mybatis 사용 시 DAO / Mapper 패턴 
 ### 1. Controller → Service → Repository → mapper.xml
 ```bash
-src/main/java
-└── com.example.project
-    ├── controller
-    │   └── AdController.java
-    ├── service
-    │   └── AdService.java
-    ├── domain
-    │   ├── entity
-    │   │    └── Ad.java             // 도메인 엔티티
-    │   └── repository
-    │        └── AdRepository.java   // Repository 인터페이스 (DAO 역할)
-src/main/resources
-    └── mapper
-        └── AdMapper.xml             // SQL XML 파일 (Repository와 매핑)
+src/
+└── main/
+    ├── java/
+    │   └── com/
+    │       └── example/
+    │           └── project/
+    │               ├── controller/
+    │               │    └── AdController.java            // 웹 계층
+    │               ├── service/
+    │               │    └── AdService.java               // 비즈니스 로직 계층
+    │               └── domain/
+    │                    ├── entity/
+    │                    │     └── Ad.java                // 도메인 엔티티
+    │                    └── repository/
+    │                          ├── AdRepository.java      // 인터페이스
+    │                          └── impl/
+    │                                └── AdRepositoryImpl.java  // 구현체
+    └── resources/
+        └── mapper/
+             └── AdMapper.xml                              // MyBatis SQL 매퍼 XML
 ```
 
 - 특징
@@ -66,7 +72,16 @@ src/main/resources
   - AdRepository 는 mapper.xml 과 연결된 MyBatis 매퍼를 호출하거나 직접 SQL 실행 담당
   - 서비스는 Repository 인터페이스를 통해 도메인 작업
 
+- DAO는 구현체가 있는데 서비스는 없는이유.
+  - 보통 서비스는 인터페이스와 구현체를 분리하는 경우도 있지만, 작은/중간 규모 프로젝트에서는 서비스는 그냥 클래스로 구현하고, 별도의 인터페이스를 만들지 않는 경우가 많음.
+  - 서비스 인터페이스 분리하면 테스트(목) 및 확장성에 유리함. 인터페이스가 꼭 필요한 건 아니고, 프로젝트 규모나 팀 규칙에 따라 선택하자.
 
+  
+| 분리 여부	                                                               | 설명                               |  
+|:--------------------- |:-----------------------------------------------:|:---------------------------------:|  
+| 서비스 인터페이스 분리	 | AdService 인터페이스 + AdServiceImpl 구현체로 나눔  | 대규모, 확장성 필요한 프로젝트에 적합  |  
+| 서비스 인터페이스 미분리 | 	서비스 클래스를 한 개(AdService)만 구현             | 소규모, 빠른 개발 프로젝트에 적합     |  
+  
 
 ### 2. Controller → Service → Repository → Mapper → mapper.xml
 ```bash
