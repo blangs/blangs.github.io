@@ -42,7 +42,15 @@ src/main/resources
   - MyBatis에서 Repository를 쓰면 JPA 스타일로 착각할 수 있음 → 가급적 Dao 또는 Mapper 권장
 
 
-## DDD를 적용한 Mybatis 사용 시 DAO / Mapper 패턴 
+
+## DDD를 적용한 Mybatis 사용 시 DAO / Mapper 패턴 (클린아키텍쳐아님. 전통적인 스타일) 
+```
+전통적인 Spring + MyBatis 조합에서 많이 사용하는 구조 관심사별 폴더 구분이 명확함
+도메인(엔티티 + 저장소 인터페이스)을 domain 폴더에 집중 배치
+저장소 구현체는 repository/impl로 분리하여 기술 의존 분리
+```  
+
+
 ### 1. Controller → Service → Repository → mapper.xml
 ```bash
 src/
