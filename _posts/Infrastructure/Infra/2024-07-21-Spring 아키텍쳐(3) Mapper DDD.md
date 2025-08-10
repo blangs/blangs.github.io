@@ -77,6 +77,22 @@ src/
              └── AdMapper.xml                              // MyBatis SQL 매퍼 XML
 ```
 
+```bash
+    ├─classes
+    │  ├─com
+    │  │  └─blang
+    │  │      └─bck
+    │  │          ├─ad
+    │  │          │  ├─controller                          // 웹 계층
+    │  │          │  ├─domain 
+    │  │          │  │  ├─entity                           // 도메인 엔티티
+    │  │          │  │  └─repository                       // dao 인터페이스
+    │  │          │  │      └─impl                         // dao 구현체
+    │  │          │  ├─dto                                 // 데이터 전달 객체
+    │  │          │  ├─exception
+    │  │          │  └─service                             // service 비즈니스 로직 계층
+```
+
 - 특징
   - Repository 는 도메인 객체를 DB에 저장/조회하는 역할
   - AdRepository 는 mapper.xml 과 연결된 MyBatis 매퍼를 호출하거나 직접 SQL 실행 담당
