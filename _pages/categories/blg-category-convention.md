@@ -1,12 +1,12 @@
 ---
-title: "네트워크"
+title: "컨벤션"
 layout: archive
-permalink: /categories/network/
+permalink: /categories/convention/
 sidebar_main: true
 author_profile: true
 ---
 
-네트워크 포스트를 모은 카테고리 [page] 입니다.    
+컨벤션 포스트를 모은 카테고리 [page] 입니다.    
 > 레이아웃은 `archive` 입니다.  
 > `categories`,`tags`  같은 방식의 레이아웃 입니다.
 >  같은 카테고리의 글들을 나열하는 아카이브로 
@@ -17,5 +17,5 @@ author_profile: true
 {: .notice--info}
 
 
-{% assign posts = site.categories.network %}
+{% assign posts = site.categories.convention %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
