@@ -1,11 +1,11 @@
 ---
-title:  "SQL Injection 불리언 분기 공격"
-excerpt: "SQL Injection 불리언 분기 공격 입니다."
+title:  "보안(1) SQL Injection 불리언 분기 공격"
+excerpt: "보안(1) SQL Injection 불리언 분기 공격 입니다."
 
 categories:
-  - convention
+  - security
 tags:
-  - [컨벤션, Convention, COMMON]
+  - [보안, security, COMMON]
 
 toc: true
 toc_sticky: true
